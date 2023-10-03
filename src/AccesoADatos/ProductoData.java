@@ -13,9 +13,11 @@ import javax.swing.JOptionPane;
 
 public class ProductoData {
 
+    //atributo común a todos los Data
     private Connection con = null;
 
     public ProductoData() {
+        //inicializa la variable con
         con = Conexion.getConexion();
     }
 
@@ -41,7 +43,7 @@ public class ProductoData {
             //Asignamos el id generado 
             if (rs.next()) {
                 producto.setIdProducto(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Producto Guardado");
+                JOptionPane.showMessageDialog(null, "Producto guardado");
             }
 
             //Liberamos recursos
@@ -94,19 +96,19 @@ public class ProductoData {
             int exito = ps.executeUpdate();
 
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Mesera/o eliminada/o");
+                JOptionPane.showMessageDialog(null, "Producto eliminado");
             }
 
             //Liberamos recursos
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesero'");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'producto'");
         }
     }
 
     public Producto buscarProductoPorID(int id) {
-        String sql = "SELECT nombre, cantidad, precio, estado FROM mesero WHERE idProducto = ?";
+        String sql = "SELECT nombre, cantidad, precio, estado FROM producto WHERE idProducto = ?";
         //Creamos un mesero en null para setearlo luego
         Producto productoABuscar = null;
 
@@ -121,7 +123,7 @@ public class ProductoData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                //Instanciamos alumnoABuscar y seteamos
+                //Instanciamos productoABuscar y seteamos
                 productoABuscar = new Producto();
                 
                 productoABuscar.setNombre(rs.getString("nombre"));

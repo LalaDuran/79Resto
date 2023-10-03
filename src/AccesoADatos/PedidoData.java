@@ -11,19 +11,21 @@ import javax.swing.JOptionPane;
 
 public class PedidoData {
 
+    //atributo común a todos los Data
     private Connection con = null;
 
     public PedidoData() {
+        //inicializa la variable con
         con = Conexion.getConexion();
     }
 
     
     public void guardarPedido(Pedido pedido) {
-        String sql = "INSERT INTO producto (idMesa,idMesero,idProducto,estado) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO pedido (idMesa,idMesero,idProducto,estado) VALUES (?,?,?,?)";
 
         try {
             //Prepara el comando SQL con RETURN GENERATED KEYS para que devuelva el 
-            //idMesa que es generado autoincremental
+            //idPedido que es generado autoincremental
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             //Asignamos los valores a los parámetros dinámicos 
             ps.setInt(1, pedido.getMesa().getIdMesa());
@@ -40,7 +42,7 @@ public class PedidoData {
             //Asignamos el id generado 
             if (rs.next()) {
                 pedido.setIdPedido(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Pedido Guardado");
+                JOptionPane.showMessageDialog(null, "Pedido guardado");
             }
 
             //Liberamos recursos
