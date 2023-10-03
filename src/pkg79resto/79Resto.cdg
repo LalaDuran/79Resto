@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="79Resto">
+  <ClassDiagramComponents>
+    <Class name="Mesa" package="" visibility="public" xPosition="51.0" yPosition="19.0">
+      <Fields>
+        <Field name="idMesa" type="int" visibility="private"/>
+        <Field name="capacidad" type="int" visibility="private"/>
+        <Field name="situacion" type="SituacionMesa" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getterYSetter" returnType="void" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Pedido" package="" visibility="public" xPosition="338.0" yPosition="19.0">
+      <Fields>
+        <Field name="idPedido" type="int" visibility="private"/>
+        <Field name="mesa" type="Mesa" visibility="private"/>
+        <Field name="Producto" type="List" visibility="private"/>
+        <Field name="mesero" type="Mesero" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getterySetter" returnType="void" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Producto" package="" visibility="public" xPosition="664.0" yPosition="19.0">
+      <Fields>
+        <Field name="idProducto" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="cantidad" type="int" visibility="private"/>
+        <Field name="precio" type="double" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getterYSetter" returnType="void" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Reserva" package="" visibility="public" xPosition="11.0" yPosition="312.0">
+      <Fields>
+        <Field name="idReserva" type="int" visibility="private"/>
+        <Field name="mesa" type="Mesa" visibility="private"/>
+        <Field name="apellido" type="String" visibility="private"/>
+        <Field name="dni" type="int" visibility="private"/>
+        <Field name="fecha" type="LocalDate" visibility="private"/>
+        <Field name="hora" type="LocalTime" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getterYSetter" returnType="void" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Mesero" package="" visibility="public" xPosition="416.0" yPosition="326.0">
+      <Fields>
+        <Field name="idMesero" type="int" visibility="private"/>
+        <Field name="apellido" type="String" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="dni" type="int" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getterYSetter" returnType="void" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Enum name="EstadoMesa" package="" visibility="public" xPosition="199.0" yPosition="292.0">
+      <Literals>
+        <Literal name="LIBRE"/>
+        <Literal name="OCUPADA"/>
+        <Literal name="ATENDIDA"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="tiene" source="Mesa" target="EstadoMesa" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="Mesa" target="Reserva" type="Default" sourceCardinality="0..1" targetCardinality="0..1"/>
+    <HasRelation name="contiene" source="Pedido" target="Producto" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="corresponde" source="Mesa" target="Pedido" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="corresponde" source="Pedido" target="Mesa" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="atiende" source="Mesero" target="Pedido" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="es atendido por" source="Pedido" target="Mesero" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
