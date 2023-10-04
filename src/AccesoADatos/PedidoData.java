@@ -49,7 +49,7 @@ public class PedidoData {
                     //Asignamos los valores a los parámetros dinámicos 
                     ps2.setInt(1, aux.getIdProducto());
                     ps2.setInt(2, aux.getCantidad());
-                    //ps2.setInt(3, aux.g) 
+                    ps2.setInt(3, pedido.getIdPedido());
                     //Ejecutamos el comando SQL
                     ps2.executeUpdate();
 
