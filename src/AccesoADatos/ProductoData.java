@@ -37,7 +37,7 @@ public class ProductoData {
             //Ejecutamos el comando SQL
             ps.executeUpdate();
 
-            //Recuperamos el id_alumno generado autoincremental
+            //Recuperamos el id generado autoincremental
             ResultSet rs = ps.getGeneratedKeys();
 
             //Asignamos el id generado 

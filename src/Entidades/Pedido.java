@@ -48,8 +48,8 @@ public class Pedido {
         return Producto;
     }
 
-    public void setProducto(List Producto) {
-        this.Producto = Producto;
+    public void setProducto(List Productos) {
+        this.Producto = Productos;
     }
 
     public Mesero getMesero() {
