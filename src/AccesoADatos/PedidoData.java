@@ -14,17 +14,21 @@ public class PedidoData {
 
     //atributo común a todos los Data
     private Connection con = null;
+    private List<Producto> listaDeProductos = new ArrayList<>();
 
     public PedidoData() {
         //inicializa la variable con
         con = Conexion.getConexion();
+        
+        
     }
 
     public void guardarPedido(Pedido pedido) {
         String sql = "INSERT INTO pedido (idMesa,idMesero,estado) VALUES (?,?,?)";
         String sql2 = "INSERT INTO productosPedidos (idProducto,cantidad,idPedido) VALUES (?,?,?)";
 
-        List<Producto> productos = new ArrayList<>();
+       
+        
 
         try {
             //Prepara el comando SQL con RETURN GENERATED KEYS para que devuelva el 
@@ -42,7 +46,7 @@ public class PedidoData {
             ResultSet rs = ps.getGeneratedKeys();
 
             // Ejecutamos el sql2 para darle contenido al pedido
-            for (Producto aux : productos) {
+            for (Producto aux : listaDeProductos) {
                 try {
                     //Prepara el comando SQL2 con RETURN GENERATED KEYS para que devuelva el id que es generado autoincremental
                     PreparedStatement ps2 = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
@@ -50,6 +54,7 @@ public class PedidoData {
                     ps2.setInt(1, aux.getIdProducto());
                     ps2.setInt(2, aux.getCantidad());
                     ps2.setInt(3, pedido.getIdPedido());
+                    
                     //Ejecutamos el comando SQL
                     ps2.executeUpdate();
 
@@ -64,8 +69,10 @@ public class PedidoData {
 
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
-
-                }
+                
+                } catch (ArrayIndexOutOfBoundsException aioobe){
+                    JOptionPane.showMessageDialog(null,"Error: lista vacía");
+        }
             }
                 //Asignamos el id generado 
                 if (rs.next()) {
@@ -80,6 +87,16 @@ public class PedidoData {
             }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
         }
-        }
-
     }
+
+    public void agregarProductos(Producto prod){
+        
+        
+        listaDeProductos.add(prod);
+        
+        
+    }
+    
+    
+    
+}

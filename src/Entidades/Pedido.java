@@ -6,7 +6,7 @@ public class Pedido {
 
     private int idPedido;
     private Mesa mesa;
-    private List Producto;
+    private List <Producto> productos;
     private Mesero mesero;
     private boolean estado;
 
