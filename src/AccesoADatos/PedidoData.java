@@ -10,6 +10,7 @@ public class PedidoData {
     //atributo común a todos los Data
     private Connection con = null;
     private List<Producto> listaDeProductos = new ArrayList<>();
+    
 
     public PedidoData() {
         //inicializa la variable con
@@ -21,6 +22,7 @@ public class PedidoData {
         String sql = "INSERT INTO pedido (idMesa,idMesero,cobrado) VALUES (?,?,?)";
         String sql2 = "INSERT INTO productosPedidos (idProducto,cantidadPedida,idPedido) VALUES (?,?,?)";
 
+        ProductoData pd = new ProductoData();
 
         try {
             //Prepara el comando SQL con RETURN GENERATED KEYS para que devuelva el 
@@ -37,15 +39,23 @@ public class PedidoData {
             //Recuperamos el id_alumno generado autoincremental
             ResultSet rs = ps.getGeneratedKeys();
 
+             //Asignamos el id generado 
+            if (rs.next()) {
+                    pedido.setIdPedido(rs.getInt(1));
+                    JOptionPane.showMessageDialog(null, "Pedido guardado");
+                }
             // Ejecutamos el sql2 para darle contenido al pedido
-            for (Producto aux : listaDeProductos) {
+            for (Producto aux : listaDeProductos ) {
                 try {
                     //Prepara el comando SQL2 con RETURN GENERATED KEYS para que devuelva el id que es generado autoincremental
                     PreparedStatement ps2 = con.prepareStatement(sql2);
                     //Asignamos los valores a los parámetros dinámicos 
                     ps2.setInt(1, aux.getIdProducto());
+                    System.out.println(aux.getIdProducto());
                     ps2.setInt(2, aux.getCant_stock());
                     ps2.setInt(3, pedido.getIdPedido());
+                    System.out.println(pedido.getIdPedido());
+                    
                     
                     //Ejecutamos el comando SQL
                     ps2.executeUpdate();
@@ -66,11 +76,8 @@ public class PedidoData {
                     JOptionPane.showMessageDialog(null,"Error: lista vacía");
         }
             }
-                //Asignamos el id generado 
-                if (rs.next()) {
-                    pedido.setIdPedido(rs.getInt(1));
-                    JOptionPane.showMessageDialog(null, "Pedido guardado");
-                }
+               
+                
 
                 //Liberamos recursos
                 ps.close();
@@ -87,7 +94,18 @@ public class PedidoData {
         
         
     }
+     public List<Producto> listarProductoPedido() {
+        //Sacamos 'estado' del WHERE igual que método anterior
+        String sql = "SELECT idProducto FROM ";
+
+        //Instanciamos el arraylist que usaremos luego
+        ArrayList<Producto> productos = new ArrayList<>();
+
+       
+        return productos;
+    }
+
+    }
     
     
-    
-}
+
