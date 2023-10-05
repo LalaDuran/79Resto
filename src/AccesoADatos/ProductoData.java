@@ -2,13 +2,8 @@ package AccesoADatos;
 
 
 import Entidades.Producto;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 public class ProductoData {
@@ -22,15 +17,15 @@ public class ProductoData {
     }
 
     public void guardarProducto(Producto producto) {
-        String sql = "INSERT INTO producto (nombre,cantidad,precio,estado) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO producto (nombre,cant_stock,precio,estado) VALUES (?,?,?,?)";
 
         try {
             //Prepara el comando SQL con RETURN GENERATED KEYS para que devuelva el 
-            //idMesa que es generado autoincremental
+            //id que es generado autoincremental
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             //Asignamos los valores a los parámetros dinámicos 
             ps.setString(1, producto.getNombre());
-            ps.setInt(2, producto.getCantidad());
+            ps.setInt(2, producto.getCant_stock());
             ps.setDouble(3, producto.getPrecio());
             ps.setBoolean(4, true);
 
@@ -55,7 +50,7 @@ public class ProductoData {
     }
 
     public void modificarProducto(Producto prod) {
-        String sql = "UPDATE mesero SET nombre = ?, cantidad = ?, precio = ?, estado = ? WHERE idProducto = ?";
+        String sql = "UPDATE mesero SET nombre = ?, cant_stock = ?, precio = ?, estado = ? WHERE idProducto = ?";
 
         try {
             //Prepara el comando SQL
@@ -63,8 +58,8 @@ public class ProductoData {
 
             //Asignamos los valores a los parámetros dinámicos
             ps.setString(1, prod.getNombre());
-            ps.setInt(2, prod.getCantidad());
-            ps.setDouble(3, prod.getCantidad());
+            ps.setInt(2, prod.getCant_stock());
+            ps.setDouble(3, prod.getPrecio());
             ps.setBoolean(4, prod.isEstado());
 
             //Ejecutamos el comando SQL que devuelve un entero; creamos variable
@@ -78,7 +73,7 @@ public class ProductoData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesero'");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'producto'");
         }
     }
 
@@ -108,7 +103,7 @@ public class ProductoData {
     }
 
     public Producto buscarProductoPorID(int id) {
-        String sql = "SELECT nombre, cantidad, precio, estado FROM producto WHERE idProducto = ?";
+        String sql = "SELECT nombre, cant_stock, precio, estado FROM producto WHERE idProducto = ?";
         //Creamos un mesero en null para setearlo luego
         Producto productoABuscar = null;
 
@@ -127,7 +122,7 @@ public class ProductoData {
                 productoABuscar = new Producto();
                 
                 productoABuscar.setNombre(rs.getString("nombre"));
-                productoABuscar.setCantidad(rs.getInt("cantidad"));
+                productoABuscar.setCant_stock(rs.getInt("cant_stock"));
                 productoABuscar.setPrecio(rs.getDouble("precio"));  
                 productoABuscar.setEstado(rs.getBoolean("estado"));
 
@@ -146,7 +141,7 @@ public class ProductoData {
     
      public List<Producto> listarProducto() {
         //Sacamos 'estado' del WHERE igual que método anterior
-        String sql = "SELECT idProducto, nombre, cantidad, precio, estado FROM producto ";
+        String sql = "SELECT idProducto, nombre, cant_stock, precio, estado FROM producto ";
 
         //Instanciamos el arraylist que usaremos luego
         ArrayList<Producto> productos = new ArrayList<>();
@@ -163,7 +158,7 @@ public class ProductoData {
                 Producto productoABuscar = new Producto();
                 productoABuscar.setIdProducto(rs.getInt("idProducto"));
                 productoABuscar.setNombre(rs.getString("nombre"));
-                productoABuscar.setCantidad(rs.getInt("cantidad"));
+                productoABuscar.setCant_stock(rs.getInt("cant_stock"));
                 productoABuscar.setPrecio(rs.getDouble("precio"));
                 productoABuscar.setEstado(rs.getBoolean("estado"));
 

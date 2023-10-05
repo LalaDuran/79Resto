@@ -4,24 +4,24 @@ public class Producto {
 
     private int idProducto;
     private String nombre;
-    private int cantidad;
+    private int cant_stock;
     private double precio;
     private boolean estado;
 
     public Producto() {
     }
 
-    public Producto(String nombre, int cantidad, double precio, boolean estado) {
+    public Producto(String nombre, int cant_stock, double precio, boolean estado) {
         this.nombre = nombre;
-        this.cantidad = cantidad;
+        this.cant_stock = cant_stock;
         this.precio = precio;
         this.estado = estado;
     }
 
-    public Producto(int idProducto, String nombre, int cantidad, double precio, boolean estado) {
+    public Producto(int idProducto, String nombre, int cant_stock, double precio, boolean estado) {
         this.idProducto = idProducto;
         this.nombre = nombre;
-        this.cantidad = cantidad;
+        this.cant_stock = cant_stock;
         this.precio = precio;
         this.estado = estado;
     }
@@ -42,12 +42,12 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getCant_stock() {
+        return cant_stock;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setCant_stock(int cant_stock) {
+        this.cant_stock = cant_stock;
     }
 
     public double getPrecio() {
@@ -68,7 +68,7 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto " + idProducto + '\n' + nombre + " - cant. " + cantidad + ", $." + precio + ", est. " + estado;
+        return "Producto " + idProducto + '\n' + nombre + " - cant. " + cant_stock + ", $." + precio + ", est. " + estado;
     }
     
 }

@@ -3,24 +3,32 @@ package Entidades;
 public class Mesa {
 
     private int idMesa;
+    private int numero;
     private int capacidad;
-    private SituacionMesa situacion;
     private boolean estado;
 
     public Mesa() {
     }
 
-    public Mesa(int capacidad, SituacionMesa situacion, boolean estado) {
+    public Mesa(int capacidad, boolean estado,int numero) {
+        this.numero = numero;
         this.capacidad = capacidad;
-        this.situacion = situacion;
         this.estado = estado;
     }
 
-    public Mesa(int idMesa, int capacidad, SituacionMesa situacion, boolean estado) {
+    public Mesa(int idMesa,int numero, int capacidad, boolean estado) {
         this.idMesa = idMesa;
+        this.numero = numero;
         this.capacidad = capacidad;
-        this.situacion = situacion;
         this.estado = estado;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public int getIdMesa() {
@@ -39,14 +47,6 @@ public class Mesa {
         this.capacidad = capacidad;
     }
 
-    public SituacionMesa getSituacion() {
-        return situacion;
-    }
-
-    public void setSituacion(SituacionMesa situacion) {
-        this.situacion = situacion;
-    }
-
     public boolean isEstado() {
         return estado;
     }
@@ -58,7 +58,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return "Mesa " + idMesa + ", cap. " + capacidad + ", est. " + situacion ;
+        return "Mesa " + numero + ", cap. " + capacidad + ", est. " ;
     }
     
     

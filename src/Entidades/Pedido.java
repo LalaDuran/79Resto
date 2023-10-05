@@ -1,6 +1,6 @@
 package Entidades;
 
-import java.util.List;
+import java.util.*;
 
 public class Pedido {
 
@@ -8,23 +8,26 @@ public class Pedido {
     private Mesa mesa;
     private List <Producto> productos;
     private Mesero mesero;
+    private SituacionPedido situacion;
     private boolean estado;
 
     public Pedido() {
     }
 
-    public Pedido(Mesa mesa, List Producto, Mesero mesero, boolean estado) {
+    public Pedido(Mesa mesa, List Producto, Mesero mesero, SituacionPedido situacion, boolean estado) {
         this.mesa = mesa;
-        this.Producto = Producto;
+        this.productos = new ArrayList<>();
         this.mesero = mesero;
+        this.situacion = situacion;
         this.estado = estado;
     }
 
-    public Pedido(int idPedido, Mesa mesa, List Producto, Mesero mesero, boolean estado) {
+    public Pedido(int idPedido, Mesa mesa, List Producto, Mesero mesero,SituacionPedido situacion, boolean estado) {
         this.idPedido = idPedido;
         this.mesa = mesa;
-        this.Producto = Producto;
+        this.productos = new ArrayList<>();
         this.mesero = mesero;
+        this.situacion = situacion;
         this.estado = estado;
     }
 
@@ -44,12 +47,12 @@ public class Pedido {
         this.mesa = mesa;
     }
 
-    public List getProducto() {
-        return Producto;
+    public List getProductos() {
+        return productos;
     }
 
-    public void setProducto(List Productos) {
-        this.Producto = Productos;
+    public void setProductos(List productos) {
+        this.productos = productos;
     }
 
     public Mesero getMesero() {
@@ -58,6 +61,14 @@ public class Pedido {
 
     public void setMesero(Mesero mesero) {
         this.mesero = mesero;
+    }
+
+    public SituacionPedido getSituacion() {
+        return situacion;
+    }
+
+    public void setSituacion(SituacionPedido situacion) {
+        this.situacion = situacion;
     }
 
     public boolean isEstado() {
