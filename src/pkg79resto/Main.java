@@ -32,9 +32,10 @@ public class Main {
 //    
    Pedido inicial = new Pedido(mesa1,pedData.listarProductosPedidos(),mesero,SituacionPedido.PENDIENTE,false);
    Pedido dos = new Pedido(mesa1,pedData.listarProductosPedidos(),mesero,SituacionPedido.PENDIENTE,false);
+   productoPedido p= new productoPedido();
+       
 //    
-//    
-    pedData.guardarPedido(inicial);
+    pedData.guardarPedido(inicial,p);
     
     
     
