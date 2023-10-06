@@ -9,26 +9,26 @@ public class Pedido {
     private List <Producto> productos;
     private Mesero mesero;
     private SituacionPedido situacion;
-    private boolean estado;
+    private boolean cobrado;
 
     public Pedido() {
     }
 
-    public Pedido(Mesa mesa, List Producto, Mesero mesero, SituacionPedido situacion, boolean estado) {
+    public Pedido(Mesa mesa, List Producto, Mesero mesero, SituacionPedido situacion, boolean cobrado) {
         this.mesa = mesa;
         this.productos = new ArrayList<>();
         this.mesero = mesero;
         this.situacion = situacion;
-        this.estado = estado;
+        this.cobrado = cobrado;
     }
 
-    public Pedido(int idPedido, Mesa mesa, List Producto, Mesero mesero,SituacionPedido situacion, boolean estado) {
+    public Pedido(int idPedido, Mesa mesa, List Producto, Mesero mesero,SituacionPedido situacion, boolean cobrado) {
         this.idPedido = idPedido;
         this.mesa = mesa;
         this.productos = new ArrayList<>();
         this.mesero = mesero;
         this.situacion = situacion;
-        this.estado = estado;
+        this.cobrado = cobrado;
     }
 
     public int getIdPedido() {
@@ -71,17 +71,17 @@ public class Pedido {
         this.situacion = situacion;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public boolean isCobrado() {
+        return cobrado;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setCobrado(boolean cobrado) {
+        this.cobrado = cobrado;
     }
 
     @Override
     public String toString() {
-        return "Pedido "+ idPedido + " - mesa " + mesa + " - mesera/o " + mesero + ", est. " + estado;
+        return "Pedido "+ idPedido + " - mesa " + mesa + " - mesera/o " + mesero + ", est. " + cobrado;
     }
     
 }

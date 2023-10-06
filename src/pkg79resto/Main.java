@@ -19,22 +19,25 @@ public class Main {
      
 //        md.modificarMesero(mesero);
     
-    Producto panchito = new Producto("Panchito",3,500,true);
+   Producto panchito = new Producto("Panchito",3,500,true);
     Producto salame = new Producto("Salame",4,700,true);
-    pd.guardarProducto(panchito);
-
+//    pd.guardarProducto(panchito);
+//
     pedData.agregarProductos(panchito);
-    pedData.agregarProductos(salame);
-    pd.guardarProducto(salame);
+   pedData.agregarProductos(salame);
+//    pd.guardarProducto(salame);
     Mesa mesa1 = new Mesa(2,true,8);
     mesaData.guardarMesa(mesa1);
 //       md.guardarMesero(mesero);
-    
-    Pedido inicial = new Pedido(mesa1,pd.listarProducto(),mesero,SituacionPedido.PENDIENTE,false);
-    
-    
-    
+//    
+   Pedido inicial = new Pedido(mesa1,pedData.listarProductosPedidos(),mesero,SituacionPedido.PENDIENTE,false);
+   Pedido dos = new Pedido(mesa1,pedData.listarProductosPedidos(),mesero,SituacionPedido.PENDIENTE,false);
+//    
+//    
     pedData.guardarPedido(inicial);
+    
+    
+    
     
     
     }
