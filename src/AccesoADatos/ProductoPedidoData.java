@@ -5,10 +5,21 @@
  */
 package AccesoADatos;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Faustino
  */
 public class ProductoPedidoData {
+    
+    private Connection con = null;
+
+    public ProductoPedidoData() {
+        //inicializa la variable con
+        con = Conexion.getConexion();
+    }
+    
+    
     
 }
