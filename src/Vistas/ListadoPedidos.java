@@ -32,13 +32,13 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jtTablaPedidos = new javax.swing.JTable();
+        jrbTodos = new javax.swing.JRadioButton();
+        jrbPendientes = new javax.swing.JRadioButton();
+        jrbCobrados = new javax.swing.JRadioButton();
+        jbSalir = new javax.swing.JButton();
+        jbCobrar = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,7 +57,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         jLabel1.setText("LISTADO DE PEDIDOS");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtTablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -68,19 +68,19 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jtTablaPedidos);
 
-        jRadioButton1.setText("Todos");
+        jrbTodos.setText("Todos");
 
-        jRadioButton2.setText("Pendientes");
+        jrbPendientes.setText("Pendientes");
 
-        jRadioButton3.setText("Cobrados");
+        jrbCobrados.setText("Cobrados");
 
-        jButton1.setText("SALIR");
+        jbSalir.setText("SALIR");
 
-        jButton2.setText("COBRAR");
+        jbCobrar.setText("COBRAR");
 
-        jButton3.setText("ELIMINAR");
+        jbEliminar.setText("ELIMINAR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,11 +90,11 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jButton2)
+                        .addComponent(jbCobrar)
                         .addGap(135, 135, 135)
-                        .addComponent(jButton3)
+                        .addComponent(jbEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(jbSalir))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -102,11 +102,11 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(87, 87, 87)
-                                .addComponent(jRadioButton1)
+                                .addComponent(jrbTodos)
                                 .addGap(94, 94, 94)
-                                .addComponent(jRadioButton2)
+                                .addComponent(jrbPendientes)
                                 .addGap(84, 84, 84)
-                                .addComponent(jRadioButton3)))
+                                .addComponent(jrbCobrados)))
                         .addGap(0, 58, Short.MAX_VALUE)))
                 .addGap(57, 57, 57))
             .addGroup(layout.createSequentialGroup()
@@ -121,16 +121,16 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton3))
+                    .addComponent(jrbPendientes)
+                    .addComponent(jrbTodos)
+                    .addComponent(jrbCobrados))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jbSalir)
+                    .addComponent(jbCobrar)
+                    .addComponent(jbEliminar))
                 .addGap(47, 47, 47))
         );
 
@@ -140,16 +140,16 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JButton jbCobrar;
+    private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JRadioButton jrbCobrados;
+    private javax.swing.JRadioButton jrbPendientes;
+    private javax.swing.JRadioButton jrbTodos;
+    private javax.swing.JTable jtTablaPedidos;
     // End of variables declaration//GEN-END:variables
 }
