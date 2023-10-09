@@ -213,7 +213,7 @@ public class MeseroData {
     
     public List<Mesero> listarMesero() {
         //Sacamos 'estado' del WHERE igual que método anterior
-        String sql = "SELECT idMesero, dni, apellido, nombre, estado FROM alumno ";
+        String sql = "SELECT idMesero, dni, apellido, nombre, estado FROM mesero ";
 
         //Instanciamos el arraylist que usaremos luego
         ArrayList<Mesero> meseros = new ArrayList<>();

@@ -174,7 +174,7 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
             
         }
                 
-                }
+                
             
     }//GEN-LAST:event_jcbCapacidadActionPerformed
 
