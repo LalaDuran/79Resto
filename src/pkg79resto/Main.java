@@ -26,7 +26,7 @@ public class Main {
     pedData.agregarProductos(panchito);
    pedData.agregarProductos(salame);
 //    pd.guardarProducto(salame);
-    Mesa mesa1 = new Mesa(2,true,8);
+    Mesa mesa1 = new Mesa(2,true,8,true);
     mesaData.guardarMesa(mesa1);
 //       md.guardarMesero(mesero);
 //    

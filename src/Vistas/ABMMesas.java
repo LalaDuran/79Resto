@@ -48,6 +48,7 @@ public class ABMMesas extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
+        jrbOcupada = new javax.swing.JRadioButton();
 
         setPreferredSize(new java.awt.Dimension(600, 500));
 
@@ -96,13 +97,15 @@ public class ABMMesas extends javax.swing.JInternalFrame {
             }
         });
 
+        jrbOcupada.setText("Ocupada");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(48, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -124,11 +127,14 @@ public class ABMMesas extends javax.swing.JInternalFrame {
                                 .addGap(68, 68, 68)
                                 .addComponent(jbEliminar)
                                 .addGap(51, 51, 51)
-                                .addComponent(jbSalir))))
+                                .addComponent(jbSalir)))
+                        .addGap(75, 75, 75))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jrbHabilitada)))
-                .addGap(75, 75, 75))
+                        .addComponent(jrbHabilitada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jrbOcupada)
+                        .addGap(144, 144, 144))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(247, 247, 247)
                 .addComponent(jLabel1)
@@ -156,7 +162,9 @@ public class ABMMesas extends javax.swing.JInternalFrame {
                         .addGap(34, 34, 34)
                         .addComponent(jtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40)
-                .addComponent(jrbHabilitada)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jrbHabilitada)
+                    .addComponent(jrbOcupada))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLimpiar)
@@ -180,6 +188,7 @@ public class ABMMesas extends javax.swing.JInternalFrame {
         jtfCapacidad.setText("");
         jtfNumero.setText("");
         jrbHabilitada.setSelected(false);
+        jrbOcupada.setSelected(false);
         jbLimpiar.setEnabled(false);
         jbEliminar.setEnabled(false);
     }//GEN-LAST:event_jbLimpiarActionPerformed
@@ -187,7 +196,7 @@ public class ABMMesas extends javax.swing.JInternalFrame {
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
        //Si no completa el campo 'ID Mesa'
         if (jtfIDMesa.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe completar el campo 'Documento'");
+            JOptionPane.showMessageDialog(this, "Debe completar el campo 'ID Mesa'");
 
         } else {
             try {
@@ -201,11 +210,12 @@ public class ABMMesas extends javax.swing.JInternalFrame {
                 //Buscamos una mesa por su id usando buscar de mesaData
                 mesaBuscada = mesaD.buscarMesaPorID(idMesaBuscada);
 
-                //Mostramos en la vista los datos del alumno encontrado
+                //Mostramos en la vista los datos de la mesa encontrada
                 jtfIDMesa.setText(Integer.toString(mesaBuscada.getIdMesa()));
                 jtfCapacidad.setText(Integer.toString(mesaBuscada.getCapacidad()));
                 jtfNumero.setText(Integer.toString(mesaBuscada.getNumero()));
                 jrbHabilitada.setSelected(mesaBuscada.isEstado());
+                jrbOcupada.setSelected(mesaBuscada.isOcupada());
 
                 //Habilitamos los botones 'Limpiar' y 'Eliminar'
                 jbLimpiar.setEnabled(true);
@@ -231,9 +241,10 @@ public class ABMMesas extends javax.swing.JInternalFrame {
             int capacidadAGuardar = Integer.parseInt(jtfCapacidad.getText());
             int numeroAGuardar = Integer.parseInt(jtfNumero.getText());
             boolean habAGuardar = jrbHabilitada.isSelected();
+            boolean ocupaAGuardar = jrbOcupada.isSelected();
 
             //Instanciamos una mesa con los parámetros anteriores
-            Mesa m = new Mesa(idMesaAGuardar,capacidadAGuardar,numeroAGuardar,habAGuardar);
+            Mesa m = new Mesa(idMesaAGuardar,capacidadAGuardar,numeroAGuardar,habAGuardar,ocupaAGuardar);
 
             //declaramos una variable bandera por si ya existe el id tipeado en vista
             boolean existeID = false;
@@ -248,9 +259,9 @@ public class ABMMesas extends javax.swing.JInternalFrame {
                     break;
                 }
             }
-            //Si existe el alumno usa el método modificarAlumno; si no, guardarAlumno
+            //Si existe la mesa usa el método modificarMesa; si no, guardarMesa
             if (existeID == true) {
-                mesaD.actualizarMesa(m.getIdMesa());
+                mesaD.modificarMesa(m);
             } else {
                 mesaD.guardarMesa(m);
             }
@@ -313,6 +324,7 @@ public class ABMMesas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JRadioButton jrbHabilitada;
+    private javax.swing.JRadioButton jrbOcupada;
     private javax.swing.JTextField jtfCapacidad;
     private javax.swing.JTextField jtfIDMesa;
     private javax.swing.JTextField jtfNumero;

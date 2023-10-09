@@ -2,7 +2,6 @@
 package AccesoADatos;
 
 import Entidades.Mesa;
-import Entidades.SituacionPedido;
 import java.sql.*;
 import java.util.*;
 import javax.swing.JOptionPane;
@@ -49,33 +48,34 @@ public class MesaData {
         }
     }
     
-//    public void modificarMesa(Mesa mesa) {
-//        String sql = "UPDATE mesa SET capacidad = ?, situacion = ?, estado = ? WHERE idMesa = ?";
-//
-//        try {
-//            //Prepara el comando SQL
-//            PreparedStatement ps = con.prepareStatement(sql);
-//
-//            //Asignamos los valores a los parámetros dinámicos
-//            ps.setInt(1, mesa.getCapacidad());
-//            ps.setString(2, mesa.getSituacion().name());
-//            ps.setBoolean(3,mesa.isEstado());
-//            ps.setInt(4, mesa.getIdMesa());
-//            
-//            //Ejecutamos el comando SQL que devuelve un entero; creamos variable
-//            int exito = ps.executeUpdate();
-//
-//            if (exito == 1) {
-//                JOptionPane.showMessageDialog(null, "Mesa modificada");
-//            }
-//
-//            //Liberamos recursos
-//            ps.close();
-//
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesa'");
-//        }
-//    }
+    public void modificarMesa(Mesa mesa) {
+        String sql = "UPDATE mesa SET capacidad = ?, numero = ?, estado = ?, ocupada = ? WHERE idMesa = ?";
+
+        try {
+            //Prepara el comando SQL
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            //Asignamos los valores a los parámetros dinámicos
+            ps.setInt(1, mesa.getCapacidad());
+            ps.setInt(2, mesa.getNumero());
+            ps.setBoolean(3,mesa.isEstado());
+            ps.setBoolean(4,mesa.isOcupada());
+            ps.setInt(5, mesa.getIdMesa());
+            
+            //Ejecutamos el comando SQL que devuelve un entero; creamos variable
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Mesa modificada");
+            }
+
+            //Liberamos recursos
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesa'");
+        }
+    }
     
     public void eliminarMesa(int id) {
         String sql = "UPDATE mesa SET estado = 0 WHERE idMesa = ? ";
@@ -102,33 +102,9 @@ public class MesaData {
         }
     }
     
-    public void actualizarMesa(int id) {
-        String sql = "UPDATE mesa SET estado = 1 WHERE idMesa = ? ";
-
-        try {
-            //Prepara el comando SQL
-            PreparedStatement ps = con.prepareStatement(sql);
-
-            //Asignamos el valor al parámetro dinámico
-            ps.setInt(1, id);
-
-            //Ejecutamos el comando SQL que devuelve un entero; creamos variable
-            int exito = ps.executeUpdate();
-
-            if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Mesa desocupada");
-            }
-
-            //Liberamos recursos
-            ps.close();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesa'");
-        }
-    }
     
     public Mesa buscarMesaPorID(int id) {
-        String sql = "SELECT capacidad,estado,numero FROM mesa WHERE idMesa = ?  ";
+        String sql = "SELECT capacidad,estado,numero,ocupada FROM mesa WHERE idMesa = ?  ";
         //Creamos una mesa en null para setearla luego
         Mesa mesaABuscar = null;
 
@@ -147,7 +123,8 @@ public class MesaData {
                 mesaABuscar = new Mesa();
                 mesaABuscar.setIdMesa(id);
                 mesaABuscar.setCapacidad(rs.getInt("capacidad"));
-                mesaABuscar.setEstado(true);
+                mesaABuscar.setEstado(rs.getBoolean("estado"));
+                mesaABuscar.setOcupada(rs.getBoolean("ocupada"));
                 mesaABuscar.setNumero(rs.getInt("numero"));
 
             } else {

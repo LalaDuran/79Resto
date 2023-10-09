@@ -153,29 +153,39 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
 
         //Creamos una mesa y le asignamos la capacidad seleccionada en la vista
         int capacidad = (int) jcbCapacidad.getSelectedItem();
+      
+        
+        if (jrbTodas.isSelected()){
+            jrbHabilitadas.setSelected(false);
+            jrbDeshabilitadas.setSelected(false);
+        } else if (jrbHabilitadas.isSelected()){
+            jrbTodas.setSelected(false);
+            jrbDeshabilitadas.setSelected(false);
+        } else if (jrbDeshabilitadas.isSelected()){
+            jrbTodas.setSelected(false);
+            jrbHabilitadas.setSelected(false);
+        }  
 
         //Borramos las filas evitando repeticiones
         borrarFilas();
-        
-        if (jrbTodas.isSelected()){
-        //Si existe una mesa con esa capacidad, la carga en la tabla
-        for (Mesa aux : mesaData.listarMesa()) {
-            if (aux.getCapacidad() == capacidad) {
-                
-                modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
-            }
-        }
-        } else if (jrbHabilitadas.isSelected()){
+
+        if (jrbTodas.isSelected()) {
+            //Si existe una mesa con esa capacidad, la carga en la tabla
             for (Mesa aux : mesaData.listarMesa()) {
-            if (aux.getCapacidad() == capacidad && aux.isEstado()) {
-                modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+                if (aux.getCapacidad() == capacidad) {
+
+                    modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+                }
             }
-        } 
+        } else if (jrbHabilitadas.isSelected()) {
+            for (Mesa aux : mesaData.listarMesa()) {
+                if (aux.getCapacidad() == capacidad && aux.isEstado()) {
+                    modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+                } 
+            }
             
-        }
-                
-                
-            
+        }   
+
     }//GEN-LAST:event_jcbCapacidadActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
