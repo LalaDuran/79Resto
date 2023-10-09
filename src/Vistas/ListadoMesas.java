@@ -1,9 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
+
+import AccesoADatos.*;
+import Entidades.*;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,11 +12,22 @@ package Vistas;
  */
 public class ListadoMesas extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ListadoMesas
-     */
+    //Cargamos el modelo de tabla
+    private final DefaultTableModel modelo = new DefaultTableModel() {
+        //Hacemos la tabla no-editable en todas sus celdas
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+
     public ListadoMesas() {
         initComponents();
+
+        //Carga la capacidad de las mesas al jComboBox
+        cargarCapacidad();
+
+        //Carga la estructura de la tabla
+        armarTabla();
     }
 
     /**
@@ -30,12 +42,13 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTablaMesas = new javax.swing.JTable();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jrbHabilitadas = new javax.swing.JRadioButton();
+        jrbDeshabilitadas = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jcbCapacidad = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jrbTodas = new javax.swing.JRadioButton();
 
         setPreferredSize(new java.awt.Dimension(600, 500));
 
@@ -54,47 +67,58 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtTablaMesas);
 
-        jRadioButton1.setText("Mesas Habilitadas");
+        jrbHabilitadas.setText("Mesas Habilitadas");
 
-        jRadioButton2.setText("Mesas Deshabilitadas");
+        jrbDeshabilitadas.setText("Mesas Deshabilitadas");
 
         jButton1.setText("SALIR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Capacidad hasta: ");
+        jLabel2.setText("Capacidad de: ");
 
-        jcbCapacidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCapacidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCapacidadActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("personas");
+
+        jrbTodas.setText("Todas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jrbTodas)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jrbHabilitadas)
+                            .addGap(18, 18, 18)
+                            .addComponent(jrbDeshabilitadas))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(74, 74, 74))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton2))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(226, 226, 226)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(86, 86, 86))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(74, 74, 74))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jcbCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jcbCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,10 +133,11 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jrbHabilitadas)
+                    .addComponent(jrbDeshabilitadas)
+                    .addComponent(jrbTodas))
                 .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                 .addGap(34, 34, 34)
                 .addComponent(jButton1)
                 .addGap(25, 25, 25))
@@ -121,16 +146,102 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jcbCapacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCapacidadActionPerformed
+        //Instanciamos mesa y mesaData para usar luego
+        MesaData mesaData = new MesaData();
+        Mesa m = new Mesa();
+
+        //Creamos una mesa y le asignamos la capacidad seleccionada en la vista
+        int capacidad = (int) jcbCapacidad.getSelectedItem();
+
+        //Borramos las filas evitando repeticiones
+        borrarFilas();
+        
+        if (jrbTodas.isSelected()){
+        //Si existe una mesa con esa capacidad, la carga en la tabla
+        for (Mesa aux : mesaData.listarMesa()) {
+            if (aux.getCapacidad() == capacidad) {
+                
+                modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+            }
+        }
+        } else if (jrbHabilitadas.isSelected()){
+            for (Mesa aux : mesaData.listarMesa()) {
+            if (aux.getCapacidad() == capacidad && aux.isEstado()) {
+                modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+            }
+        } 
+            
+        }
+                
+                }
+            
+    }//GEN-LAST:event_jcbCapacidadActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Deselecciona, invisibiliza y cierra la ventana
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> jcbCapacidad;
+    private javax.swing.JComboBox<Integer> jcbCapacidad;
+    private javax.swing.JRadioButton jrbDeshabilitadas;
+    private javax.swing.JRadioButton jrbHabilitadas;
+    private javax.swing.JRadioButton jrbTodas;
     private javax.swing.JTable jtTablaMesas;
     // End of variables declaration//GEN-END:variables
+
+    private void armarTabla() {
+        //Agregamos las cabeceras a la tabla
+        modelo.addColumn("Id Mesa");
+        modelo.addColumn("Capacidad");
+        modelo.addColumn("Número");
+
+        //Seteamos el modelo a la tabla
+        jtTablaMesas.setModel(modelo);
+
+        //Impedimos el reordenamiento de la cabecera
+        jtTablaMesas.getTableHeader().setReorderingAllowed(false);
+
+        //para centrar las celdas del encabezado
+        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtTablaMesas.getTableHeader().getDefaultRenderer();
+        header.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //para centrar los datos de la primera columna
+        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaMesas.getColumnModel().getColumn(0).setCellRenderer(tcr0);
+
+        //Para centrar los datos de la segunda columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaMesas.getColumnModel().getColumn(1).setCellRenderer(tcr0);
+
+        //Para centrar los datos de la tercera columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaMesas.getColumnModel().getColumn(2).setCellRenderer(tcr0);
+    }
+
+    private void cargarCapacidad() {
+        //Cargamos las mesas al jComboBox
+        MesaData mesaD = new MesaData();
+
+        for (int i = 1; i < 9; i++) {
+            jcbCapacidad.addItem(i);
+        }
+
+    }
+
+    private void borrarFilas() {
+        //Evita la repetición de las filas en la tabla
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+
 }

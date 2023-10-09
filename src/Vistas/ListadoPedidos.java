@@ -38,7 +38,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         jrbCobrados = new javax.swing.JRadioButton();
         jbSalir = new javax.swing.JButton();
         jbCobrar = new javax.swing.JButton();
-        jbEliminar = new javax.swing.JButton();
+        jrbEliminados = new javax.swing.JRadioButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,7 +72,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         jrbTodos.setText("Todos");
 
-        jrbPendientes.setText("Pendientes");
+        jrbPendientes.setText("Pendientes de Cobro");
 
         jrbCobrados.setText("Cobrados");
 
@@ -80,58 +80,54 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         jbCobrar.setText("COBRAR");
 
-        jbEliminar.setText("ELIMINAR");
+        jrbEliminados.setText("Eliminados");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jbCobrar)
-                        .addGap(135, 135, 135)
-                        .addComponent(jbEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbSalir))
-                    .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jrbTodos)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(236, 236, 236)
-                                .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(161, 161, 161))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(jrbTodos)
-                                .addGap(94, 94, 94)
+                                .addGap(18, 18, 18)
                                 .addComponent(jrbPendientes)
-                                .addGap(84, 84, 84)
-                                .addComponent(jrbCobrados)))
-                        .addGap(0, 58, Short.MAX_VALUE)))
-                .addGap(57, 57, 57))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jrbCobrados)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jrbEliminados))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jbCobrar)
+                        .addGap(117, 117, 117)
+                        .addComponent(jbSalir)))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addGap(59, 59, 59)
+                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbPendientes)
                     .addComponent(jrbTodos)
-                    .addComponent(jrbCobrados))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                    .addComponent(jrbCobrados)
+                    .addComponent(jrbPendientes)
+                    .addComponent(jrbEliminados))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(84, 84, 84)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSalir)
                     .addComponent(jbCobrar)
-                    .addComponent(jbEliminar))
-                .addGap(47, 47, 47))
+                    .addComponent(jbSalir))
+                .addGap(58, 58, 58))
         );
 
         pack();
@@ -145,9 +141,9 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbCobrar;
-    private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JRadioButton jrbCobrados;
+    private javax.swing.JRadioButton jrbEliminados;
     private javax.swing.JRadioButton jrbPendientes;
     private javax.swing.JRadioButton jrbTodos;
     private javax.swing.JTable jtTablaPedidos;

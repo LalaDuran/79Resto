@@ -5,6 +5,10 @@
  */
 package Vistas;
 
+import AccesoADatos.*;
+import Entidades.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author morena
@@ -16,6 +20,10 @@ public class ABMMesas extends javax.swing.JInternalFrame {
      */
     public ABMMesas() {
         initComponents();
+        
+        //Inhabilita los botones 'Nuevo' y 'Eliminar'
+        jbLimpiar.setEnabled(false);
+        jbEliminar.setEnabled(false);
     }
 
     /**
@@ -31,11 +39,10 @@ public class ABMMesas extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jtfIDMesa = new javax.swing.JTextField();
         jtfCapacidad = new javax.swing.JTextField();
         jtfNumero = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jrbHabilitada = new javax.swing.JRadioButton();
         jbGuardar = new javax.swing.JButton();
         jbLimpiar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
@@ -52,11 +59,21 @@ public class ABMMesas extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Numero");
 
-        jLabel5.setText("Habilitada");
+        jrbHabilitada.setText("Habilitada");
 
         jbGuardar.setText("GUARDAR");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbLimpiar.setText("LIMPIAR");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("SALIR");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -66,30 +83,36 @@ public class ABMMesas extends javax.swing.JInternalFrame {
         });
 
         jbEliminar.setText("ELIMINAR");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setText("BUSCAR");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbLimpiar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jRadioButton1))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jbLimpiar, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jtfCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                                .addComponent(jtfCapacidad)
                                 .addComponent(jtfNumero)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jtfIDMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -101,7 +124,10 @@ public class ABMMesas extends javax.swing.JInternalFrame {
                                 .addGap(68, 68, 68)
                                 .addComponent(jbEliminar)
                                 .addGap(51, 51, 51)
-                                .addComponent(jbSalir)))))
+                                .addComponent(jbSalir))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jrbHabilitada)))
                 .addGap(75, 75, 75))
             .addGroup(layout.createSequentialGroup()
                 .addGap(247, 247, 247)
@@ -129,17 +155,15 @@ public class ABMMesas extends javax.swing.JInternalFrame {
                         .addComponent(jtfCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(jtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jLabel5))
-                .addGap(55, 55, 55)
+                .addGap(40, 40, 40)
+                .addComponent(jrbHabilitada)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLimpiar)
                     .addComponent(jbGuardar)
                     .addComponent(jbSalir)
                     .addComponent(jbEliminar))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,19 +174,145 @@ public class ABMMesas extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        //Limpia la pantalla para cargar un alumno nuevo
+        jtfIDMesa.setText("");
+        jtfCapacidad.setText("");
+        jtfNumero.setText("");
+        jrbHabilitada.setSelected(false);
+        jbLimpiar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+       //Si no completa el campo 'ID Mesa'
+        if (jtfIDMesa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe completar el campo 'Documento'");
+
+        } else {
+            try {
+                //Asignamos a una variable el dato ingresado en la vista
+                int idMesaBuscada = Integer.parseInt(jtfIDMesa.getText());
+
+                //Instanciamos una mesa y mesaData para usar luego
+                MesaData mesaD = new MesaData();
+                Mesa mesaBuscada = new Mesa();
+
+                //Buscamos una mesa por su id usando buscar de mesaData
+                mesaBuscada = mesaD.buscarMesaPorID(idMesaBuscada);
+
+                //Mostramos en la vista los datos del alumno encontrado
+                jtfIDMesa.setText(Integer.toString(mesaBuscada.getIdMesa()));
+                jtfCapacidad.setText(Integer.toString(mesaBuscada.getCapacidad()));
+                jtfNumero.setText(Integer.toString(mesaBuscada.getNumero()));
+                jrbHabilitada.setSelected(mesaBuscada.isEstado());
+
+                //Habilitamos los botones 'Limpiar' y 'Eliminar'
+                jbLimpiar.setEnabled(true);
+                jbEliminar.setEnabled(true);
+
+            } catch (NumberFormatException nfe) {
+                //si ingresa letras o símbolos
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                jtfIDMesa.setText("");
+            } catch (NullPointerException npe) {
+                //si no existe alumno con el dni tipeado en la vista, salta el JOptionPane del método buscarAlumnoPorDni
+            }
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        //Instanciamos mesaData para usar luego
+        MesaData mesaD = new MesaData();
+
+        try {
+            //creamos las variables y asignamos los valores tipeados en la vista
+            int idMesaAGuardar = Integer.parseInt(jtfIDMesa.getText());
+            int capacidadAGuardar = Integer.parseInt(jtfCapacidad.getText());
+            int numeroAGuardar = Integer.parseInt(jtfNumero.getText());
+            boolean habAGuardar = jrbHabilitada.isSelected();
+
+            //Instanciamos una mesa con los parámetros anteriores
+            Mesa m = new Mesa(idMesaAGuardar,capacidadAGuardar,numeroAGuardar,habAGuardar);
+
+            //declaramos una variable bandera por si ya existe el id tipeado en vista
+            boolean existeID = false;
+
+            //Recorremos la lista de mesas existentes
+            for (Mesa existingMesa : mesaD.listarMesa()) {
+
+                if (existingMesa.getIdMesa() == m.getIdMesa()) {
+                    //Si existe la mesa, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
+                    m.setIdMesa(mesaD.buscarMesaPorID(m.getIdMesa()).getIdMesa());
+                    existeID = true;
+                    break;
+                }
+            }
+            //Si existe el alumno usa el método modificarAlumno; si no, guardarAlumno
+            if (existeID == true) {
+                mesaD.actualizarMesa(m.getIdMesa());
+            } else {
+                mesaD.guardarMesa(m);
+            }
+
+            //Habilitamos los botones 'Eliminar' y 'Limpiar'
+            jbEliminar.setEnabled(true);
+            jbLimpiar.setEnabled(true);
+
+        } catch (NullPointerException ex) {
+            //Si algún campo está vacío
+            JOptionPane.showMessageDialog(null, "Complete todos los campos");
+        } catch (NumberFormatException ex) {
+            //Si no usa números enteros en todos los campos
+            JOptionPane.showMessageDialog(null, "Use sólo números enteros");
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+         //Si el campo ID Mesa está vacío
+        if (jtfIDMesa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Complete el campo 'ID Mesa'");
+
+        } else {
+            try {
+                //Instanciamos mesa y mesaData para usar luego
+                Mesa m = new Mesa();
+                MesaData mesaD = new MesaData();
+
+                //Creamos una variable con el ID tipeado en la vista
+                int IDMesaAEliminar = Integer.parseInt(jtfIDMesa.getText());
+
+                //Buscamos la mesa con ese id y lo enviamos a la mesas ya creado
+                m = mesaD.buscarMesaPorID(IDMesaAEliminar);
+
+                //Eliminamos la mesa llamando al método eliminarMesa de mesaData
+                mesaD.eliminarMesa(m.getIdMesa());
+
+                //Limpiamos los campos de la vista
+                jtfIDMesa.setText("");
+                jtfCapacidad.setText("");
+                jtfNumero.setText("");
+                jrbHabilitada.setSelected(false);
+
+            } catch (NumberFormatException ex) {
+                //Si no tipea un documento en la vista
+                JOptionPane.showMessageDialog(null, "Ingrese un ID Mesa");
+            }
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JRadioButton jrbHabilitada;
     private javax.swing.JTextField jtfCapacidad;
     private javax.swing.JTextField jtfIDMesa;
     private javax.swing.JTextField jtfNumero;
