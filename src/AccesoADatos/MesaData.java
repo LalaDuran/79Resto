@@ -142,7 +142,7 @@ public class MesaData {
     
     public List<Mesa> listarMesa() {
         //Sacamos 'estado' del WHERE igual que método anterior
-        String sql = "SELECT idMesa,capacidad,estado,numero FROM mesa ";
+        String sql = "SELECT idMesa,capacidad,estado,numero,ocupada FROM mesa ";
 
         //Instanciamos el arraylist que usaremos luego
         ArrayList<Mesa> mesas = new ArrayList<>();
@@ -160,6 +160,7 @@ public class MesaData {
                 mesaABuscar.setIdMesa(rs.getInt("idMesa"));
                 mesaABuscar.setCapacidad(rs.getInt("capacidad"));
                 mesaABuscar.setEstado(rs.getBoolean("estado"));
+                mesaABuscar.setOcupada(rs.getBoolean("ocupada"));
                 mesaABuscar.setNumero(rs.getInt("numero"));
 
                 //Agregamos la mesa al arraylist

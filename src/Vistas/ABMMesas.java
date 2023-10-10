@@ -183,7 +183,7 @@ public class ABMMesas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
-        //Limpia la pantalla para cargar un alumno nuevo
+        //Limpia la pantalla para cargar una mesa nueva
         jtfIDMesa.setText("");
         jtfCapacidad.setText("");
         jtfNumero.setText("");

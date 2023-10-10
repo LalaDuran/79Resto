@@ -120,7 +120,7 @@ public class ProductoData {
             if (rs.next()) {
                 //Instanciamos productoABuscar y seteamos
                 productoABuscar = new Producto();
-                
+                productoABuscar.setIdProducto(id);
                 productoABuscar.setNombre(rs.getString("nombre"));
                 productoABuscar.setCant_stock(rs.getInt("cant_stock"));
                 productoABuscar.setPrecio(rs.getDouble("precio"));  

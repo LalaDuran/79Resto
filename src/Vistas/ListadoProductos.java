@@ -1,21 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
 
-/**
- *
- * @author morena
- */
-public class ListadoProductos extends javax.swing.JInternalFrame {
+import AccesoADatos.*;
+import Entidades.*;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
-    /**
-     * Creates new form ListadoProductos
-     */
+public class ListadoProductos extends javax.swing.JInternalFrame {
+    //Cargamos el modelo de tabla
+
+    private final DefaultTableModel modelo = new DefaultTableModel() {
+        //Hacemos la tabla no-editable en todas sus celdas
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+
     public ListadoProductos() {
         initComponents();
+
+        //Carga la estructura de la tabla
+        armarTabla();
     }
 
     /**
@@ -33,9 +38,7 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
         jtTablaProductos = new javax.swing.JTable();
         jtfNombreProducto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jrbTodos = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jrbSoloStockCritico = new javax.swing.JRadioButton();
 
@@ -58,34 +61,31 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtTablaProductos);
 
-        jButton1.setText("SALIR");
+        jtfNombreProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfNombreProductoKeyReleased(evt);
+            }
+        });
 
-        jLabel4.setText("Todos");
+        jButton1.setText("SALIR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Solo Stock Critico");
+
+        jrbSoloStockCritico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbSoloStockCriticoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtfNombreProducto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jrbTodos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addGap(24, 24, 24)
-                        .addComponent(jrbSoloStockCritico)))
-                .addGap(26, 26, 26)
-                .addComponent(jLabel3)
-                .addGap(89, 89, 89))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1)
@@ -94,10 +94,27 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(230, 230, 230))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(57, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jtfNombreProducto))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jrbSoloStockCritico)
+                                .addGap(6, 6, 6)))
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel3)))
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,23 +123,20 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(43, 43, 43)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jrbTodos)
-                                .addComponent(jLabel5)
-                                .addComponent(jrbSoloStockCritico))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addGap(64, 64, 64)))
-                .addGap(47, 47, 47)
+                        .addGap(24, 24, 24)
+                        .addComponent(jrbSoloStockCritico))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(43, 43, 43)
+                            .addComponent(jLabel5))))
+                .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -130,18 +144,101 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Invisibiliza, deselecciona y cierra la ventana
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtfNombreProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreProductoKeyReleased
+        ProductoData prodD = new ProductoData();
+        if (jrbSoloStockCritico.isSelected()) {
+            borrarFilas();
+            for (Producto prod : prodD.listarProducto()) {
+                if (prod.getNombre().toLowerCase().startsWith(jtfNombreProducto.getText().toLowerCase()) && prod.getCant_stock() < 10) {
+                    modelo.addRow(new Object[]{prod.getIdProducto(), prod.getNombre(), prod.getCant_stock(), prod.getPrecio()});
+                }
+            }
+        } else {
+
+            borrarFilas();
+            for (Producto prod : prodD.listarProducto()) {
+                if (prod.getNombre().toLowerCase().startsWith(jtfNombreProducto.getText().toLowerCase())) {
+                    modelo.addRow(new Object[]{prod.getIdProducto(), prod.getNombre(), prod.getCant_stock(), prod.getPrecio()});
+                }
+            }
+        }
+    }//GEN-LAST:event_jtfNombreProductoKeyReleased
+
+    private void jrbSoloStockCriticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbSoloStockCriticoActionPerformed
+        ProductoData prodD = new ProductoData();
+        if (jrbSoloStockCritico.isSelected()) {
+            borrarFilas();
+            for (Producto prod : prodD.listarProducto()) {
+                if (prod.getNombre().toLowerCase().startsWith(jtfNombreProducto.getText().toLowerCase()) && prod.getCant_stock() < 10) {
+                    modelo.addRow(new Object[]{prod.getIdProducto(), prod.getNombre(), prod.getCant_stock(), prod.getPrecio()});
+                }
+            }
+        } else {
+
+            borrarFilas();
+            for (Producto prod : prodD.listarProducto()) {
+                if (prod.getNombre().toLowerCase().startsWith(jtfNombreProducto.getText().toLowerCase())) {
+                    modelo.addRow(new Object[]{prod.getIdProducto(), prod.getNombre(), prod.getCant_stock(), prod.getPrecio()});
+                }
+            }
+        }
+    }//GEN-LAST:event_jrbSoloStockCriticoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton jrbSoloStockCritico;
-    private javax.swing.JRadioButton jrbTodos;
     private javax.swing.JTable jtTablaProductos;
     private javax.swing.JTextField jtfNombreProducto;
     // End of variables declaration//GEN-END:variables
+
+    private void armarTabla() {
+        //Agregamos las cabeceras a la tabla
+        modelo.addColumn("Id Producto");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Stock actual");
+        modelo.addColumn("Precio");
+        modelo.addColumn("estado");
+
+        //Seteamos el modelo a la tabla
+        jtTablaProductos.setModel(modelo);
+
+        //Impedimos el reordenamiento de la cabecera
+        jtTablaProductos.getTableHeader().setReorderingAllowed(false);
+
+        //para centrar las celdas del encabezado
+        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtTablaProductos.getTableHeader().getDefaultRenderer();
+        header.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //para centrar los datos de la primera columna
+        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaProductos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
+
+        //Para centrar los datos de la tercera columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaProductos.getColumnModel().getColumn(2).setCellRenderer(tcr0);
+
+        //Para centrar los datos de la cuarta columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaProductos.getColumnModel().getColumn(3).setCellRenderer(tcr0);
+    }
+
+    private void borrarFilas() {
+        //Evita la repetición de las filas en la tabla
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+
 }
