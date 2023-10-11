@@ -31,28 +31,21 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jtfBusquedaDNI" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
                           <Component id="jtfBusquedaApellido" min="-2" pref="169" max="-2" attributes="0"/>
+                          <Component id="jcbEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jrbTodos" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
-                              <Component id="jrbActivos" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
-                              <Component id="jrbNOActivos" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="87" max="32767" attributes="0"/>
+              <EmptySpace pref="61" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -84,13 +77,12 @@
                   <Component id="jtfBusquedaDNI" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="43" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jrbTodos" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jrbActivos" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jrbNOActivos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jcbEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="108" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
@@ -111,27 +103,18 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfBusquedaApellido">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfBusquedaApellidoKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfBusquedaDNI">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfBusquedaDNIKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Busqueda por DNI"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jrbTodos">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Todos"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jrbActivos">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Activos"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jrbNOActivos">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="No Activos"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -158,6 +141,28 @@
     <Component class="javax.swing.JButton" name="jbSalir">
       <Properties>
         <Property name="text" type="java.lang.String" value="SALIR"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSalirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jcbEstado">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Todos"/>
+            <StringItem index="1" value="Activos"/>
+            <StringItem index="2" value="No Activos"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Estado:"/>
       </Properties>
     </Component>
   </SubComponents>

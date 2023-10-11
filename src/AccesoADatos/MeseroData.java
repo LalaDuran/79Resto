@@ -156,7 +156,7 @@ public class MeseroData {
                 meseroABuscar.setApellido(rs.getString("apellido"));
                 meseroABuscar.setNombre(rs.getString("nombre"));
                 meseroABuscar.setDni(rs.getInt("dni"));
-                meseroABuscar.setEstado(true);
+                meseroABuscar.setEstado(rs.getBoolean("estado"));
 
             } else {
                 JOptionPane.showMessageDialog(null, "No existe mesera/o con ese ID");
@@ -232,7 +232,7 @@ public class MeseroData {
                 meseroABuscar.setDni(rs.getInt("dni"));
                 meseroABuscar.setApellido(rs.getString("apellido"));
                 meseroABuscar.setNombre(rs.getString("nombre"));
-                meseroABuscar.setEstado(true);
+                meseroABuscar.setEstado(rs.getBoolean("estado"));
 
                 //Agregamos el alumno al arraylist
                 meseros.add(meseroABuscar);

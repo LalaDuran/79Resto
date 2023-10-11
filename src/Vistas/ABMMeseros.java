@@ -1,21 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
-/**
- *
- * @author morena
- */
+import AccesoADatos.*;
+import Entidades.*;
+import javax.swing.JOptionPane;
+
+
 public class ABMMeseros extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ABMMeseros
-     */
+    
     public ABMMeseros() {
         initComponents();
+        
+         //Inhabilita los botones 'Nuevo' y 'Eliminar'
+        jbLimpiar.setEnabled(false);
+        jbEliminar.setEnabled(false);
     }
 
     /**
@@ -32,7 +31,6 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jtfIDMesero = new javax.swing.JTextField();
         jtfApellido = new javax.swing.JTextField();
         jtfNombre = new javax.swing.JTextField();
@@ -56,17 +54,42 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
 
         jLabel5.setText("DNI");
 
-        jLabel6.setText("Activo");
+        jrbActivo.setText("Activo");
 
         jbSalir.setText("SALIR");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setText("GUARDAR");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbLimpiar.setText("LIMPIAR");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("ELIMINAR");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setText("BUSCAR");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,65 +108,65 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(59, 59, 59)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(68, 68, 68)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addGap(114, 114, 114)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel5)
                                         .addComponent(jrbActivo)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jtfNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfApellido, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtfIDMesero)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbBuscar))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtfIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jbBuscar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(52, 52, 52)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtfIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel3)
-                        .addGap(35, 35, 35)
+                        .addGap(31, 31, 31)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbBuscar))
-                        .addGap(28, 28, 28)
-                        .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jrbActivo))
-                .addGap(44, 44, 44)
+                    .addComponent(jLabel5)
+                    .addComponent(jtfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jrbActivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLimpiar)
                     .addComponent(jbGuardar)
@@ -155,6 +178,142 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        //Limpia la pantalla para cargar un mesero nuevo
+        jtfIDMesero.setText("");
+        jtfApellido.setText("");
+        jtfNombre.setText("");
+        jtfDNI.setText("");
+        jrbActivo.setSelected(false);
+        jbLimpiar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+           //Invisibiliza, deselecciona y cierra la ventana
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        //Si no completa el campo 'ID Mesero'
+        if (jtfIDMesero.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe completar el campo 'ID Mesero'");
+
+        } else {
+            try {
+                //Asignamos a una variable el dato ingresado en la vista
+                int idMeseroBuscado = Integer.parseInt(jtfIDMesero.getText());
+
+                //Instanciamos un mesero y meseroData para usar luego
+                MeseroData meseroD = new MeseroData();
+                Mesero meseroBuscado = new Mesero();
+
+                //Buscamos un mesero por su id usando buscar de meseroData
+                meseroBuscado = meseroD.buscarMeseroPorID(idMeseroBuscado);
+
+                //Mostramos en la vista los datos del mesero encontrado
+                jtfIDMesero.setText(Integer.toString(meseroBuscado.getIdMesero()));
+                jtfApellido.setText(meseroBuscado.getApellido());
+                jtfNombre.setText(meseroBuscado.getNombre());
+                jtfDNI.setText(Integer.toString(meseroBuscado.getDni()));
+                jrbActivo.setSelected(meseroBuscado.isEstado());
+
+                //Habilitamos los botones 'Limpiar' y 'Eliminar'
+                jbLimpiar.setEnabled(true);
+                jbEliminar.setEnabled(true);
+
+            } catch (NumberFormatException nfe) {
+                //si ingresa letras o símbolos
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                jtfIDMesero.setText("");
+            } catch (NullPointerException npe) {
+                //si no existe alumno con el dni tipeado en la vista, salta el JOptionPane del método buscarAlumnoPorDni
+            }
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        //Instanciamos meseroData para usar luego
+        MeseroData meseroD = new MeseroData();
+
+        try {
+            //creamos las variables y asignamos los valores tipeados en la vista
+            int idMeseroAGuardar = Integer.parseInt(jtfIDMesero.getText());
+            String apellidoAGuardar = jtfApellido.getText();
+            String nombreAGuardar = jtfNombre.getText();
+            int dniAGuardar = Integer.parseInt(jtfDNI.getText());
+            boolean activoAGuardar = jrbActivo.isSelected();
+
+            //Instanciamos un mesero con los parámetros anteriores
+            Mesero m = new Mesero(idMeseroAGuardar,apellidoAGuardar,nombreAGuardar,dniAGuardar,activoAGuardar);
+
+            //declaramos una variable bandera por si ya existe el id tipeado en vista
+            boolean existeID = false;
+
+            //Recorremos la lista de meseros existentes
+            for (Mesero existingMesero : meseroD.listarMesero()) {
+
+                if (existingMesero.getIdMesero() == m.getIdMesero()) {
+                    //Si existe el mesero, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
+                    m.setIdMesero(meseroD.buscarMeseroPorID(m.getIdMesero()).getIdMesero());
+                    existeID = true;
+                    break;
+                }
+            }
+            //Si existe el mesero usa el método modificarMesero; si no, guardarMesero
+            if (existeID == true) {
+                meseroD.modificarMesero(m);
+            } else {
+                meseroD.guardarMesero(m);
+            }
+
+            //Habilitamos los botones 'Eliminar' y 'Limpiar'
+            jbEliminar.setEnabled(true);
+            jbLimpiar.setEnabled(true);
+
+        } catch (NullPointerException ex) {
+            //Si algún campo está vacío
+            JOptionPane.showMessageDialog(null, "Complete todos los campos");
+        } catch (NumberFormatException ex) {
+            //Si no usa números enteros en todos los campos
+            JOptionPane.showMessageDialog(null, "Use sólo números enteros");
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+       //Si el campo ID Mesero está vacío
+        if (jtfIDMesero.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Complete el campo 'ID Mesero'");
+
+        } else {
+            try {
+                //Instanciamos mesero y meseroData para usar luego
+                Mesero m = new Mesero();
+                MeseroData meseroD = new MeseroData();
+
+                //Creamos una variable con el ID tipeado en la vista
+                int IDMeseroAEliminar = Integer.parseInt(jtfIDMesero.getText());
+
+                //Buscamos el mesero con ese id y lo enviamos al mesero ya creado
+                m = meseroD.buscarMeseroPorID(IDMeseroAEliminar);
+
+                //Eliminamos el mesero llamando al método eliminarMesero de meseroData
+                meseroD.eliminarMesero(m.getIdMesero());
+
+                //Limpiamos los campos de la vista
+                jtfIDMesero.setText("");
+                jtfApellido.setText("");
+                jtfNombre.setText("");
+                jtfDNI.setText("");
+                jrbActivo.setSelected(false);
+
+            } catch (NumberFormatException ex) {
+                //Si no tipea un documento en la vista
+                JOptionPane.showMessageDialog(null, "Ingrese un ID Mesero");
+            }
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -162,7 +321,6 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;

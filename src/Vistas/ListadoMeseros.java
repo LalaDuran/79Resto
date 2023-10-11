@@ -1,21 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
-/**
- *
- * @author morena
- */
+import AccesoADatos.*;
+import Entidades.*;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 public class ListadoMeseros extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ListadoMeseros
-     */
+       //Cargamos el modelo de tabla
+    private final DefaultTableModel modelo = new DefaultTableModel() {
+        //Hacemos la tabla no-editable en todas sus celdas
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+    
     public ListadoMeseros() {
         initComponents();
+        
+        //Carga la estructura de la tabla
+        armarTabla();
     }
 
     /**
@@ -32,12 +38,11 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
         jtfBusquedaApellido = new javax.swing.JTextField();
         jtfBusquedaDNI = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jrbTodos = new javax.swing.JRadioButton();
-        jrbActivos = new javax.swing.JRadioButton();
-        jrbNOActivos = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTablaMeseros = new javax.swing.JTable();
         jbSalir = new javax.swing.JButton();
+        jcbEstado = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(600, 500));
 
@@ -45,13 +50,19 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Busqueda por Apellido");
 
+        jtfBusquedaApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfBusquedaApellidoKeyReleased(evt);
+            }
+        });
+
+        jtfBusquedaDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfBusquedaDNIKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Busqueda por DNI");
-
-        jrbTodos.setText("Todos");
-
-        jrbActivos.setText("Activos");
-
-        jrbNOActivos.setText("No Activos");
 
         jtTablaMeseros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -67,6 +78,15 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jtTablaMeseros);
 
         jbSalir.setText("SALIR");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
+        jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Activos", "No Activos" }));
+
+        jLabel4.setText("Estado:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,22 +98,17 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
                         .addGap(103, 103, 103)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGap(74, 74, 74)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfBusquedaDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfBusquedaApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jtfBusquedaApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jrbTodos)
-                                .addGap(132, 132, 132)
-                                .addComponent(jrbActivos)
-                                .addGap(127, 127, 127)
-                                .addComponent(jrbNOActivos)))))
-                .addContainerGap(87, Short.MAX_VALUE))
+                        .addGap(84, 84, 84)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,12 +132,11 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfBusquedaDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbTodos)
-                    .addComponent(jrbActivos)
-                    .addComponent(jrbNOActivos))
-                .addGap(44, 44, 44)
+                    .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(jbSalir)
@@ -132,18 +146,120 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+         //Deselecciona, invisibiliza y cierra la ventana
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jtfBusquedaApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBusquedaApellidoKeyReleased
+        //Instanciamos meseroData para usar su método listarMesero
+        MeseroData meseroD = new MeseroData();
+        
+        //Instanciamos una variable que refleje lo seleccionado en el comboBox
+        String estadoElegido = (String) jcbEstado.getSelectedItem();
+        
+        if (estadoElegido.equals("Todos")) {
+            borrarFilas();
+            for (Mesero aux : meseroD.listarMesero()) {
+                if (aux.getApellido().toLowerCase().startsWith(jtfBusquedaApellido.getText().toLowerCase())) {
+                    modelo.addRow(new Object[]{aux.getIdMesero(),aux.getApellido(),aux.getNombre(),aux.getDni()});
+                }
+            }
+        } else if (estadoElegido.equals("Activos")) {
+            borrarFilas();
+            for (Mesero aux : meseroD.listarMesero()) {
+                if (aux.getApellido().toLowerCase().startsWith(jtfBusquedaApellido.getText().toLowerCase()) && aux.isEstado() == true) {
+                    modelo.addRow(new Object[]{aux.getIdMesero(), aux.getApellido(), aux.getNombre(), aux.getDni()});
+                }
+            }
+        } else if(estadoElegido.equals("No Activos")) {
+            borrarFilas();
+            for (Mesero aux : meseroD.listarMesero()) {
+                if (aux.getApellido().toLowerCase().startsWith(jtfBusquedaApellido.getText().toLowerCase()) && aux.isEstado() == false) {
+                    modelo.addRow(new Object[]{aux.getIdMesero(), aux.getApellido(), aux.getNombre(), aux.getDni()});
+                }
+            }
+        }
+    }//GEN-LAST:event_jtfBusquedaApellidoKeyReleased
+
+    private void jtfBusquedaDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBusquedaDNIKeyReleased
+        //Instanciamos meseroData para usar su método listarMesero
+        MeseroData meseroD = new MeseroData();
+        
+        //Instanciamos una variable que refleje lo seleccionado en el comboBox
+        String estadoElegido = (String) jcbEstado.getSelectedItem();
+        
+        if (estadoElegido.equals("Todos")) {
+            borrarFilas();
+            for (Mesero aux : meseroD.listarMesero()) {
+                if (Integer.toString(aux.getDni()).startsWith(jtfBusquedaDNI.getText())) {
+                    modelo.addRow(new Object[]{aux.getIdMesero(),aux.getApellido(),aux.getNombre(),aux.getDni()});
+                }
+            }
+        } else if (estadoElegido.equals("Activos")) {
+            borrarFilas();
+            for (Mesero aux : meseroD.listarMesero()) {
+                if (Integer.toString(aux.getDni()).startsWith(jtfBusquedaDNI.getText()) && aux.isEstado() == true) {
+                    modelo.addRow(new Object[]{aux.getIdMesero(), aux.getApellido(), aux.getNombre(), aux.getDni()});
+                }
+            }
+        } else {
+            borrarFilas();
+            for (Mesero aux : meseroD.listarMesero()) {
+                if (Integer.toString(aux.getDni()).startsWith(jtfBusquedaDNI.getText()) && aux.isEstado() == false) {
+                    modelo.addRow(new Object[]{aux.getIdMesero(), aux.getApellido(), aux.getNombre(), aux.getDni()});
+                }
+            }
+        }
+    }//GEN-LAST:event_jtfBusquedaDNIKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JRadioButton jrbActivos;
-    private javax.swing.JRadioButton jrbNOActivos;
-    private javax.swing.JRadioButton jrbTodos;
+    private javax.swing.JComboBox<String> jcbEstado;
     private javax.swing.JTable jtTablaMeseros;
     private javax.swing.JTextField jtfBusquedaApellido;
     private javax.swing.JTextField jtfBusquedaDNI;
     // End of variables declaration//GEN-END:variables
+    
+    private void armarTabla() {
+        //Agregamos las cabeceras a la tabla
+        modelo.addColumn("Id Mesero");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("DNI");
+
+        //Seteamos el modelo a la tabla
+        jtTablaMeseros.setModel(modelo);
+
+        //Impedimos el reordenamiento de la cabecera
+        jtTablaMeseros.getTableHeader().setReorderingAllowed(false);
+
+        //para centrar las celdas del encabezado
+        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtTablaMeseros.getTableHeader().getDefaultRenderer();
+        header.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //para centrar los datos de la primera columna
+        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaMeseros.getColumnModel().getColumn(0).setCellRenderer(tcr0);
+
+        //Para centrar los datos de la cuarta columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaMeseros.getColumnModel().getColumn(3).setCellRenderer(tcr0);
+
+    }
+
+    private void borrarFilas() {
+        //Evita la repetición de las filas en la tabla
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+
 }
