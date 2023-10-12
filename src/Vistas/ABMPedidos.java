@@ -52,7 +52,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jtfIDPedido = new javax.swing.JTextField();
         jcbIDMesa = new javax.swing.JComboBox<>();
         jcbMesero = new javax.swing.JComboBox<>();
-        jrbCobrado = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTablaProductosPedidos = new javax.swing.JTable();
@@ -61,7 +60,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jrbEntregado = new javax.swing.JRadioButton();
         jbEliminar = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
@@ -88,13 +86,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jcbMesero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbMeseroActionPerformed(evt);
-            }
-        });
-
-        jrbCobrado.setText("Cobrado");
-        jrbCobrado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbCobradoActionPerformed(evt);
             }
         });
 
@@ -134,8 +125,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jrbEntregado.setText("Entregado");
-
         jbEliminar.setText("ELIMINAR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,51 +132,14 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(232, 232, 232)
-                                .addComponent(jLabel8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jcbIDMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jtfIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jbBuscar)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(35, 35, 35))
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(231, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(331, 331, 331)))
-                .addGap(36, 36, 36))
+                .addContainerGap(231, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(367, 367, 367))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(248, 248, 248)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jrbCobrado)
-                        .addGap(60, 60, 60)
-                        .addComponent(jrbEntregado))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,6 +153,37 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                                 .addGap(47, 47, 47)
                                 .addComponent(jbSalir)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(232, 232, 232)
+                        .addComponent(jLabel8))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jcbIDMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jtfIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jbBuscar)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(77, 77, 77))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,27 +196,25 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jtfIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbBuscar))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jcbIDMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jbBuscar)
+                            .addComponent(jLabel6))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jcbIDMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
-                .addGap(20, 20, 20)
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabel7)))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbCobrado)
-                    .addComponent(jrbEntregado))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel4)
+                    .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(66, 66, 66)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,8 +240,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         //Limpia la pantalla para cargar un pedido nuevo
         jtfIDPedido.setText("");
-        jrbCobrado.setSelected(false);
-        jrbEntregado.setSelected(false);
         jbLimpiar.setEnabled(false);
         jbEliminar.setEnabled(false);
     }//GEN-LAST:event_jbLimpiarActionPerformed
@@ -286,8 +265,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 jtfIDPedido.setText(Integer.toString(pedidoBuscado.getIdPedido()));
                 jcbIDMesa.setSelectedItem(pedidoBuscado.getMesa().getIdMesa());
                 jcbMesero.setSelectedItem(pedidoBuscado.getMesero().getIdMesero());
-                jrbCobrado.setSelected(pedidoBuscado.isCobrado());
-                jrbEntregado.setSelected(pedidoBuscado.isEntregado());
+             
 
                 //Habilitamos los botones 'Limpiar' y 'Eliminar'
                 jbLimpiar.setEnabled(true);
@@ -306,41 +284,15 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private void jcbIDMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbIDMesaActionPerformed
         //Utilizamos el cambio de mesa para borrar la consulta anterior
         borrarFilas();
-        jrbCobrado.setSelected(false);
-        jrbEntregado.setSelected(false);
+       
         
     }//GEN-LAST:event_jcbIDMesaActionPerformed
 
     private void jcbMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMeseroActionPerformed
         //Utilizamos el cambio de mesa para borrar la consulta anterior
         borrarFilas();
-        jrbCobrado.setSelected(false);
-        jrbEntregado.setSelected(false);
+     
     }//GEN-LAST:event_jcbMeseroActionPerformed
-
-    private void jrbCobradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCobradoActionPerformed
-       //Instanciamos pedidoData para usar luego
-        PedidoData pedidoD = new PedidoData();
-
-        //Creamos una mesa y le asignamos la mesa seleccionada en la vista
-        Mesa m = (Alumno) jcbSeleccionarAlumno.getSelectedItem();
-
-        //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
-        if (jrbMatInscriptas.isSelected()) {
-            jrbMatNOInscriptas.setSelected(false);
-            jbAnularInsc.setEnabled(true);
-            jbInscribir.setEnabled(false);
-        }
-
-        //Borramos las filas evitando repeticiones
-        borrarFilas();
-
-        //Listamos las materias en la tabla
-        for (Materia aux : id.obtenerMateriasCursadas(a.getIdAlumno())) {
-            modelo.addRow(new Object[]{aux.getIdMateria(), aux.getNombre(), aux.getAnio()});
-        }
-
-    }//GEN-LAST:event_jrbCobradoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -360,8 +312,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbIDMesa;
     private javax.swing.JComboBox<String> jcbMesero;
-    private javax.swing.JRadioButton jrbCobrado;
-    private javax.swing.JRadioButton jrbEntregado;
     private javax.swing.JTable jtTablaProductosPedidos;
     private javax.swing.JTextField jtfIDPedido;
     // End of variables declaration//GEN-END:variables
@@ -370,7 +320,8 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         //Agregamos las cabeceras a la tabla
         modelo.addColumn("id");
         modelo.addColumn("nombre");
-        modelo.addColumn("año");
+        modelo.addColumn("precio");
+        modelo.addColumn("cantidad");
 
         //Seteamos el modelo a la tabla
         jtTablaProductosPedidos.setModel(modelo);
@@ -413,4 +364,14 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         }
     }
 
+     private void cargarTablaProductos(){
+         
+         ProductoData prodD = new ProductoData();
+         
+         //Listamos los productos en la tabla
+        for (Producto aux : prodD.listarProducto()) {
+            modelo.addRow(new Object[]{aux.getIdProducto(),aux.getNombre(), aux.getPrecio(), ""});
+        }
+         
+     }
 }

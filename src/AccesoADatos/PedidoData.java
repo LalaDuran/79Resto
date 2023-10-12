@@ -92,7 +92,7 @@ public class PedidoData {
     }
 
     public Pedido buscarPedidoPorID(int id) {
-        String sql = "SELECT id_mesa,id_mesero,cobrado,fecha_hora FROM pedido WHERE idPedido = ?  ";
+        String sql = "SELECT idMesa,idMesero,cobrado,fecha_hora FROM pedido WHERE idPedido = ?  ";
         //Creamos un pedido en null para setearlo luego
         Pedido pedidoABuscar = null;
         MesaData mesaD = new MesaData();
@@ -111,8 +111,8 @@ public class PedidoData {
             if (rs.next()) {
                 //Instanciamos pedidoABuscar y seteamos
                 pedidoABuscar = new Pedido();
-                pedidoABuscar.setMesa(mesaD.buscarMesaPorID(rs.getInt("id_mesa")));
-                pedidoABuscar.setMesero(meseroD.buscarMeseroPorID(rs.getInt("id_mesero")));
+                pedidoABuscar.setMesa(mesaD.buscarMesaPorID(rs.getInt("idMesa")));
+                pedidoABuscar.setMesero(meseroD.buscarMeseroPorID(rs.getInt("idMesero")));
                 pedidoABuscar.setCobrado(rs.getBoolean("cobrado"));
                 pedidoABuscar.setFecha_hora(rs.getTimestamp("fecha_hora"));
 
