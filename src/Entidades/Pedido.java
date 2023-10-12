@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 public class Pedido {
@@ -8,27 +9,30 @@ public class Pedido {
     private Mesa mesa;
     private List <Producto> productos;
     private Mesero mesero;
-    private SituacionPedido situacion;
+    private boolean entregado;
     private boolean cobrado;
+    private Timestamp fecha_hora;
 
     public Pedido() {
     }
 
-    public Pedido(Mesa mesa, List Producto, Mesero mesero, SituacionPedido situacion, boolean cobrado) {
+    public Pedido(Mesa mesa, List Producto, Mesero mesero, boolean entregado, boolean cobrado, Timestamp fecha_hora) {
         this.mesa = mesa;
         this.productos = new ArrayList<>();
         this.mesero = mesero;
-        this.situacion = situacion;
+        this.entregado = entregado;
         this.cobrado = cobrado;
+        this.fecha_hora = fecha_hora;
     }
 
-    public Pedido(int idPedido, Mesa mesa, List Producto, Mesero mesero,SituacionPedido situacion, boolean cobrado) {
+    public Pedido(int idPedido, Mesa mesa, List Producto, Mesero mesero, boolean entregado, boolean cobrado,Timestamp fecha_hora) {
         this.idPedido = idPedido;
         this.mesa = mesa;
         this.productos = new ArrayList<>();
         this.mesero = mesero;
-        this.situacion = situacion;
+        this.entregado = entregado;
         this.cobrado = cobrado;
+        this.fecha_hora = fecha_hora;
     }
 
     public int getIdPedido() {
@@ -63,12 +67,12 @@ public class Pedido {
         this.mesero = mesero;
     }
 
-    public SituacionPedido getSituacion() {
-        return situacion;
+    public boolean isEntregado() {
+        return entregado;
     }
 
-    public void setSituacion(SituacionPedido situacion) {
-        this.situacion = situacion;
+    public void setEntregado(boolean entregado) {
+        this.entregado = entregado;
     }
 
     public boolean isCobrado() {
@@ -79,9 +83,17 @@ public class Pedido {
         this.cobrado = cobrado;
     }
 
+    public Timestamp getFecha_hora() {
+        return fecha_hora;
+    }
+
+    public void setFecha_hora(Timestamp fecha_hora) {
+        this.fecha_hora = fecha_hora;
+    }
+
     @Override
     public String toString() {
-        return "Pedido "+ idPedido + " - mesa " + mesa + " - mesera/o " + mesero + ", est. " + cobrado;
+        return "Pedido "+ idPedido + " - mesa " + mesa + " - mesera/o " + mesero;
     }
     
 }

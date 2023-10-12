@@ -1,21 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
-/**
- *
- * @author morena
- */
+import AccesoADatos.*;
+import Entidades.*;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+
 public class ABMPedidos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ABMPedidos
-     */
+  
+    private final DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+    
     public ABMPedidos() {
         initComponents();
+        
+        //Carga los ID Mesas al jComboBox
+        cargarIDMesas();
+        
+        //Carga los meseros al jComboBox
+        cargarMeseros();
+    
+        //Carga la estructura de la tabla
+        armarTabla();
+        
+        //Inhabilita los botones 'Nuevo' y 'Eliminar'
+        jbLimpiar.setEnabled(false);
+        jbEliminar.setEnabled(false);
     }
 
     /**
@@ -35,7 +52,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jtfIDPedido = new javax.swing.JTextField();
         jcbIDMesa = new javax.swing.JComboBox<>();
         jcbMesero = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jrbCobrado = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTablaProductosPedidos = new javax.swing.JTable();
@@ -61,10 +78,25 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jLabel6.setText("Fecha y Hora");
 
         jcbIDMesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbIDMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbIDMesaActionPerformed(evt);
+            }
+        });
 
         jcbMesero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbMesero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMeseroActionPerformed(evt);
+            }
+        });
 
-        jRadioButton1.setText("Cobrado");
+        jrbCobrado.setText("Cobrado");
+        jrbCobrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbCobradoActionPerformed(evt);
+            }
+        });
 
         jtTablaProductosPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,10 +114,25 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jbGuardar.setText("GUARDAR");
 
         jbLimpiar.setText("LIMPIAR");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("SALIR");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setText("BUSCAR");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jrbEntregado.setText("Entregado");
 
@@ -95,17 +142,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jRadioButton1)
-                        .addGap(60, 60, 60)
-                        .addComponent(jrbEntregado)))
-                .addContainerGap(216, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -131,28 +167,40 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
                                         .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(35, 35, 35))
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(231, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(331, 331, 331)))
+                .addGap(36, 36, 36))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(248, 248, 248)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(jrbCobrado)
+                        .addGap(60, 60, 60)
+                        .addComponent(jrbEntregado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jbLimpiar)
-                                    .addGap(45, 45, 45)
-                                    .addComponent(jbEliminar)
-                                    .addGap(50, 50, 50)
-                                    .addComponent(jbGuardar)
-                                    .addGap(47, 47, 47)
-                                    .addComponent(jbSalir)
-                                    .addGap(34, 34, 34))
-                                .addComponent(jLabel7)))))
-                .addGap(36, 36, 36))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbLimpiar)
+                                .addGap(45, 45, 45)
+                                .addComponent(jbEliminar)
+                                .addGap(50, 50, 50)
+                                .addComponent(jbGuardar)
+                                .addGap(47, 47, 47)
+                                .addComponent(jbSalir)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,13 +231,11 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7))))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
+                    .addComponent(jrbCobrado)
                     .addComponent(jrbEntregado))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
-                .addComponent(jLabel8)
-                .addGap(249, 249, 249)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbLimpiar)
@@ -197,11 +243,104 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbSalir)
                         .addComponent(jbGuardar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        //Invisibiliza, deselecciona y cierra la ventana
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        //Limpia la pantalla para cargar un pedido nuevo
+        jtfIDPedido.setText("");
+        jrbCobrado.setSelected(false);
+        jrbEntregado.setSelected(false);
+        jbLimpiar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        //Si no completa el campo 'ID Pedido'
+        if (jtfIDPedido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe completar el campo 'ID Pedido'");
+
+        } else {
+            try {
+                //Asignamos a una variable el dato ingresado en la vista
+                int idPedidoBuscado = Integer.parseInt(jtfIDPedido.getText());
+
+                //Instanciamos un pedido y pedidoData para usar luego
+                PedidoData pedidoD = new PedidoData();
+                Pedido pedidoBuscado = new Pedido();
+
+                //Buscamos un pedido por su id usando buscar de pedidoData
+                pedidoBuscado = pedidoD.buscarPedidoPorID(idPedidoBuscado);
+
+                //Mostramos en la vista los datos del pedido encontrado
+                jtfIDPedido.setText(Integer.toString(pedidoBuscado.getIdPedido()));
+                jcbIDMesa.setSelectedItem(pedidoBuscado.getMesa().getIdMesa());
+                jcbMesero.setSelectedItem(pedidoBuscado.getMesero().getIdMesero());
+                jrbCobrado.setSelected(pedidoBuscado.isCobrado());
+                jrbEntregado.setSelected(pedidoBuscado.isEntregado());
+
+                //Habilitamos los botones 'Limpiar' y 'Eliminar'
+                jbLimpiar.setEnabled(true);
+                jbEliminar.setEnabled(true);
+
+            } catch (NumberFormatException nfe) {
+                //si ingresa letras o símbolos
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                jtfIDPedido.setText("");
+            } catch (NullPointerException npe) {
+                //si no existe alumno con el dni tipeado en la vista, salta el JOptionPane del método buscarAlumnoPorDni
+            }
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jcbIDMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbIDMesaActionPerformed
+        //Utilizamos el cambio de mesa para borrar la consulta anterior
+        borrarFilas();
+        jrbCobrado.setSelected(false);
+        jrbEntregado.setSelected(false);
+        
+    }//GEN-LAST:event_jcbIDMesaActionPerformed
+
+    private void jcbMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMeseroActionPerformed
+        //Utilizamos el cambio de mesa para borrar la consulta anterior
+        borrarFilas();
+        jrbCobrado.setSelected(false);
+        jrbEntregado.setSelected(false);
+    }//GEN-LAST:event_jcbMeseroActionPerformed
+
+    private void jrbCobradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCobradoActionPerformed
+       //Instanciamos pedidoData para usar luego
+        PedidoData pedidoD = new PedidoData();
+
+        //Creamos una mesa y le asignamos la mesa seleccionada en la vista
+        Mesa m = (Alumno) jcbSeleccionarAlumno.getSelectedItem();
+
+        //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
+        if (jrbMatInscriptas.isSelected()) {
+            jrbMatNOInscriptas.setSelected(false);
+            jbAnularInsc.setEnabled(true);
+            jbInscribir.setEnabled(false);
+        }
+
+        //Borramos las filas evitando repeticiones
+        borrarFilas();
+
+        //Listamos las materias en la tabla
+        for (Materia aux : id.obtenerMateriasCursadas(a.getIdAlumno())) {
+            modelo.addRow(new Object[]{aux.getIdMateria(), aux.getNombre(), aux.getAnio()});
+        }
+
+    }//GEN-LAST:event_jrbCobradoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -213,7 +352,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
@@ -222,8 +360,57 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbIDMesa;
     private javax.swing.JComboBox<String> jcbMesero;
+    private javax.swing.JRadioButton jrbCobrado;
     private javax.swing.JRadioButton jrbEntregado;
     private javax.swing.JTable jtTablaProductosPedidos;
     private javax.swing.JTextField jtfIDPedido;
     // End of variables declaration//GEN-END:variables
+    
+    private void armarTabla() {
+        //Agregamos las cabeceras a la tabla
+        modelo.addColumn("id");
+        modelo.addColumn("nombre");
+        modelo.addColumn("año");
+
+        //Seteamos el modelo a la tabla
+        jtTablaProductosPedidos.setModel(modelo);
+
+        //Impedimos el reordenamiento de la cabecera
+        jtTablaProductosPedidos.getTableHeader().setReorderingAllowed(false);
+
+        //para centrar las celdas del encabezado
+        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtTablaProductosPedidos.getTableHeader().getDefaultRenderer();
+        header.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //para centrar los datos de la primera columna
+        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaProductosPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
+
+    }
+
+    private void borrarFilas() {
+        //Evita la repetición de las filas en la tabla
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+     private void cargarIDMesas() {
+        //Cargamos los IDMesas al jComboBox
+        MesaData mesaD = new MesaData();
+
+        for (Mesa aux : mesaD.listarMesa()) {
+            jcbIDMesa.addItem(Integer.toString(aux.getIdMesa()));
+        }
+    }
+
+     private void cargarMeseros() {
+        //Cargamos los meseros al jComboBox
+        MeseroData meseroD = new MeseroData();
+
+        for (Mesero aux : meseroD.listarMesero()) {
+            jcbMesero.addItem(aux.toString());
+        }
+    }
+
 }

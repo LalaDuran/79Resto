@@ -91,6 +91,44 @@ public class PedidoData {
         
     }
 
+    public Pedido buscarPedidoPorID(int id) {
+        String sql = "SELECT id_mesa,id_mesero,cobrado,fecha_hora FROM pedido WHERE idPedido = ?  ";
+        //Creamos un pedido en null para setearlo luego
+        Pedido pedidoABuscar = null;
+        MesaData mesaD = new MesaData();
+        MeseroData meseroD = new MeseroData();
+
+        try {
+            //Prepara el comando SQL
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            //Asignamos el valor al parámetro dinámico
+            ps.setInt(1, id);
+
+            //Ejecutamos el comando SQL que devuelve un ResulSet; creamos variable
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                //Instanciamos pedidoABuscar y seteamos
+                pedidoABuscar = new Pedido();
+                pedidoABuscar.setMesa(mesaD.buscarMesaPorID(rs.getInt("id_mesa")));
+                pedidoABuscar.setMesero(meseroD.buscarMeseroPorID(rs.getInt("id_mesero")));
+                pedidoABuscar.setCobrado(rs.getBoolean("cobrado"));
+                pedidoABuscar.setFecha_hora(rs.getTimestamp("fecha_hora"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe pedido con ese ID");
+            }
+
+            //Liberamos recursos
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
+        }
+        return pedidoABuscar;
+    }
+    
     public List<Producto> listarProductoPedidoPorIdDePedido(int id) {
         //Sacamos 'estado' del WHERE igual que método anterior
         String sql = "SELECT * FROM productospedidos WHERE idPedido = ?";

@@ -52,6 +52,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         ABMPedidos = new javax.swing.JMenuItem();
         listadoPedidos = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         ABMmeseros = new javax.swing.JMenuItem();
         listadoMeseros = new javax.swing.JMenuItem();
@@ -150,6 +151,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(listadoPedidos);
+
+        jMenuItem2.setText("Cobranza / Entrega");
+        jMenu5.add(jMenuItem2);
 
         jMenuBar1.add(jMenu5);
 
@@ -330,6 +334,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem listadoMesas;
