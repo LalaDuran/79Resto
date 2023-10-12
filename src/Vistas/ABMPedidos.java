@@ -44,6 +44,8 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -63,6 +65,9 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
+
         setPreferredSize(new java.awt.Dimension(600, 500));
 
         jLabel1.setText("ABM DE PEDIDOS");
@@ -75,14 +80,12 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Fecha y Hora");
 
-        jcbIDMesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbIDMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbIDMesaActionPerformed(evt);
             }
         });
 
-        jcbMesero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbMesero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbMeseroActionPerformed(evt);
@@ -264,9 +267,10 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 //Mostramos en la vista los datos del pedido encontrado
                 jtfIDPedido.setText(Integer.toString(pedidoBuscado.getIdPedido()));
                 jcbIDMesa.setSelectedItem(pedidoBuscado.getMesa().getIdMesa());
-                jcbMesero.setSelectedItem(pedidoBuscado.getMesero().getIdMesero());
-             
-
+                jcbMesero.setSelectedItem(pedidoBuscado.getMesero().toString());
+                System.out.println(pedidoBuscado.getIdPedido());
+                
+                
                 //Habilitamos los botones 'Limpiar' y 'Eliminar'
                 jbLimpiar.setEnabled(true);
                 jbEliminar.setEnabled(true);
@@ -296,6 +300,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -304,13 +309,14 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbIDMesa;
+    private javax.swing.JComboBox<Integer> jcbIDMesa;
     private javax.swing.JComboBox<String> jcbMesero;
     private javax.swing.JTable jtTablaProductosPedidos;
     private javax.swing.JTextField jtfIDPedido;
@@ -351,7 +357,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         MesaData mesaD = new MesaData();
 
         for (Mesa aux : mesaD.listarMesa()) {
-            jcbIDMesa.addItem(Integer.toString(aux.getIdMesa()));
+            jcbIDMesa.addItem(aux.getIdMesa());
         }
     }
 

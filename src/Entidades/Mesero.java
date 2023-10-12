@@ -68,7 +68,7 @@ public class Mesero {
 
     @Override
     public String toString() {
-        return "Mesera/o " + idMesero + '\n'+ apellido + ", " + nombre + " - " + dni + ", est. " + estado;
+        return  idMesero + " - " + apellido + ", " + nombre;
     }
     
 

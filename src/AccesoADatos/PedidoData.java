@@ -18,7 +18,7 @@ public class PedidoData {
     }
 
     public void guardarPedido(Pedido pedido, productoPedido pp) {
-        String sql = "INSERT INTO pedido (idMesa,idMesero,cobrado,fecha_hora) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO pedido (idMesa,idMesero,cobrado,fecha_hora,entregado) VALUES (?,?,?,?,?)";
         String sql2 = "INSERT INTO productosPedidos (idProducto,cantidadPedida,idPedido) VALUES (?,?,?)";
 
         ProductoData pd = new ProductoData();
@@ -30,14 +30,16 @@ public class PedidoData {
             //Asignamos los valores a los parámetros dinámicos 
             ps.setInt(1, pedido.getMesa().getIdMesa());
             ps.setInt(2, pedido.getMesero().getIdMesero());
-            ps.setBoolean(3, true);
             
+            ps.setBoolean(3, false);
+            ps.setTimestamp(4, pedido.getFecha_hora());
+            ps.setBoolean(5, false);
 
             
             //Ejecutamos el comando SQL
             ps.executeUpdate();
 
-            //Recuperamos el id_alumno generado autoincremental
+            //Recuperamos el idPedido generado autoincremental
             ResultSet rs = ps.getGeneratedKeys();
  //           Timestamp timestamp = rs.getTimestamp("tu_campo_datetime");
             //Asignamos el id generado 
@@ -92,7 +94,7 @@ public class PedidoData {
     }
 
     public Pedido buscarPedidoPorID(int id) {
-        String sql = "SELECT idMesa,idMesero,cobrado,fecha_hora FROM pedido WHERE idPedido = ?  ";
+        String sql = "SELECT idMesa,idMesero,cobrado,fecha_hora,entregado FROM pedido WHERE idPedido = ?  ";
         //Creamos un pedido en null para setearlo luego
         Pedido pedidoABuscar = null;
         MesaData mesaD = new MesaData();
@@ -111,11 +113,12 @@ public class PedidoData {
             if (rs.next()) {
                 //Instanciamos pedidoABuscar y seteamos
                 pedidoABuscar = new Pedido();
+                pedidoABuscar.setIdPedido(id);
                 pedidoABuscar.setMesa(mesaD.buscarMesaPorID(rs.getInt("idMesa")));
                 pedidoABuscar.setMesero(meseroD.buscarMeseroPorID(rs.getInt("idMesero")));
                 pedidoABuscar.setCobrado(rs.getBoolean("cobrado"));
                 pedidoABuscar.setFecha_hora(rs.getTimestamp("fecha_hora"));
-
+                pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe pedido con ese ID");
             }
