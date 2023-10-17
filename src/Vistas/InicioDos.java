@@ -129,7 +129,7 @@ public class InicioDos extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/mesero200.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mesero200.png"))); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
         jLabel5.setText("Usuario");
@@ -172,7 +172,7 @@ public class InicioDos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/bar_1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar_1.png"))); // NOI18N
 
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

@@ -91,7 +91,7 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/mesero200.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mesero200.png"))); // NOI18N
 
         panelRegistrar.setBackground(new java.awt.Color(255, 82, 17));
 

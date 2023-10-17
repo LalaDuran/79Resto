@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+   
     /**
      * Creates new form MenuPrincipal
      */
@@ -21,8 +23,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         //Abre la ventana del menú en el centro
         this.setLocationRelativeTo(null);
 
+        escritorio = new EscritorioPersonalizado();
+        this.setContentPane(escritorio);
         //Impide que se modifique el tamaño de la ventana
         this.setResizable(false);
+        
         
         
     }
@@ -67,9 +72,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem8.setText("jMenuItem8");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1000, 600));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 535));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 550));
 
+        escritorio.setBackground(new java.awt.Color(255, 102, 102));
         escritorio.setPreferredSize(new java.awt.Dimension(1000, 1055));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
@@ -80,7 +87,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -91,8 +98,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
         );
+
+        jMenuBar1.setBackground(java.awt.Color.orange);
+        jMenuBar1.setFont(new java.awt.Font("Yu Gothic Medium", 0, 12)); // NOI18N
 
         jMenu2.setText("Mesas");
 

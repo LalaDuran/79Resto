@@ -13,8 +13,14 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 
   
     private final DefaultTableModel modelo = new DefaultTableModel() {
+        
         public boolean isCellEditable(int f, int c) {
-            return false;
+            if(c == 3){
+                return true;
+            } else {
+              return false;  
+            }
+            
         }
     };
     
@@ -26,9 +32,8 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         
         //Carga los meseros al jComboBox
         cargarMeseros();
-    
-        //Carga la estructura de la tabla
-        armarTabla();
+        
+ 
         
         //Inhabilita los botones 'Nuevo' y 'Eliminar'
         jbLimpiar.setEnabled(false);
@@ -55,8 +60,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jcbIDMesa = new javax.swing.JComboBox<>();
         jcbMesero = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtTablaProductosPedidos = new javax.swing.JTable();
         jbGuardar = new javax.swing.JButton();
         jbLimpiar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
@@ -64,6 +67,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jbEliminar = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        btnAgregProd = new javax.swing.JButton();
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
@@ -92,19 +96,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jtTablaProductosPedidos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jtTablaProductosPedidos);
-
         jbGuardar.setText("GUARDAR");
 
         jbLimpiar.setText("LIMPIAR");
@@ -129,6 +120,18 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         });
 
         jbEliminar.setText("ELIMINAR");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
+
+        btnAgregProd.setText("Agregar Productos");
+        btnAgregProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregProdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,19 +148,13 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbLimpiar)
-                                .addGap(45, 45, 45)
-                                .addComponent(jbEliminar)
-                                .addGap(50, 50, 50)
-                                .addComponent(jbGuardar)
-                                .addGap(47, 47, 47)
-                                .addComponent(jbSalir)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jbLimpiar)
+                        .addGap(45, 45, 45)
+                        .addComponent(jbEliminar)
+                        .addGap(50, 50, 50)
+                        .addComponent(jbGuardar)
+                        .addGap(47, 47, 47)
+                        .addComponent(jbSalir))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(232, 232, 232)
                         .addComponent(jLabel8))
@@ -177,16 +174,17 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                                     .addComponent(jbBuscar)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
+                                .addGap(27, 27, 27)
+                                .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAgregProd)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(77, 77, 77))))
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,17 +197,11 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jtfIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbBuscar)
-                            .addComponent(jLabel6))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jcbIDMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jbBuscar))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jcbIDMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jLabel7)))
@@ -217,9 +209,13 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addComponent(btnAgregProd)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbLimpiar)
@@ -298,8 +294,47 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_jcbMeseroActionPerformed
 
+    private void btnAgregProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregProdActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+
+         if (jtfIDPedido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Complete el campo 'ID Pedido'");
+
+        } else {
+            try {
+                //Instanciamos pedido y pedidoData para usar luego
+                Pedido p = new Pedido();
+                PedidoData pedidoD = new PedidoData();
+
+                //Creamos una variable con el ID tipeado en la vista
+                int IDPedidoAEliminar = Integer.parseInt(jtfIDPedido.getText());
+
+                //Buscamos el pedido con ese id y lo enviamos a los pedidos ya creado
+                p = pedidoD.buscarPedidoPorID(IDPedidoAEliminar);
+
+                //Eliminamos la mesa llamando al método eliminarMesa de mesaData
+                pedidoD.eliminarPedido(p.getIdPedido());
+
+                //Limpiamos los campos de la vista
+                jtfIDPedido.setText("");
+                jcbMesero.setSelectedItem(null);
+                jcbIDMesa.setSelectedItem(null);
+                
+
+            } catch (NumberFormatException ex) {
+                //Si no tipea un documento en la vista
+                JOptionPane.showMessageDialog(null, "Ingrese un ID Pedido");
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregProd;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -310,7 +345,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
@@ -318,33 +352,32 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Integer> jcbIDMesa;
     private javax.swing.JComboBox<String> jcbMesero;
-    private javax.swing.JTable jtTablaProductosPedidos;
     private javax.swing.JTextField jtfIDPedido;
     // End of variables declaration//GEN-END:variables
     
-    private void armarTabla() {
-        //Agregamos las cabeceras a la tabla
-        modelo.addColumn("id");
-        modelo.addColumn("nombre");
-        modelo.addColumn("precio");
-        modelo.addColumn("cantidad");
-
-        //Seteamos el modelo a la tabla
-        jtTablaProductosPedidos.setModel(modelo);
-
-        //Impedimos el reordenamiento de la cabecera
-        jtTablaProductosPedidos.getTableHeader().setReorderingAllowed(false);
-
-        //para centrar las celdas del encabezado
-        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtTablaProductosPedidos.getTableHeader().getDefaultRenderer();
-        header.setHorizontalAlignment(SwingConstants.CENTER);
-
-        //para centrar los datos de la primera columna
-        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
-        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
-        jtTablaProductosPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
-
-    }
+//    private void armarTabla() {
+//        //Agregamos las cabeceras a la tabla
+//        modelo.addColumn("id");
+//        modelo.addColumn("nombre");
+//        modelo.addColumn("precio");
+//        modelo.addColumn("cantidad");
+//
+//        Seteamos el modelo a la tabla
+//        jtTablaProductosPedidos.setModel(modelo);
+//
+//        //Impedimos el reordenamiento de la cabecera
+//        jtTablaProductosPedidos.getTableHeader().setReorderingAllowed(false);
+//
+//        //para centrar las celdas del encabezado
+//        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtTablaProductosPedidos.getTableHeader().getDefaultRenderer();
+//        header.setHorizontalAlignment(SwingConstants.CENTER);
+//
+//        //para centrar los datos de la primera columna
+//        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
+//        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+//        jtTablaProductosPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
+//
+//    }
 
     private void borrarFilas() {
         //Evita la repetición de las filas en la tabla
@@ -369,15 +402,22 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
             jcbMesero.addItem(aux.toString());
         }
     }
-
-     private void cargarTablaProductos(){
-         
-         ProductoData prodD = new ProductoData();
-         
-         //Listamos los productos en la tabla
-        for (Producto aux : prodD.listarProducto()) {
-            modelo.addRow(new Object[]{aux.getIdProducto(),aux.getNombre(), aux.getPrecio(), ""});
-        }
-         
-     }
 }
+// private void cargarProductos() {
+//        //Cargamos los productos al jComboBox
+//        ProductoData prodData = new ProductoData();
+//
+//        for (Producto aux : prodData.listarProducto()) {
+//            cbProductos.addItem(aux);
+//        }
+//    }
+     
+//     private void cargarTablaProductos(){
+//         
+//         ProductoData prodD = new ProductoData();
+//         
+//         //Listamos los productos en la tabla
+//        for (Producto aux : prodD.listarProducto()) {
+//            modelo.addRow(new Object[]{aux.getIdProducto(),aux.getNombre(), aux.getPrecio(), spinner.getValue()});
+//        }
+         
