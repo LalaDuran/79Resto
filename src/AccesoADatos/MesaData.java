@@ -45,6 +45,8 @@ public class MesaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesa'");
+        }catch (NullPointerException ex){
+            
         }
     }
     
@@ -74,6 +76,8 @@ public class MesaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesa'");
+        }catch (NullPointerException ex){
+            
         }
     }
     
@@ -99,6 +103,8 @@ public class MesaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesa'");
+        }catch (NullPointerException ex){
+            
         }
     }
     
@@ -136,6 +142,8 @@ public class MesaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesa'");
+        }catch (NullPointerException ex){
+            
         }
         return mesaABuscar;
     }
@@ -172,6 +180,8 @@ public class MesaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesa'");
+        } catch (NullPointerException ex){
+            
         }
         return mesas;
     }

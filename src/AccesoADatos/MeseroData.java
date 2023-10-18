@@ -51,6 +51,8 @@ public class MeseroData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesero'");
+        } catch (NullPointerException ex){
+            
         }
     }
 
@@ -131,6 +133,8 @@ public class MeseroData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesero'");
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
     }
 
@@ -167,6 +171,8 @@ public class MeseroData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesero'");
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return meseroABuscar;
     }
@@ -207,6 +213,8 @@ public class MeseroData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesero'");
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return meseroABuscar;
     }
@@ -243,6 +251,8 @@ public class MeseroData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'mesero'");
+        } catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return meseros;
     }

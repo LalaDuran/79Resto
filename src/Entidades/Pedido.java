@@ -93,7 +93,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido "+ idPedido + " - mesa " + mesa + " - mesera/o " + mesero;
+        return "Pedido "+ idPedido + " - " + mesa + " - mesera/o " + mesero;
     }
     
 }

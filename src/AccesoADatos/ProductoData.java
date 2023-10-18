@@ -171,6 +171,8 @@ public class ProductoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'producto'");
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return productos;
     }

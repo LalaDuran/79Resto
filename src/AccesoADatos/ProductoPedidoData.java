@@ -55,6 +55,34 @@ public class ProductoPedidoData {
         
     }
     
+    public void modificarProdPed(productoPedido pp){
+        
+        String sql = "UPDATE productospedidos SET cantidadPedida = ? WHERE idProducto = ? AND idPedido = ?";
+
+        try {
+            //Prepara el comando SQL
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            //Asignamos los valores a los parámetros dinámicos
+            ps.setInt(1, pp.getCantPedida());
+            ps.setInt(2, pp.getProducto().getIdProducto());
+            ps.setInt(3, pp.getPedido().getIdPedido());
+            //Ejecutamos el comando SQL que devuelve un entero; creamos variable
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Producto modificado");
+            }
+
+            //Liberamos recursos
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'producto'");
+        }
+        
+    }
+    
     public void eliminarProductoPedido(int id) {
         String sql = "DELETE FROM productospedidos WHERE idProducto = ? ";
 
@@ -114,6 +142,8 @@ public class ProductoPedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'productospedidos'");
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return productos;
     }

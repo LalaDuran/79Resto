@@ -1,40 +1,37 @@
-
 package Vistas;
 
 import AccesoADatos.*;
 import Entidades.*;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ABMPedidos extends javax.swing.JInternalFrame {
 
-  
+    
     private final DefaultTableModel modelo = new DefaultTableModel() {
-        
+
         public boolean isCellEditable(int f, int c) {
-            if(c == 3){
+            if (c == 3) {
                 return true;
             } else {
-              return false;  
+                return false;
             }
-            
+
         }
     };
-    
+
     public ABMPedidos() {
         initComponents();
-        
+
         //Carga los ID Mesas al jComboBox
         cargarIDMesas();
-        
+
         //Carga los meseros al jComboBox
         cargarMeseros();
-        
- 
-        
+
         //Inhabilita los botones 'Nuevo' y 'Eliminar'
         jbLimpiar.setEnabled(false);
         jbEliminar.setEnabled(false);
@@ -265,8 +262,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 jcbIDMesa.setSelectedItem(pedidoBuscado.getMesa().getIdMesa());
                 jcbMesero.setSelectedItem(pedidoBuscado.getMesero().toString());
                 System.out.println(pedidoBuscado.getIdPedido());
-                
-                
+
                 //Habilitamos los botones 'Limpiar' y 'Eliminar'
                 jbLimpiar.setEnabled(true);
                 jbEliminar.setEnabled(true);
@@ -284,23 +280,30 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private void jcbIDMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbIDMesaActionPerformed
         //Utilizamos el cambio de mesa para borrar la consulta anterior
         borrarFilas();
-       
-        
+
+
     }//GEN-LAST:event_jcbIDMesaActionPerformed
 
     private void jcbMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMeseroActionPerformed
         //Utilizamos el cambio de mesa para borrar la consulta anterior
         borrarFilas();
-     
+
     }//GEN-LAST:event_jcbMeseroActionPerformed
 
     private void btnAgregProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregProdActionPerformed
-        // TODO add your handling code here:
+
+        ABMproductospedidos pp = new ABMproductospedidos();
+        MenuPrincipal.escritorio.add(pp);
+       
+        pp.setVisible(true);
+        pp.moveToFront();
+  
+     
     }//GEN-LAST:event_btnAgregProdActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
 
-         if (jtfIDPedido.getText().isEmpty()) {
+        if (jtfIDPedido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Complete el campo 'ID Pedido'");
 
         } else {
@@ -322,7 +325,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 jtfIDPedido.setText("");
                 jcbMesero.setSelectedItem(null);
                 jcbIDMesa.setSelectedItem(null);
-                
 
             } catch (NumberFormatException ex) {
                 //Si no tipea un documento en la vista
@@ -354,7 +356,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jcbMesero;
     private javax.swing.JTextField jtfIDPedido;
     // End of variables declaration//GEN-END:variables
-    
+
 //    private void armarTabla() {
 //        //Agregamos las cabeceras a la tabla
 //        modelo.addColumn("id");
@@ -378,14 +380,14 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 //        jtTablaProductosPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
 //
 //    }
-
     private void borrarFilas() {
         //Evita la repetición de las filas en la tabla
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
     }
-     private void cargarIDMesas() {
+
+    private void cargarIDMesas() {
         //Cargamos los IDMesas al jComboBox
         MesaData mesaD = new MesaData();
 
@@ -394,7 +396,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         }
     }
 
-     private void cargarMeseros() {
+    private void cargarMeseros() {
         //Cargamos los meseros al jComboBox
         MeseroData meseroD = new MeseroData();
 
@@ -411,7 +413,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 //            cbProductos.addItem(aux);
 //        }
 //    }
-     
+
 //     private void cargarTablaProductos(){
 //         
 //         ProductoData prodD = new ProductoData();
@@ -420,4 +422,4 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 //        for (Producto aux : prodD.listarProducto()) {
 //            modelo.addRow(new Object[]{aux.getIdProducto(),aux.getNombre(), aux.getPrecio(), spinner.getValue()});
 //        }
-         
+

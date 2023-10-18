@@ -6,6 +6,8 @@
 package Vistas;
 
 import java.awt.Color;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -76,7 +78,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 550));
 
-        escritorio.setBackground(new java.awt.Color(255, 102, 102));
         escritorio.setPreferredSize(new java.awt.Dimension(1000, 1055));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
@@ -215,6 +216,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JDesktopPane getDesktopPane(){
+        return escritorio;
+    }
     private void ABMmesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMmesasActionPerformed
         escritorio.removeAll(); //para que cierre las ventanas que pudieran estar abiertas
         escritorio.repaint(); //para que lo redibuje
@@ -292,6 +296,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.moveToFront(lmeseros); //la abre y trae adelante
     }//GEN-LAST:event_listadoMeserosActionPerformed
 
+    public void agregarVentana(JInternalFrame subVentana) {
+         escritorio.repaint();
+       escritorio.add(subVentana);
+     
+        subVentana.moveToFront();
+        subVentana.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -335,7 +346,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ABMmesas;
     private javax.swing.JMenuItem ABMmeseros;
     private javax.swing.JMenuItem ABMproductos;
-    private javax.swing.JDesktopPane escritorio;
+    public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
