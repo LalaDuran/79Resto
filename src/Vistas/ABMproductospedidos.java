@@ -51,6 +51,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         modelo.addColumn("Id Producto");
         modelo.addColumn("Producto");
         modelo.addColumn("cantidad");
+        modelo.addColumn("SubTotal");
 
         //Seteamos el modelo a la tabla
         jtProductosPedidos.setModel(modelo);
@@ -255,7 +256,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         borrarFilas();
         //Listamos los productos en la tabla
         for (productoPedido aux : ppd.listarProductoPedidoPorIdDePedido(p.getIdPedido())) {
-            modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida()});
+            modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(), aux.getPrecio()});
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -280,7 +281,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
 
             //Listamos los productos en la tabla
             for (productoPedido aux : pd.listarProductoPedidoPorIdDePedido(p.getIdPedido())) {
-                modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida()});
+                modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(), aux.getProducto().getPrecio()});
             }
         }
 

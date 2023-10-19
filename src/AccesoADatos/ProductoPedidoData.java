@@ -30,7 +30,7 @@ public class ProductoPedidoData {
 
     public void agregarProductos(productoPedido pp) {
 
-        String sql2 = "INSERT INTO productosPedidos (idProducto,cantidadPedida,idPedido) VALUES (?,?,?)";
+        String sql2 = "INSERT INTO productosPedidos (idProducto,cantidadPedida,idPedido,precio) VALUES (?,?,?,?)";
 
         try {
 
@@ -40,11 +40,11 @@ public class ProductoPedidoData {
 
             ps.setInt(2, pp.getCantPedida());
             ps.setInt(3, pp.getPedido().getIdPedido());
-            
+            ps.setDouble(4, pp.getProducto().getPrecio());
 
             //Ejecutamos el comando SQL
             ps.executeUpdate();
-            
+
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'productospedidos'");
@@ -52,12 +52,12 @@ public class ProductoPedidoData {
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             JOptionPane.showMessageDialog(null, "Error: lista vacía");
         }
-        
+
     }
-    
-    public void modificarProdPed(productoPedido pp){
-        
-        String sql = "UPDATE productospedidos SET cantidadPedida = ? WHERE idProducto = ? AND idPedido = ?";
+
+    public void modificarProdPed(productoPedido pp) {
+
+        String sql = "UPDATE productospedidos SET cantidadPedida = ?, precio = ? WHERE idProducto = ? AND idPedido = ?";
 
         try {
             //Prepara el comando SQL
@@ -67,6 +67,7 @@ public class ProductoPedidoData {
             ps.setInt(1, pp.getCantPedida());
             ps.setInt(2, pp.getProducto().getIdProducto());
             ps.setInt(3, pp.getPedido().getIdPedido());
+            ps.setDouble(4, pp.getProducto().getPrecio());
             //Ejecutamos el comando SQL que devuelve un entero; creamos variable
             int exito = ps.executeUpdate();
 
@@ -80,9 +81,9 @@ public class ProductoPedidoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'producto'");
         }
-        
+
     }
-    
+
     public void eliminarProductoPedido(int id) {
         String sql = "DELETE FROM productospedidos WHERE idProducto = ? ";
 
@@ -107,8 +108,8 @@ public class ProductoPedidoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'productospedidos'");
         }
     }
-    
-     public List<productoPedido> listarProductoPedidoPorIdDePedido(int id) {
+
+    public List<productoPedido> listarProductoPedidoPorIdDePedido(int id) {
         //Sacamos 'estado' del WHERE igual que método anterior
         String sql = "SELECT * FROM productospedidos WHERE idPedido = ?";
 
@@ -130,7 +131,8 @@ public class ProductoPedidoData {
                 productoABuscar.setProducto(pd.buscarProductoPorID(rs.getInt("idProducto")));
                 productoABuscar.setPedido(pedD.buscarPedidoPorID(rs.getInt("idPedido")));
                 productoABuscar.setCantPedida(rs.getInt("cantidadPedida"));
-       //         System.out.println(rs.getInt("idProducto"));
+                productoABuscar.setPrecio(rs.getDouble("precio"));
+                //         System.out.println(rs.getInt("idProducto"));
                 ;
 
                 //Agregamos el alumno al arraylist
@@ -142,10 +144,24 @@ public class ProductoPedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'productospedidos'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return productos;
     }
+
+     
+    public double calcularTotal(int id) {
+    double total = 0;
+
+    // Supongamos que listarProductoPedidoPorIdDePedido(id) devuelve una lista de ProductoPedido
+    List<productoPedido> listaProductos = listarProductoPedidoPorIdDePedido(id);
+
+    for(productoPedido producto : listaProductos){
+        total += producto.getPrecio(); // Aquí deberías acceder al precio del producto
+    }
+
+    return total;
+}
 
 }

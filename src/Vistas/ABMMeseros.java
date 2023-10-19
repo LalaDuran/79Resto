@@ -1,18 +1,15 @@
-
 package Vistas;
 
 import AccesoADatos.*;
 import Entidades.*;
 import javax.swing.JOptionPane;
 
-
 public class ABMMeseros extends javax.swing.JInternalFrame {
 
-    
     public ABMMeseros() {
         initComponents();
-        
-         //Inhabilita los botones 'Nuevo' y 'Eliminar'
+
+        //Inhabilita los botones 'Nuevo' y 'Eliminar'
         jbLimpiar.setEnabled(false);
         jbEliminar.setEnabled(false);
     }
@@ -190,7 +187,7 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-           //Invisibiliza, deselecciona y cierra la ventana
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
@@ -236,16 +233,19 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
         //Instanciamos meseroData para usar luego
         MeseroData meseroD = new MeseroData();
 
+        if (jtfIDMesero.getText().isEmpty()) {
+            jtfIDMesero.setText("-1");
+        }
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
-            int idMeseroAGuardar = Integer.parseInt(jtfIDMesero.getText());
+            //    int idMeseroAGuardar = Integer.parseInt(jtfIDMesero.getText());
             String apellidoAGuardar = jtfApellido.getText();
             String nombreAGuardar = jtfNombre.getText();
             int dniAGuardar = Integer.parseInt(jtfDNI.getText());
             boolean activoAGuardar = jrbActivo.isSelected();
 
             //Instanciamos un mesero con los parámetros anteriores
-            Mesero m = new Mesero(idMeseroAGuardar,apellidoAGuardar,nombreAGuardar,dniAGuardar,activoAGuardar);
+            Mesero m = new Mesero(apellidoAGuardar, nombreAGuardar, dniAGuardar, activoAGuardar);
 
             //declaramos una variable bandera por si ya existe el id tipeado en vista
             boolean existeID = false;
@@ -253,9 +253,9 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
             //Recorremos la lista de meseros existentes
             for (Mesero existingMesero : meseroD.listarMesero()) {
 
-                if (existingMesero.getIdMesero() == m.getIdMesero()) {
+                if (existingMesero.getIdMesero() == Integer.parseInt(jtfIDMesero.getText())) {
                     //Si existe el mesero, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
-                    m.setIdMesero(meseroD.buscarMeseroPorID(m.getIdMesero()).getIdMesero());
+                    m.setIdMesero(meseroD.buscarMeseroPorID(Integer.parseInt(jtfIDMesero.getText())).getIdMesero());
                     existeID = true;
                     break;
                 }
@@ -268,8 +268,11 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
             }
 
             //Habilitamos los botones 'Eliminar' y 'Limpiar'
-            jbEliminar.setEnabled(true);
-            jbLimpiar.setEnabled(true);
+            jtfIDMesero.setText("");
+            jtfApellido.setText("");
+            jtfNombre.setText("");
+            jtfDNI.setText("");
+            jrbActivo.setSelected(false);
 
         } catch (NullPointerException ex) {
             //Si algún campo está vacío
@@ -281,7 +284,7 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-       //Si el campo ID Mesero está vacío
+        //Si el campo ID Mesero está vacío
         if (jtfIDMesero.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Complete el campo 'ID Mesero'");
 

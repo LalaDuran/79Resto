@@ -85,6 +85,11 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
         });
 
         jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Activos", "No Activos" }));
+        jcbEstado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbEstadoItemStateChanged(evt);
+            }
+        });
 
         jLabel4.setText("Estado:");
 
@@ -212,6 +217,11 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jtfBusquedaDNIKeyReleased
+
+    private void jcbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbEstadoItemStateChanged
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbEstadoItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

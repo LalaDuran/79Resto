@@ -5,6 +5,10 @@
  */
 package Vistas;
 
+import AccesoADatos.*;
+import Entidades.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Adriana
@@ -16,6 +20,8 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
      */
     public CobranzaEntrega() {
         initComponents();
+        cargarPedidos();
+
     }
 
     /**
@@ -38,17 +44,38 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
 
         jLabel1.setText("COBRANZA Y ENTREGA DE PEDIDOS");
 
-        jcbIDPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbIDPedido.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbIDPedidoItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Buscar por Id Pedido");
 
         jbEntregar.setText("ENTREGAR");
+        jbEntregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEntregarActionPerformed(evt);
+            }
+        });
 
         jbCobrar.setText("COBRAR");
+        jbCobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCobrarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("SALIR");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Total: ");
+
+        jtfTotal.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,11 +87,11 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
                 .addGap(130, 130, 130))
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jcbIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jcbIDPedido, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
@@ -103,6 +130,44 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jcbIDPedidoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbIDPedidoItemStateChanged
+
+        int id = (int) jcbIDPedido.getSelectedItem();
+        PedidoData pd = new PedidoData();
+        ProductoPedidoData ppd = new ProductoPedidoData();
+        double total = 0;
+
+        total = ppd.calcularTotal(id);
+
+        jtfTotal.setText(String.valueOf(total));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbIDPedidoItemStateChanged
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCobrarActionPerformed
+
+        PedidoData pd = new PedidoData();
+        pd.cobrar((int) jcbIDPedido.getSelectedItem());
+    }//GEN-LAST:event_jbCobrarActionPerformed
+
+    private void jbEntregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEntregarActionPerformed
+
+        PedidoData pd = new PedidoData();
+        pd.entregar((int) jcbIDPedido.getSelectedItem());
+    }//GEN-LAST:event_jbEntregarActionPerformed
+
+    public void cargarPedidos() {
+
+        PedidoData pd = new PedidoData();
+
+        for (Pedido aux : pd.listarPedidos()) {
+            jcbIDPedido.addItem(aux.getIdPedido());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -111,7 +176,7 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbCobrar;
     private javax.swing.JButton jbEntregar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbIDPedido;
+    private javax.swing.JComboBox<Integer> jcbIDPedido;
     private javax.swing.JTextField jtfTotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -164,6 +164,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu5.add(listadoPedidos);
 
         jMenuItem2.setText("Cobranza / Entrega");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem2);
 
         jMenuBar1.add(jMenu5);
@@ -295,6 +300,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.add(lmeseros); //la agrega al escritorio
         escritorio.moveToFront(lmeseros); //la abre y trae adelante
     }//GEN-LAST:event_listadoMeserosActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        escritorio.removeAll(); //para que cierre las ventanas que pudieran estar abiertas
+        escritorio.repaint(); //para que lo redibuje
+        CobranzaEntrega ce = new CobranzaEntrega(); //instancia la ventana (aún invis.)
+        ce.setVisible(true); //la hace visible
+        escritorio.add(ce); //la agrega al escritorio
+        escritorio.moveToFront(ce); //la abre y trae adelante
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public void agregarVentana(JInternalFrame subVentana) {
          escritorio.repaint();

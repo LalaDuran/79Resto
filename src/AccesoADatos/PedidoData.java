@@ -79,7 +79,7 @@ public class PedidoData {
     }
 
     public void cobrar(int id) {
-        String sql = "UPDATE mesa SET cobrado = 1 WHERE idPedido = ? ";
+        String sql = "UPDATE pedido SET cobrado = 1 WHERE idPedido = ? ";
 
         try {
             //Prepara el comando SQL
@@ -106,7 +106,7 @@ public class PedidoData {
     
 
     public void entregar(int id) {
-        String sql = "UPDATE mesa SET entregado = 1 WHERE idPedido = ? ";
+        String sql = "UPDATE pedido SET entregado = 1 WHERE idPedido = ? ";
 
         try {
             //Prepara el comando SQL

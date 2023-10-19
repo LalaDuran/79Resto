@@ -50,8 +50,9 @@ public class ProductoData {
     }
 
     public void modificarProducto(Producto prod) {
-        String sql = "UPDATE mesero SET nombre = ?, cant_stock = ?, precio = ?, estado = ? WHERE idProducto = ?";
+        String sql = "UPDATE producto SET nombre = ?, cant_stock = ?, precio = ?, estado = ? WHERE idProducto = ?";
 
+        System.out.println("hola");
         try {
             //Prepara el comando SQL
             PreparedStatement ps = con.prepareStatement(sql);
@@ -61,10 +62,12 @@ public class ProductoData {
             ps.setInt(2, prod.getCant_stock());
             ps.setDouble(3, prod.getPrecio());
             ps.setBoolean(4, prod.isEstado());
+            ps.setInt(5, prod.getIdProducto());
 
             //Ejecutamos el comando SQL que devuelve un entero; creamos variable
             int exito = ps.executeUpdate();
 
+            System.out.println(exito);
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Producto modificado");
             }
@@ -77,8 +80,33 @@ public class ProductoData {
         }
     }
 
+//    public void eliminarProducto(int id) {
+//        String sql = "DELETE FROM producto WHERE idProducto = ? ";
+//
+//        try {
+//            //Prepara el comando SQL
+//            PreparedStatement ps = con.prepareStatement(sql);
+//
+//            //Asignamos el valor al parámetro dinámico
+//            ps.setInt(1, id);
+//
+//            //Ejecutamos el comando SQL que devuelve un entero; creamos variable
+//            int exito = ps.executeUpdate();
+//
+//            if (exito == 1) {
+//                JOptionPane.showMessageDialog(null, "Producto eliminado");
+//            }
+//
+//            //Liberamos recursos
+//            ps.close();
+//
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'producto'");
+//        }
+//    }
+//    
     public void eliminarProducto(int id) {
-        String sql = "DELETE FROM producto WHERE idProducto = ? ";
+        String sql = "UPDATE producto SET estado = 0, cant_stock = 0 WHERE idProducto = ? ";
 
         try {
             //Prepara el comando SQL

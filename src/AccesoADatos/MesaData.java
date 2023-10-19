@@ -17,7 +17,7 @@ public class MesaData {
     }
     
     public void guardarMesa(Mesa mesa) {
-        String sql = "INSERT INTO mesa (capacidad,estado,numero) VALUES (?,?,?)";
+        String sql = "INSERT INTO mesa (capacidad,estado,numero,ocupada) VALUES (?,?,?,?)";
 
         try {
             //Prepara el comando SQL con RETURN GENERATED KEYS para que devuelva el 
@@ -27,6 +27,7 @@ public class MesaData {
             ps.setInt(1, mesa.getCapacidad());
             ps.setBoolean(2, true);
             ps.setInt(3,mesa.getNumero());
+            ps.setBoolean(4, mesa.isOcupada());
 
             //Ejecutamos el comando SQL
             ps.executeUpdate();
@@ -95,7 +96,7 @@ public class MesaData {
             int exito = ps.executeUpdate();
 
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Mesa ocupada");
+                JOptionPane.showMessageDialog(null, "Mesa Eliminada");
             }
 
             //Liberamos recursos

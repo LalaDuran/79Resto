@@ -15,22 +15,22 @@ import javax.swing.JOptionPane;
  * @author morena
  */
 public class ABMMesas extends javax.swing.JInternalFrame {
+
     Color naranja = new Color(255, 84, 25);
+
     /**
      * Creates new form Mesas
      */
     public ABMMesas() {
         initComponents();
         jPanel1.setBackground(Color.WHITE);
-        
+
         panelMesas.setBackground(naranja);
         Mesas.setForeground(Color.WHITE);
         //Inhabilita los botones 'Nuevo' y 'Eliminar'
         jbLimpiar.setEnabled(false);
         jbEliminar.setEnabled(false);
-        
-        
-        
+
     }
 
     /**
@@ -318,30 +318,38 @@ public class ABMMesas extends javax.swing.JInternalFrame {
         //Instanciamos mesaData para usar luego
         MesaData mesaD = new MesaData();
 
+        if (jtfIDMesa.getText().isEmpty()) {
+            jtfIDMesa.setText("-1");
+        }
+
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
-            int idMesaAGuardar = Integer.parseInt(jtfIDMesa.getText());
+            //      int idMesaAGuardar = Integer.parseInt(jtfIDMesa.getText());
+
             int capacidadAGuardar = Integer.parseInt(jtfCapacidad.getText());
             int numeroAGuardar = Integer.parseInt(jtfNumero.getText());
             boolean habAGuardar = jrbHabilitada.isSelected();
             boolean ocupaAGuardar = jrbOcupada.isSelected();
 
             //Instanciamos una mesa con los parámetros anteriores
-            Mesa m = new Mesa(idMesaAGuardar,capacidadAGuardar,numeroAGuardar,habAGuardar,ocupaAGuardar);
+            Mesa m = new Mesa(capacidadAGuardar, habAGuardar, numeroAGuardar, ocupaAGuardar);
 
             //declaramos una variable bandera por si ya existe el id tipeado en vista
             boolean existeID = false;
 
+            System.out.println(m);
             //Recorremos la lista de mesas existentes
             for (Mesa existingMesa : mesaD.listarMesa()) {
 
-                if (existingMesa.getIdMesa() == m.getIdMesa()) {
+                if (existingMesa.getIdMesa() == Integer.parseInt(jtfIDMesa.getText())) {
                     //Si existe la mesa, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
-                    m.setIdMesa(mesaD.buscarMesaPorID(m.getIdMesa()).getIdMesa());
+                    m.setIdMesa(mesaD.buscarMesaPorID(Integer.parseInt(jtfIDMesa.getText())).getIdMesa());
                     existeID = true;
+                    System.out.println(existeID);
                     break;
                 }
             }
+            System.out.println(m);
             //Si existe la mesa usa el método modificarMesa; si no, guardarMesa
             if (existeID == true) {
                 mesaD.modificarMesa(m);
@@ -353,6 +361,14 @@ public class ABMMesas extends javax.swing.JInternalFrame {
             jbEliminar.setEnabled(true);
             jbLimpiar.setEnabled(true);
 
+            jtfIDMesa.setText("");
+            jtfCapacidad.setText("");
+            jtfNumero.setText("");
+            jrbHabilitada.setSelected(false);
+            jrbOcupada.setSelected(false);
+            jbLimpiar.setEnabled(false);
+            jbEliminar.setEnabled(false);
+
         } catch (NullPointerException ex) {
             //Si algún campo está vacío
             JOptionPane.showMessageDialog(null, "Complete todos los campos");
@@ -363,7 +379,7 @@ public class ABMMesas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-         //Si el campo ID Mesa está vacío
+        //Si el campo ID Mesa está vacío
         if (jtfIDMesa.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Complete el campo 'ID Mesa'");
 

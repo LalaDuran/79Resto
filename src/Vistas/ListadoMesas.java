@@ -86,6 +86,11 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         jLabel4.setText("Mesas: ");
 
         jcbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Habilitadas", "Deshabilitadas", "Ocupadas", "Desocupadas" }));
+        jcbOpciones.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbOpcionesItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,28 +155,33 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         borrarFilas();
 
         if (opcion.equals("Todas")) {
+            jcbCapacidad.setEnabled(false);
             for (Mesa aux : mesaData.listarMesa()) {
                 modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
             }
         } else if (opcion.equals("Habilitadas")) {
+            jcbCapacidad.setEnabled(true);
             for (Mesa aux : mesaData.listarMesa()) {
                 if (aux.getCapacidad() == capacidad && aux.isEstado() == true) {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
         } else if (opcion.equals("Deshabilitadas")) {
+            jcbCapacidad.setEnabled(true);
             for (Mesa aux : mesaData.listarMesa()) {
                 if (aux.getCapacidad() == capacidad && aux.isEstado() == false) {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
         } else if (opcion.equals("Ocupadas")) {
+            jcbCapacidad.setEnabled(true);
             for (Mesa aux : mesaData.listarMesa()) {
                 if (aux.getCapacidad() == capacidad && aux.isOcupada() == true) {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
         }  else if (opcion.equals("Desocupadas")) {
+            jcbCapacidad.setEnabled(true);
             for (Mesa aux : mesaData.listarMesa()) {
                 if (aux.getCapacidad() == capacidad && aux.isOcupada() == false) {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
@@ -186,6 +196,57 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         //Deselecciona, invisibiliza y cierra la ventana
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jcbOpcionesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbOpcionesItemStateChanged
+
+         MesaData mesaData = new MesaData();
+        Mesa m = new Mesa();
+
+        //Creamos una variable y le asignamos la capacidad seleccionada en la vista
+        int capacidad = (int) jcbCapacidad.getSelectedItem();
+
+        //Creamos una variable y le asignamos el estado seleccionada en la vista
+        String opcion = (String) jcbOpciones.getSelectedItem();
+
+        //Borramos las filas evitando repeticiones
+        borrarFilas();
+
+        if (opcion.equals("Todas")) {
+            jcbCapacidad.setEnabled(false);
+            for (Mesa aux : mesaData.listarMesa()) {
+                modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+            }
+        } else if (opcion.equals("Habilitadas")) {
+            jcbCapacidad.setEnabled(true);
+            for (Mesa aux : mesaData.listarMesa()) {
+                if (aux.getCapacidad() == capacidad && aux.isEstado() == true) {
+                    modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+                }
+            }
+        } else if (opcion.equals("Deshabilitadas")) {
+            jcbCapacidad.setEnabled(true);
+            for (Mesa aux : mesaData.listarMesa()) {
+                if (aux.getCapacidad() == capacidad && aux.isEstado() == false) {
+                    modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+                }
+            }
+        } else if (opcion.equals("Ocupadas")) {
+            jcbCapacidad.setEnabled(true);
+            for (Mesa aux : mesaData.listarMesa()) {
+                if (aux.getCapacidad() == capacidad && aux.isOcupada() == true) {
+                    modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+                }
+            }
+        }  else if (opcion.equals("Desocupadas")) {
+            jcbCapacidad.setEnabled(true);
+            for (Mesa aux : mesaData.listarMesa()) {
+                if (aux.getCapacidad() == capacidad && aux.isOcupada() == false) {
+                    modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
+                }
+            }
+        } 
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbOpcionesItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

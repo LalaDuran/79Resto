@@ -206,7 +206,7 @@ public class ABMProductos extends javax.swing.JInternalFrame {
 
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
-            int idProdAGuardar = Integer.parseInt(jtfIDProducto.getText());
+      //      int idProdAGuardar = Integer.parseInt(jtfIDProducto.getText());
             String nombreAGuardar = jtfNombre.getText();
             int stockAGuardar = Integer.parseInt(jtfStock.getText());
             double precioAGuardar = Double.parseDouble(jtfPrecio.getText());
@@ -214,7 +214,7 @@ public class ABMProductos extends javax.swing.JInternalFrame {
             boolean stockCriticoAGuardar = jrbStockCritico.isSelected();
 
             //Instanciamos un producto con los parámetros anteriores
-            Producto p = new Producto(idProdAGuardar,nombreAGuardar,stockAGuardar,precioAGuardar,habAGuardar);
+            Producto p = new Producto(nombreAGuardar,stockAGuardar,precioAGuardar,habAGuardar);
 
             //declaramos una variable bandera por si ya existe el id tipeado en vista
             boolean existeID = false;
@@ -222,16 +222,18 @@ public class ABMProductos extends javax.swing.JInternalFrame {
             //Recorremos la lista de productos existentes
             for (Producto existingProd : prodD.listarProducto()) {
 
-                if (existingProd.getIdProducto() == p.getIdProducto()) {
+                if (existingProd.getIdProducto() == Integer.parseInt(jtfIDProducto.getText())) {
                     //Si existe el producto, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
-                    p.setIdProducto(prodD.buscarProductoPorID(p.getIdProducto()).getIdProducto());
+                    p.setIdProducto(prodD.buscarProductoPorID(Integer.parseInt(jtfIDProducto.getText())).getIdProducto());
                     existeID = true;
+                  
                     break;
                 }
             }
             //Si existe el producto usa el método modificarProducto; si no, guardarProducto
             if (existeID == true) {
                 prodD.modificarProducto(p);
+                System.out.println("aca");
             } else {
                 prodD.guardarProducto(p);
             }
@@ -312,6 +314,7 @@ public class ABMProductos extends javax.swing.JInternalFrame {
                 //Eliminamos el producto llamando al método eliminarProducto de productoData
                 prodD.eliminarProducto(p.getIdProducto());
 
+                System.out.println(p.getIdProducto());
                 //Limpiamos los campos de la vista
                 jtfIDProducto.setText("");
                 jtfNombre.setText("");
