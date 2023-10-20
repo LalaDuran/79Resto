@@ -95,6 +95,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbMesero.setEditable(true);
         jcbMesero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbMeseroActionPerformed(evt);
@@ -274,9 +275,8 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 //Mostramos en la vista los datos del pedido encontrado
                 jtfIDPedido.setText(Integer.toString(pedidoBuscado.getIdPedido()));
                 jcbIDMesa.setSelectedItem(pedidoBuscado.getMesa().getIdMesa());
-                jcbMesero.setSelectedItem(md.buscarMeseroPorID(pedidoBuscado.getMesero().getIdMesero()));
-                System.out.println(pedidoBuscado.getMesero().getIdMesero());
-                System.out.println(pedidoBuscado.getMesero().getDni());
+                jcbMesero.setSelectedItem(pedidoBuscado.getMesero());
+                
                 //Habilitamos los botones 'Limpiar' y 'Eliminar'
                 jbLimpiar.setEnabled(true);
                 jbEliminar.setEnabled(true);
@@ -286,7 +286,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Ingrese sólo números");
                 jtfIDPedido.setText("");
             } catch (NullPointerException npe) {
-                //si no existe alumno con el dni tipeado en la vista, salta el JOptionPane del método buscarAlumnoPorDni
+                //si no existe pedido con ese id en la vista, salta el JOptionPane del método
             }
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
@@ -361,7 +361,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
             List<Producto> prods = null; //aún no ha sido definido
             Mesero meseroAGuardar = (Mesero) jcbMesero.getSelectedItem();
 
-            System.out.println(meseroAGuardar);
             boolean entregadoAGuardar = false;
             boolean cobradoAGuardar = false;
             // getting the system date 
