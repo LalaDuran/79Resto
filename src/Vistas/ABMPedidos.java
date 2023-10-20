@@ -2,6 +2,11 @@ package Vistas;
 
 import AccesoADatos.*;
 import Entidades.*;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.*;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -10,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class ABMPedidos extends javax.swing.JInternalFrame {
 
-    
     private final DefaultTableModel modelo = new DefaultTableModel() {
 
         public boolean isCellEditable(int f, int c) {
@@ -35,6 +39,10 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         //Inhabilita los botones 'Nuevo' y 'Eliminar'
         jbLimpiar.setEnabled(false);
         jbEliminar.setEnabled(false);
+
+        //para que por defecto el JDateChooser muestre la fecha de hoy
+        Calendar fechaActual = new GregorianCalendar();
+        jdcFechaYHora.setCalendar(fechaActual);
     }
 
     /**
@@ -63,7 +71,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         jbBuscar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jbEliminar = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jdcFechaYHora = new com.toedter.calendar.JDateChooser();
         btnAgregProd = new javax.swing.JButton();
 
         jRadioButtonMenuItem1.setSelected(true);
@@ -94,6 +102,11 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setText("GUARDAR");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbLimpiar.setText("LIMPIAR");
         jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +185,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(27, 27, 27)
-                                .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jcbMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -180,8 +193,8 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jdcFechaYHora, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +222,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdcFechaYHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addComponent(btnAgregProd)
                 .addGap(49, 49, 49)
@@ -253,6 +266,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 //Instanciamos un pedido y pedidoData para usar luego
                 PedidoData pedidoD = new PedidoData();
                 Pedido pedidoBuscado = new Pedido();
+                MeseroData md = new MeseroData();
 
                 //Buscamos un pedido por su id usando buscar de pedidoData
                 pedidoBuscado = pedidoD.buscarPedidoPorID(idPedidoBuscado);
@@ -260,9 +274,9 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 //Mostramos en la vista los datos del pedido encontrado
                 jtfIDPedido.setText(Integer.toString(pedidoBuscado.getIdPedido()));
                 jcbIDMesa.setSelectedItem(pedidoBuscado.getMesa().getIdMesa());
-                jcbMesero.setSelectedItem(pedidoBuscado.getMesero().toString());
-                System.out.println(pedidoBuscado.getIdPedido());
-
+                jcbMesero.setSelectedItem(md.buscarMeseroPorID(pedidoBuscado.getMesero().getIdMesero()));
+                System.out.println(pedidoBuscado.getMesero().getIdMesero());
+                System.out.println(pedidoBuscado.getMesero().getDni());
                 //Habilitamos los botones 'Limpiar' y 'Eliminar'
                 jbLimpiar.setEnabled(true);
                 jbEliminar.setEnabled(true);
@@ -294,11 +308,11 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 
         ABMproductospedidos pp = new ABMproductospedidos();
         MenuPrincipal.escritorio.add(pp);
-       
+
         pp.setVisible(true);
         pp.moveToFront();
-  
-     
+
+
     }//GEN-LAST:event_btnAgregProdActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
@@ -334,11 +348,69 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbEliminarActionPerformed
 
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        //Instanciamos *Datas para usar luego
+        PedidoData pedidoD = new PedidoData();
+        MesaData mesaD = new MesaData();
+        MeseroData meseroD = new MeseroData();
+
+        try {
+            //creamos las variables y asignamos los valores tipeados en la vista
+            //     int idPedidoAGuardar = Integer.parseInt(jtfIDPedido.getText());
+            Mesa mesaAGuardar = mesaD.buscarMesaPorID((Integer) jcbIDMesa.getSelectedItem());
+            List<Producto> prods = null; //aún no ha sido definido
+            Mesero meseroAGuardar = (Mesero) jcbMesero.getSelectedItem();
+
+            System.out.println(meseroAGuardar);
+            boolean entregadoAGuardar = false;
+            boolean cobradoAGuardar = false;
+            // getting the system date 
+            Date diaEnVista = jdcFechaYHora.getDate();
+            // getting the object of the Timestamp class
+            Timestamp diaAGuardar = new Timestamp(diaEnVista.getTime());
+            //Instanciamos un pedido con los parámetros anteriores
+            Pedido p = new Pedido(mesaAGuardar, prods, meseroAGuardar, entregadoAGuardar, cobradoAGuardar, diaAGuardar);
+
+            //declaramos una variable bandera por si ya existe el id tipeado en vista
+            boolean existeID = false;
+
+            //Recorremos la lista de pedidos existentes
+            for (Pedido existingPedido : pedidoD.listarPedidos()) {
+
+                if (existingPedido.getIdPedido() == Integer.parseInt(jtfIDPedido.getText())) {
+                    //Si existe el producto, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
+                    p.setIdPedido(pedidoD.buscarPedidoPorID(Integer.parseInt(jtfIDPedido.getText())).getIdPedido());
+                    existeID = true;
+                    break;
+                }
+            }
+            //Si ya existe el pedido puede tener productos asociados, o no, y si no existe no tiene productos asociados. Para ambos casos usamos guardarPedido con productos asociados en null 
+
+            JOptionPane.showConfirmDialog(null, "Pedido guardado");
+            if (existeID == true) {
+                pedidoD.modificarPedido(p);
+            } else {
+                pedidoD.guardarPedido(p);
+
+            }
+            //Habilitamos los botones 'Eliminar' y 'Limpiar'
+            jbEliminar.setEnabled(true);
+            jbLimpiar.setEnabled(true);
+
+        } catch (NullPointerException ex) {
+            //Si algún campo está vacío
+            JOptionPane.showMessageDialog(null, "Complete todos los campos");
+        } catch (NumberFormatException ex) {
+            //Si no usa números enteros en todos los campos
+            JOptionPane.showMessageDialog(null, "Use sólo números enteros");
+
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jbGuardarActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregProd;
     private com.toedter.calendar.JCalendar jCalendar1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -353,7 +425,8 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Integer> jcbIDMesa;
-    private javax.swing.JComboBox<String> jcbMesero;
+    private javax.swing.JComboBox<Mesero> jcbMesero;
+    private com.toedter.calendar.JDateChooser jdcFechaYHora;
     private javax.swing.JTextField jtfIDPedido;
     // End of variables declaration//GEN-END:variables
 
@@ -401,7 +474,8 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         MeseroData meseroD = new MeseroData();
 
         for (Mesero aux : meseroD.listarMesero()) {
-            jcbMesero.addItem(aux.toString());
+            jcbMesero.addItem(aux);
+
         }
     }
 }

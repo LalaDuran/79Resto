@@ -17,11 +17,11 @@ public class PedidoData {
 
     }
 
-    public void guardarPedido(Pedido pedido, productoPedido pp) {
+    public void guardarPedido(Pedido pedido) {
         String sql = "INSERT INTO pedido (idMesa,idMesero,cobrado,fecha_hora,entregado) VALUES (?,?,?,?,?)";
-        String sql2 = "INSERT INTO productosPedidos (idProducto,cantidadPedida,idPedido) VALUES (?,?,?)";
+        
 
-        ProductoData pd = new ProductoData();
+       // ProductoData pd = new ProductoData();
 
         try {
             //Prepara el comando SQL con RETURN GENERATED KEYS para que devuelva el 
@@ -46,28 +46,6 @@ public class PedidoData {
                 pedido.setIdPedido(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Pedido guardado");
             }
-
-            // Ejecutamos el sql2 para darle contenido al pedido
-            //        for (Producto aux : listarProductoPedidoPorIdDePedido(pedido.getIdPedido())) {
-            try {
-
-                PreparedStatement ps2 = con.prepareStatement(sql2);
-                //Asignamos los valores a los parámetros dinámicos 
-                ps2.setInt(1, pp.getProducto().getIdProducto());
-// usados para corroborar la eficiencia   System.out.println(aux.getIdProducto());
-                ps2.setInt(2, pp.getCantPedida());
-                ps2.setInt(3, pedido.getIdPedido());
-//                System.out.println(pedido.getIdPedido());
-
-                //Ejecutamos el comando SQL
-                ps2.executeUpdate();
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
-
-            } catch (ArrayIndexOutOfBoundsException aioobe) {
-                JOptionPane.showMessageDialog(null, "Error: lista vacía");
-            }
             //         }
 
             //Liberamos recursos
@@ -76,6 +54,37 @@ public class PedidoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
         }
+    }
+     public void modificarPedido(Pedido p) {
+
+        String sql = "UPDATE pedido SET idMesa=?, idMesero=?,cobrado=?, fecha_hora=?, entregado=? WHERE idPedido = ?";
+
+        try {
+            //Prepara el comando SQL
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            //Asignamos los valores a los parámetros dinámicos
+            ps.setInt(1, p.getMesa().getIdMesa());
+            ps.setInt(2, p.getMesero().getIdMesero());
+            ps.setBoolean(3, p.isCobrado());
+            ps.setTimestamp(4,p.getFecha_hora());
+            ps.setBoolean(5, p.isEntregado());
+            ps.setInt(6, p.getIdPedido());
+            
+            //Ejecutamos el comando SQL que devuelve un entero; creamos variable
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Pedido modificado");
+            }
+
+            //Liberamos recursos
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
+        }
+
     }
 
     public void cobrar(int id) {
