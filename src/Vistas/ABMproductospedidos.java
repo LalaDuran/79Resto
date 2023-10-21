@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
 import AccesoADatos.PedidoData;
@@ -17,10 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Faustino
- */
+
 public class ABMproductospedidos extends javax.swing.JInternalFrame {
 
     Color naranja = new Color(255, 84, 25);
@@ -36,14 +29,17 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         }
     };
 
-    /**
-     * Creates new form ABMproductospedidos
-     */
+  
     public ABMproductospedidos() {
         initComponents();
         armarTabla();
         cargarProductos();
         cargarPedidos();
+        
+        //para que al abrir la ventana 'recuerde' el pedido del ABM Pedido (public+static ambos)
+        PedidoData pData = new PedidoData();
+        jcbPedidos.setSelectedItem(pData.buscarPedidoPorID(Integer.parseInt(ABMPedidos.jtfIDPedido.getText())));
+        
         jPanel1.setBackground(Color.WHITE);
         jPanel2.setBackground(naranja);
 
@@ -136,6 +132,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jLabel2.setText("Pedido");
 
+        jcbPedidos.setEditable(true);
         jcbPedidos.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jcbPedidos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -438,7 +435,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<Pedido> jcbPedidos;
+    public static javax.swing.JComboBox<Pedido> jcbPedidos;
     private javax.swing.JComboBox<Producto> jcbProductos;
     private javax.swing.JTable jtProductosPedidos;
     private javax.swing.JSpinner spinner;

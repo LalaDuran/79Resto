@@ -1,21 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
-/**
- *
- * @author morena
- */
+import AccesoADatos.PedidoData;
+import Entidades.Pedido;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+
 public class ListadoPedidos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ListadoPedidos
-     */
+    private final DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+    
+    
     public ListadoPedidos() {
         initComponents();
+        
+        //Carga la estructura de la tabla
+        armarTabla();
+        
     }
 
     /**
@@ -37,8 +44,6 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         jrbPendientes = new javax.swing.JRadioButton();
         jrbCobrados = new javax.swing.JRadioButton();
         jbSalir = new javax.swing.JButton();
-        jbCobrar = new javax.swing.JButton();
-        jrbEliminados = new javax.swing.JRadioButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,68 +76,147 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jtTablaPedidos);
 
         jrbTodos.setText("Todos");
+        jrbTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbTodosActionPerformed(evt);
+            }
+        });
 
         jrbPendientes.setText("Pendientes de Cobro");
+        jrbPendientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbPendientesActionPerformed(evt);
+            }
+        });
 
         jrbCobrados.setText("Cobrados");
+        jrbCobrados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbCobradosActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("SALIR");
-
-        jbCobrar.setText("COBRAR");
-
-        jrbEliminados.setText("Eliminados");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(jrbTodos)
+                .addGap(72, 72, 72)
+                .addComponent(jrbPendientes)
+                .addGap(73, 73, 73)
+                .addComponent(jrbCobrados)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(238, 238, 238))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jrbTodos)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(161, 161, 161))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jrbPendientes)
-                                .addGap(18, 18, 18)
-                                .addComponent(jrbCobrados)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jrbEliminados))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbSalir)
+                        .addGap(94, 94, 94))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jbCobrar)
-                        .addGap(117, 117, 117)
-                        .addComponent(jbSalir)))
-                .addContainerGap(122, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(28, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrbTodos, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jrbCobrados)
-                        .addComponent(jrbPendientes)
-                        .addComponent(jrbEliminados)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jrbPendientes)
+                    .addComponent(jrbTodos)
+                    .addComponent(jrbCobrados))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbCobrar)
-                    .addComponent(jbSalir))
+                .addComponent(jbSalir)
                 .addGap(58, 58, 58))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        //Invisibiliza, deselecciona y cierra la ventana
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jrbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTodosActionPerformed
+        //Instanciamos pedidosData para usar luego
+        PedidoData pedData = new PedidoData();
+                
+        //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
+        if (jrbTodos.isSelected()) {
+            jrbPendientes.setSelected(false);
+            jrbCobrados.setSelected(false);
+               
+        }
+
+        //Borramos las filas evitando repeticiones
+        borrarFilas();
+
+        //Listamos los pedidos en la tabla
+        for (Pedido aux : pedData.listarPedidos()) {
+            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+        }
+
+    }//GEN-LAST:event_jrbTodosActionPerformed
+
+    private void jrbCobradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCobradosActionPerformed
+       //Instanciamos pedidosData para usar luego
+        PedidoData pedData = new PedidoData();
+                
+        //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
+        if (jrbCobrados.isSelected()) {
+            jrbTodos.setSelected(false);
+            jrbPendientes.setSelected(false);
+             
+        }
+
+        //Borramos las filas evitando repeticiones
+        borrarFilas();
+
+        //Listamos los pedidos en la tabla
+        for (Pedido aux : pedData.listarPedidosCobrados()) {
+            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+        }
+
+    }//GEN-LAST:event_jrbCobradosActionPerformed
+
+    private void jrbPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbPendientesActionPerformed
+        //Instanciamos pedidosData para usar luego
+        PedidoData pedData = new PedidoData();
+                
+        //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
+        if (jrbPendientes.isSelected()) {
+            jrbTodos.setSelected(false);
+            jrbCobrados.setSelected(false);
+                  
+        }
+
+        //Borramos las filas evitando repeticiones
+        borrarFilas();
+
+        //Listamos los pedidos en la tabla
+        for (Pedido aux : pedData.listarPedidosPendientesDeCobro()) {
+            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+        }
+    }//GEN-LAST:event_jrbPendientesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -141,12 +225,59 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jbCobrar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JRadioButton jrbCobrados;
-    private javax.swing.JRadioButton jrbEliminados;
     private javax.swing.JRadioButton jrbPendientes;
     private javax.swing.JRadioButton jrbTodos;
     private javax.swing.JTable jtTablaPedidos;
     // End of variables declaration//GEN-END:variables
+
+
+    private void armarTabla() {
+        //Agregamos las cabeceras a la tabla
+        modelo.addColumn("ID Pedido");
+        modelo.addColumn("ID mesa");
+        modelo.addColumn("ID mesero");
+        modelo.addColumn("entregado");
+        modelo.addColumn("cobrado");
+        modelo.addColumn("fecha");
+
+        //Seteamos el modelo a la tabla
+        jtTablaPedidos.setModel(modelo);
+
+        //Impedimos el reordenamiento de la cabecera
+        jtTablaPedidos.getTableHeader().setReorderingAllowed(false);
+
+        //para centrar las celdas del encabezado
+        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtTablaPedidos.getTableHeader().getDefaultRenderer();
+        header.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //para centrar los datos de la primera columna
+        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
+        
+        //para centrar los datos de la segunda columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaPedidos.getColumnModel().getColumn(1).setCellRenderer(tcr0);
+
+        //Para centrar los datos de la tercera columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaPedidos.getColumnModel().getColumn(2).setCellRenderer(tcr0);
+        
+        //para centrar los datos de la cuarta columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaPedidos.getColumnModel().getColumn(3).setCellRenderer(tcr0);
+
+        //Para centrar los datos de la quinta columna
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtTablaPedidos.getColumnModel().getColumn(4).setCellRenderer(tcr0);
+    }
+    
+    private void borrarFilas() {
+        //Evita la repetición de las filas en la tabla
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
 }
