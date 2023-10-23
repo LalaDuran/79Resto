@@ -375,7 +375,45 @@ public class PedidoData {
         return pedidosPorMesaYFecha;
     }
     
-    
+    public List<Pedido> listarPedidosPorMesero(Mesero mesero) {
+        String sql = "SELECT idPedido,idMesa,cobrado,entregado FROM pedido WHERE idMesero = ?";
+
+        //Instanciamos el arraylist que usaremos luego
+        ArrayList<Pedido> pedidosPorMesero = new ArrayList<>();
+
+        try {
+            //Prepara el comando SQL
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, mesero.getIdMesero());
+
+            //Ejecutamos el comando SQL que devuelve un ResulSet; creamos variable
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                //Instanciamos pedidoABuscar y seteamos
+                Pedido pedidoABuscar = new Pedido();
+                MesaData mesaD = new MesaData();
+                
+                pedidoABuscar.setIdPedido(rs.getInt("idPedido"));
+                pedidoABuscar.setMesa(mesaD.buscarMesaPorID(rs.getInt("idMesa")));
+                pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
+                pedidoABuscar.setCobrado(rs.getBoolean("cobrado"));
+                
+                //Agregamos el pedido al arraylist
+                pedidosPorMesero.add(pedidoABuscar);
+            }
+
+            //Liberamos recursos
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
+        }
+        return pedidosPorMesero;
+    }
     
     public void agregarProductos(Producto prod) {
 

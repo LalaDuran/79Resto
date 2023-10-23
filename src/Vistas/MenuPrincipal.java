@@ -48,6 +48,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -61,6 +62,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ABMPedidos = new javax.swing.JMenuItem();
         listadoPedidos = new javax.swing.JMenuItem();
         jmiListadoPorMesa = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         Cobranza = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -79,6 +81,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem8.setText("jMenuItem8");
 
         jMenuItem5.setText("jMenuItem5");
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 600));
@@ -162,7 +166,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(ABMPedidos);
 
-        listadoPedidos.setText("Listado de Pedidos");
+        listadoPedidos.setText("Listado por Cobranza");
         listadoPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listadoPedidosActionPerformed(evt);
@@ -177,6 +181,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jmiListadoPorMesa);
+
+        jMenuItem7.setText("Listado por Mesero");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem7);
 
         jMenuBar1.add(jMenu5);
 
@@ -345,6 +357,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.moveToFront(lppm); //la abre y trae adelante
     }//GEN-LAST:event_jmiListadoPorMesaActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        escritorio.removeAll(); //para que cierre las ventanas que pudieran estar abiertas
+        escritorio.repaint(); //para que lo redibuje
+        ListadoPedidoPorMesero lppmesero = new ListadoPedidoPorMesero(); //instancia la ventana (aún invis.)
+        lppmesero.setVisible(true); //la hace visible
+        escritorio.add(lppmesero); //la agrega al escritorio
+        escritorio.moveToFront(lppmesero); //la abre y trae adelante
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     public void agregarVentana(JInternalFrame subVentana) {
          escritorio.repaint();
        escritorio.add(subVentana);
@@ -406,9 +427,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem jmiListadoPorMesa;
