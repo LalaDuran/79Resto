@@ -332,6 +332,50 @@ public class PedidoData {
         return pedidosEliminados;
     }
     
+    public List<Pedido> listarPedidosPorMesaYFecha(Mesa mesa, Timestamp fechaInicial, Timestamp fechaFinal) {
+        String sql = "SELECT idPedido,idMesero,cobrado,entregado FROM pedido WHERE idMesa = ? AND fecha_hora BETWEEN ? AND ?";
+
+        //Instanciamos el arraylist que usaremos luego
+        ArrayList<Pedido> pedidosPorMesaYFecha = new ArrayList<>();
+
+        try {
+            //Prepara el comando SQL
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, mesa.getIdMesa());
+            ps.setTimestamp(2, fechaInicial);
+            ps.setTimestamp(3, fechaFinal);
+
+            //Ejecutamos el comando SQL que devuelve un ResulSet; creamos variable
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                //Instanciamos pedidoABuscar y seteamos
+                Pedido pedidoABuscar = new Pedido();
+                MesaData md = new MesaData();
+                MeseroData mesero = new MeseroData();
+                
+                pedidoABuscar.setIdPedido(rs.getInt("idPedido"));
+                pedidoABuscar.setMesero(mesero.buscarMeseroPorID(rs.getInt("idMesero")));
+                pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
+                pedidoABuscar.setCobrado(rs.getBoolean("cobrado"));
+                
+                //Agregamos el pedido al arraylist
+                pedidosPorMesaYFecha.add(pedidoABuscar);
+            }
+
+            //Liberamos recursos
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
+        }
+        return pedidosPorMesaYFecha;
+    }
+    
+    
     
     public void agregarProductos(Producto prod) {
 
