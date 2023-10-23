@@ -40,7 +40,7 @@ public class ProductoPedidoData {
 
             ps.setInt(2, pp.getCantPedida());
             ps.setInt(3, pp.getPedido().getIdPedido());
-            ps.setDouble(4, pp.getProducto().getPrecio());
+            ps.setDouble(4, pp.getPrecio());
 
             //Ejecutamos el comando SQL
             ps.executeUpdate();
@@ -67,7 +67,7 @@ public class ProductoPedidoData {
             ps.setInt(1, pp.getCantPedida());
             ps.setInt(2, pp.getProducto().getIdProducto());
             ps.setInt(3, pp.getPedido().getIdPedido());
-            ps.setDouble(4, pp.getProducto().getPrecio());
+            ps.setDouble(4, pp.getPrecio());
             //Ejecutamos el comando SQL que devuelve un entero; creamos variable
             int exito = ps.executeUpdate();
 

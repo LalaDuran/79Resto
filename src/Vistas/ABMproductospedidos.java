@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import AccesoADatos.PedidoData;
@@ -12,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 
 public class ABMproductospedidos extends javax.swing.JInternalFrame {
 
@@ -29,17 +27,16 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         }
     };
 
-  
     public ABMproductospedidos() {
         initComponents();
         armarTabla();
         cargarProductos();
         cargarPedidos();
-        
+
         //para que al abrir la ventana 'recuerde' el pedido del ABM Pedido (public+static ambos)
         PedidoData pData = new PedidoData();
         jcbPedidos.setSelectedItem(pData.buscarPedidoPorID(Integer.parseInt(ABMPedidos.jtfIDPedido.getText())));
-        
+
         jPanel1.setBackground(Color.WHITE);
         jPanel2.setBackground(naranja);
 
@@ -326,7 +323,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         pp.setPedido(p);
         pp.setCantPedida(cantidad);
         pp.setProducto((Producto) jcbProductos.getSelectedItem());
-
+        pp.setPrecio(pp.getProducto().getPrecio() * pp.getCantPedida());
         ppd.agregarProductos(pp);
         borrarFilas();
         //Listamos los productos en la tabla
@@ -356,7 +353,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
 
             //Listamos los productos en la tabla
             for (productoPedido aux : pd.listarProductoPedidoPorIdDePedido(p.getIdPedido())) {
-                modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(), aux.getProducto().getPrecio()});
+                modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(), aux.getPrecio()});
             }
         }
 
@@ -366,55 +363,49 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         ProductoPedidoData pd = new ProductoPedidoData();
         productoPedido pp = new productoPedido();
         Pedido p = (Pedido) jcbPedidos.getSelectedItem();
-        
+
         if (jtProductosPedidos.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione un producto");
         } else {
             int filaSel = jtProductosPedidos.getSelectedRow();
             System.out.println(filaSel);
-            String valor = (String)jtProductosPedidos.getValueAt(filaSel, 3);
-             try {
+            String valor = (String) jtProductosPedidos.getValueAt(filaSel, 3);
+            try {
                 //Pasamos valor de String a double
                 int cant = Integer.parseInt(valor);
 
                 //Llamamos al método que actualizará la nota
                 pp.setPedido(p);
-            pp.setCantPedida(cant);
-            pp.setProducto((Producto) jcbProductos.getSelectedItem());
-            pd.modificarProdPed(pp);
-            borrarFilas();
+                pp.setCantPedida(cant);
+                pp.setProducto((Producto) jcbProductos.getSelectedItem());
+                pd.modificarProdPed(pp);
+                borrarFilas();
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "La celda debe contener un número");
             }
-            
 
             //Listamos los productos en la tabla
             for (productoPedido aux : pd.listarProductoPedidoPorIdDePedido(p.getIdPedido())) {
-                modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida()});
+                modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(),aux.getPrecio()});
             }
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jcbPedidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbPedidosItemStateChanged
-         ProductoPedidoData ppd = new ProductoPedidoData();
+        ProductoPedidoData ppd = new ProductoPedidoData();
         productoPedido pp = new productoPedido();
         Pedido p = (Pedido) jcbPedidos.getSelectedItem();
 
-        
-
-        
-        
         pp.setProducto((Producto) jcbProductos.getSelectedItem());
 
-       
         borrarFilas();
-        
+
         for (productoPedido aux : ppd.listarProductoPedidoPorIdDePedido(p.getIdPedido())) {
             modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(), aux.getPrecio()});
         }
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbPedidosItemStateChanged
 

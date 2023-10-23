@@ -275,7 +275,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 jtfIDPedido.setText(Integer.toString(pedidoBuscado.getIdPedido()));
                 jcbIDMesa.setSelectedItem(pedidoBuscado.getMesa().getIdMesa());
                 jcbMesero.setSelectedItem(pedidoBuscado.getMesero());
-                
+
                 //Habilitamos los botones 'Limpiar' y 'Eliminar'
                 jbLimpiar.setEnabled(true);
                 jbEliminar.setEnabled(true);
@@ -305,11 +305,15 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 
     private void btnAgregProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregProdActionPerformed
 
-        ABMproductospedidos pp = new ABMproductospedidos();
-        MenuPrincipal.escritorio.add(pp);
+        if (jtfIDPedido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Complete el campo ID Pedido");
+        } else {
+            ABMproductospedidos pp = new ABMproductospedidos();
+            MenuPrincipal.escritorio.add(pp);
 
-        pp.setVisible(true);
-        pp.moveToFront();
+            pp.setVisible(true);
+            pp.moveToFront();
+        }
 
 
     }//GEN-LAST:event_btnAgregProdActionPerformed
