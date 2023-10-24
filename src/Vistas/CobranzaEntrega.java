@@ -21,6 +21,15 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
     public CobranzaEntrega() {
         initComponents();
         cargarPedidos();
+        PedidoData ppd = new PedidoData();
+        Pedido p = ppd.buscarPedidoPorID((Integer)jcbIDPedido.getSelectedItem());
+        if(p.isCobrado()){
+            jbCobrar.setEnabled(false);
+                      
+        }
+        if(p.isEntregado()){
+            jbEntregar.setEnabled(false);
+        }
 
     }
 
@@ -135,10 +144,22 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
         int id = (int) jcbIDPedido.getSelectedItem();
         PedidoData pd = new PedidoData();
         ProductoPedidoData ppd = new ProductoPedidoData();
+        Pedido p = pd.buscarPedidoPorID(id);
+        
         double total = 0;
 
         total = ppd.calcularTotal(id);
-
+        if(p.isCobrado()){
+            jbCobrar.setEnabled(false);
+        } else {
+            jbCobrar.setEnabled(true);
+        }
+        
+        if(p.isEntregado()){
+            jbEntregar.setEnabled(false);
+        } else {
+            jbEntregar.setEnabled(true);
+        }
         jtfTotal.setText(String.valueOf(total));
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbIDPedidoItemStateChanged
