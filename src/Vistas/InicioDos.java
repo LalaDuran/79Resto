@@ -1,35 +1,24 @@
 package Vistas;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 import AccesoADatos.Conexion;
 import java.awt.Color;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Faustino
- */
+
 public class InicioDos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Inicio
-     */
     private Connection con = null;
 
     public InicioDos() {
         initComponents();
+        
         jPanel1.setBackground(Color.WHITE);
         con = Conexion.getConexion();
+        
         //Abre la ventana del menú en el centro
         this.setLocationRelativeTo(null);
 
@@ -302,7 +291,7 @@ public class InicioDos extends javax.swing.JFrame {
             
         }
 
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_usertxtMousePressed
 
     private void passtxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passtxtMousePressed
@@ -317,16 +306,15 @@ public class InicioDos extends javax.swing.JFrame {
         }
         
         
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_passtxtMousePressed
 
     private void loginLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLabelMouseClicked
-        // TODO add your handling code here:
+        
         String usuario = usertxt.getText();
 
         String DNI = String.valueOf(passtxt.getPassword());
         int dni = -1;
-        //int exito = 0;
 
         if (usertxt.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Complete los campos");
@@ -366,19 +354,16 @@ public class InicioDos extends javax.swing.JFrame {
                 Logger.getLogger(InicioDos.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            // TODO add your handling code here:
-            // TODO add your handling code here:
+
         }
 
     }//GEN-LAST:event_loginLabelMouseClicked
 
     private void registerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLabelMouseClicked
-        // TODO add your handling code here:
+       
         JOptionPane.showMessageDialog(null, "Cargando pagina de registro...");
         Registro registro = new Registro(); //instancia la ventana (aún invis.)
-        
-        
-        
+         
         registro.setVisible(true); //la hace visible
         //la agrega al escritorio
          //la abre y trae adelante
@@ -394,7 +379,7 @@ public class InicioDos extends javax.swing.JFrame {
         if (eleccion == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_closebtnMouseClicked
 
     private void closebtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closebtnMouseEntered
@@ -408,7 +393,7 @@ public class InicioDos extends javax.swing.JFrame {
 
     private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
 
-        // TODO add your handling code here:
+   
     }//GEN-LAST:event_jPanel4MouseEntered
 
     private void loginLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLabelMouseEntered
@@ -423,13 +408,13 @@ public class InicioDos extends javax.swing.JFrame {
 
     private void registerLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLabelMouseEntered
         panelRegister.setBackground(new Color(255, 127, 79));
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_registerLabelMouseEntered
 
     private void registerLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLabelMouseExited
 
         panelRegister.setBackground(new Color(255, 84, 25));
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_registerLabelMouseExited
 
     /**

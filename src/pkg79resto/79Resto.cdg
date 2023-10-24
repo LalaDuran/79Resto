@@ -2,7 +2,7 @@
 
 <ClassDiagram name="79Resto">
   <ClassDiagramComponents>
-    <Class name="Mesa" package="" visibility="public" xPosition="51.0" yPosition="19.0">
+    <Class name="Mesa" package="" visibility="public" xPosition="48.0" yPosition="19.0">
       <Fields>
         <Field name="idMesa" type="int" visibility="private"/>
         <Field name="capacidad" type="int" visibility="private"/>
@@ -25,7 +25,8 @@
         <Field name="Producto" type="List" visibility="private"/>
         <Field name="mesero" type="Mesero" visibility="private"/>
         <Field name="cobrado" type="boolean" visibility="private"/>
-        <Field name="fecha_hora" type="LocalTime" visibility="private"/>
+        <Field name="entregado" type="boolean" visibility="private"/>
+        <Field name="fecha_hora" type="Timestamp" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -70,9 +71,9 @@
   </ClassDiagramComponents>
   <ClassDiagramRelations>
     <HasRelation name="corresponde" source="Pedido" target="Mesa" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="es atendido por" source="Pedido" target="Mesero" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="contiene" source="Pedido" target="Producto" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="atiende" source="Mesero" target="Pedido" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="contiene" source="Pedido" target="Producto" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="corresponde" source="Mesa" target="Pedido" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="es atendido por" source="Pedido" target="Mesero" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>

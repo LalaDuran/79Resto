@@ -1,29 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
 
-import AccesoADatos.MeseroData;
-import AccesoADatos.PedidoData;
-import AccesoADatos.ProductoPedidoData;
-import Entidades.Mesero;
-import Entidades.Pedido;
+import AccesoADatos.*;
+import Entidades.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Faustino
- */
 public class CobranzaPorMesero extends javax.swing.JInternalFrame {
 
     private final DefaultTableModel modelo = new DefaultTableModel() {
-
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
@@ -31,7 +19,9 @@ public class CobranzaPorMesero extends javax.swing.JInternalFrame {
 
     public CobranzaPorMesero() {
         initComponents();
+
         cargarMeseros();
+
         armarTabla();
 
     }
@@ -148,30 +138,31 @@ public class CobranzaPorMesero extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
-       try{
-             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String dia1 = sdf.format(jFecha.getDate());
-        int id = (Integer) jcbIDMesero.getSelectedItem();
-        PedidoData pd = new PedidoData();
-        ProductoPedidoData ppd = new ProductoPedidoData();
-        borrarFilas();
-        for (Pedido aux : pd.listarPedidos()) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String dia1 = sdf.format(jFecha.getDate());
+            int id = (Integer) jcbIDMesero.getSelectedItem();
+            
+            PedidoData pd = new PedidoData();
+            ProductoPedidoData ppd = new ProductoPedidoData();
+            
+            borrarFilas();
+            
+            for (Pedido aux : pd.listarPedidos()) {
 
-            String dia2 = sdf.format(aux.getFecha_hora());
-            double total = ppd.calcularTotal(aux.getIdPedido());
+                String dia2 = sdf.format(aux.getFecha_hora());
+                double total = ppd.calcularTotal(aux.getIdPedido());
 
-            if (aux.getMesero().getIdMesero() == id && dia1.equals(dia2) && aux.isCobrado()) {
-                modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), total});
+                if (aux.getMesero().getIdMesero() == id && dia1.equals(dia2) && aux.isCobrado()) {
+                    modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), total});
 
+                }
             }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fecha");
         }
-       } catch(NullPointerException ex){
-           JOptionPane.showMessageDialog(null, "Seleccione una fecha");
-       }
-        
-      
 
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jBuscarActionPerformed
 
 

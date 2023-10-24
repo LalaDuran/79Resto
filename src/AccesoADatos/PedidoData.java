@@ -9,6 +9,7 @@ public class PedidoData {
 
     //atributo común a todos los Data
     private Connection con = null;
+
     private List<Producto> listaDeProductos = new ArrayList<>();
 
     public PedidoData() {
@@ -19,9 +20,6 @@ public class PedidoData {
 
     public void guardarPedido(Pedido pedido) {
         String sql = "INSERT INTO pedido (idMesa,idMesero,cobrado,fecha_hora,entregado) VALUES (?,?,?,?,?)";
-        
-
-       // ProductoData pd = new ProductoData();
 
         try {
             //Prepara el comando SQL con RETURN GENERATED KEYS para que devuelva el 
@@ -30,7 +28,6 @@ public class PedidoData {
             //Asignamos los valores a los parámetros dinámicos 
             ps.setInt(1, pedido.getMesa().getIdMesa());
             ps.setInt(2, pedido.getMesero().getIdMesero());
-
             ps.setBoolean(3, false);
             ps.setTimestamp(4, pedido.getFecha_hora());
             ps.setBoolean(5, false);
@@ -38,15 +35,14 @@ public class PedidoData {
             //Ejecutamos el comando SQL
             ps.executeUpdate();
 
-            //Recuperamos el idPedido generado autoincremental
+            //Recuperamos el id generado autoincremental
             ResultSet rs = ps.getGeneratedKeys();
-            //           Timestamp timestamp = rs.getTimestamp("tu_campo_datetime");
+
             //Asignamos el id generado 
             if (rs.next()) {
                 pedido.setIdPedido(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Pedido guardado");
             }
-            //         }
 
             //Liberamos recursos
             ps.close();
@@ -55,9 +51,10 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
         }
     }
-     public void modificarPedido(Pedido p) {
 
-        String sql = "UPDATE pedido SET idMesa=?, idMesero=?,cobrado=?, fecha_hora=?, entregado=? WHERE idPedido = ?";
+    public void modificarPedido(Pedido p) {
+
+        String sql = "UPDATE pedido SET idMesa = ?, idMesero = ?,cobrado = ?, fecha_hora = ?, entregado = ? WHERE idPedido = ?";
 
         try {
             //Prepara el comando SQL
@@ -67,10 +64,10 @@ public class PedidoData {
             ps.setInt(1, p.getMesa().getIdMesa());
             ps.setInt(2, p.getMesero().getIdMesero());
             ps.setBoolean(3, p.isCobrado());
-            ps.setTimestamp(4,p.getFecha_hora());
+            ps.setTimestamp(4, p.getFecha_hora());
             ps.setBoolean(5, p.isEntregado());
             ps.setInt(6, p.getIdPedido());
-            
+
             //Ejecutamos el comando SQL que devuelve un entero; creamos variable
             int exito = ps.executeUpdate();
 
@@ -111,9 +108,8 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
         }
     }
-    
-    
 
+    
     public void entregar(int id) {
         String sql = "UPDATE pedido SET entregado = 1 WHERE idPedido = ? ";
 
@@ -138,7 +134,7 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
         }
     }
-    
+
     
     public void eliminarPedido(int id) {
         String sql = "DELETE FROM pedido WHERE idPedido = ? ";
@@ -164,6 +160,7 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
         }
     }
+
     
     public List<Pedido> listarPedidos() {
         //Sacamos 'estado' del WHERE igual que método anterior
@@ -180,10 +177,11 @@ public class PedidoData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos mesaABuscar y seteamos
+                //Instanciamos pedidoABuscar y seteamos
                 Pedido pedidoABuscar = new Pedido();
                 MesaData md = new MesaData();
                 MeseroData mesero = new MeseroData();
+                
                 pedidoABuscar.setIdPedido(rs.getInt("idPedido"));
                 pedidoABuscar.setMesa(md.buscarMesaPorID(rs.getInt("idMesa")));
                 pedidoABuscar.setMesero(mesero.buscarMeseroPorID(rs.getInt("idMesero")));
@@ -191,7 +189,7 @@ public class PedidoData {
                 pedidoABuscar.setFecha_hora(rs.getTimestamp("fecha_hora"));
                 pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
 
-                //Agregamos la mesa al arraylist
+                //Agregamos el pedido al arraylist
                 pedidos.add(pedidoABuscar);
             }
 
@@ -200,7 +198,7 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return pedidos;
@@ -221,11 +219,11 @@ public class PedidoData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos mesaABuscar y seteamos
+                //Instanciamos pedidoaABuscar y seteamos
                 Pedido pedidoABuscar = new Pedido();
                 MesaData md = new MesaData();
                 MeseroData mesero = new MeseroData();
-                
+
                 pedidoABuscar.setIdPedido(rs.getInt("idPedido"));
                 pedidoABuscar.setMesa(md.buscarMesaPorID(rs.getInt("idMesa")));
                 pedidoABuscar.setMesero(mesero.buscarMeseroPorID(rs.getInt("idMesero")));
@@ -233,7 +231,7 @@ public class PedidoData {
                 pedidoABuscar.setFecha_hora(rs.getTimestamp("fecha_hora"));
                 pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
 
-                //Agregamos la mesa al arraylist
+                //Agregamos el pedido al arraylist
                 pedidosCobrados.add(pedidoABuscar);
             }
 
@@ -242,7 +240,7 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return pedidosCobrados;
@@ -263,11 +261,11 @@ public class PedidoData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos mesaABuscar y seteamos
+                //Instanciamos pedidoABuscar y seteamos
                 Pedido pedidoABuscar = new Pedido();
                 MesaData md = new MesaData();
                 MeseroData mesero = new MeseroData();
-                
+
                 pedidoABuscar.setIdPedido(rs.getInt("idPedido"));
                 pedidoABuscar.setMesa(md.buscarMesaPorID(rs.getInt("idMesa")));
                 pedidoABuscar.setMesero(mesero.buscarMeseroPorID(rs.getInt("idMesero")));
@@ -275,7 +273,7 @@ public class PedidoData {
                 pedidoABuscar.setFecha_hora(rs.getTimestamp("fecha_hora"));
                 pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
 
-                //Agregamos la mesa al arraylist
+                //Agregamos el pedido al arraylist
                 pedidosNoCobrados.add(pedidoABuscar);
             }
 
@@ -284,12 +282,12 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return pedidosNoCobrados;
     }
-    
+
     public List<Pedido> listarPedidosEliminados() {
         //Sacamos 'estado' del WHERE igual que método anterior
         String sql = "SELECT idPedido,idMesa,idMesero,cobrado,fecha_hora, entregado FROM pedido WHERE estado = 0";
@@ -305,11 +303,11 @@ public class PedidoData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos mesaABuscar y seteamos
+                //Instanciamos pedidoABuscar y seteamos
                 Pedido pedidoABuscar = new Pedido();
                 MesaData md = new MesaData();
                 MeseroData mesero = new MeseroData();
-                
+
                 pedidoABuscar.setIdPedido(rs.getInt("idPedido"));
                 pedidoABuscar.setMesa(md.buscarMesaPorID(rs.getInt("idMesa")));
                 pedidoABuscar.setMesero(mesero.buscarMeseroPorID(rs.getInt("idMesero")));
@@ -317,7 +315,7 @@ public class PedidoData {
                 pedidoABuscar.setFecha_hora(rs.getTimestamp("fecha_hora"));
                 pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
 
-                //Agregamos la mesa al arraylist
+                //Agregamos el pedido al arraylist
                 pedidosEliminados.add(pedidoABuscar);
             }
 
@@ -326,12 +324,12 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return pedidosEliminados;
     }
-    
+
     public List<Pedido> listarPedidosPorMesaYFecha(Mesa mesa, Timestamp fechaInicial, Timestamp fechaFinal) {
         String sql = "SELECT idPedido,idMesero,cobrado,entregado FROM pedido WHERE idMesa = ? AND fecha_hora BETWEEN ? AND ?";
 
@@ -341,7 +339,7 @@ public class PedidoData {
         try {
             //Prepara el comando SQL
             PreparedStatement ps = con.prepareStatement(sql);
-            
+
             ps.setInt(1, mesa.getIdMesa());
             ps.setTimestamp(2, fechaInicial);
             ps.setTimestamp(3, fechaFinal);
@@ -354,12 +352,12 @@ public class PedidoData {
                 Pedido pedidoABuscar = new Pedido();
                 MesaData md = new MesaData();
                 MeseroData mesero = new MeseroData();
-                
+
                 pedidoABuscar.setIdPedido(rs.getInt("idPedido"));
                 pedidoABuscar.setMesero(mesero.buscarMeseroPorID(rs.getInt("idMesero")));
                 pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
                 pedidoABuscar.setCobrado(rs.getBoolean("cobrado"));
-                
+
                 //Agregamos el pedido al arraylist
                 pedidosPorMesaYFecha.add(pedidoABuscar);
             }
@@ -369,12 +367,12 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return pedidosPorMesaYFecha;
     }
-    
+
     public List<Pedido> listarPedidosPorMesero(Mesero mesero) {
         String sql = "SELECT idPedido,idMesa,cobrado,entregado FROM pedido WHERE idMesero = ?";
 
@@ -384,7 +382,7 @@ public class PedidoData {
         try {
             //Prepara el comando SQL
             PreparedStatement ps = con.prepareStatement(sql);
-            
+
             ps.setInt(1, mesero.getIdMesero());
 
             //Ejecutamos el comando SQL que devuelve un ResulSet; creamos variable
@@ -394,12 +392,12 @@ public class PedidoData {
                 //Instanciamos pedidoABuscar y seteamos
                 Pedido pedidoABuscar = new Pedido();
                 MesaData mesaD = new MesaData();
-                
+
                 pedidoABuscar.setIdPedido(rs.getInt("idPedido"));
                 pedidoABuscar.setMesa(mesaD.buscarMesaPorID(rs.getInt("idMesa")));
                 pedidoABuscar.setEntregado(rs.getBoolean("entregado"));
                 pedidoABuscar.setCobrado(rs.getBoolean("cobrado"));
-                
+
                 //Agregamos el pedido al arraylist
                 pedidosPorMesero.add(pedidoABuscar);
             }
@@ -409,12 +407,12 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return pedidosPorMesero;
     }
-    
+
     public void agregarProductos(Producto prod) {
 
         Pedido pedido = new Pedido();
@@ -449,6 +447,7 @@ public class PedidoData {
             if (rs.next()) {
                 //Instanciamos pedidoABuscar y seteamos
                 pedidoABuscar = new Pedido();
+                
                 pedidoABuscar.setIdPedido(id);
                 pedidoABuscar.setMesa(mesaD.buscarMesaPorID(rs.getInt("idMesa")));
                 pedidoABuscar.setMesero(meseroD.buscarMeseroPorID(rs.getInt("idMesero")));
@@ -484,13 +483,12 @@ public class PedidoData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos alumnoABuscar y seteamos
+                //Instanciamos productoABuscar y seteamos
                 Producto productoABuscar = new Producto();
+                
                 productoABuscar.setIdProducto(rs.getInt("idProducto"));
-                //         System.out.println(rs.getInt("idProducto"));
-                ;
 
-                //Agregamos el alumno al arraylist
+                //Agregamos el producto al arraylist
                 productos.add(productoABuscar);
             }
 
@@ -499,7 +497,7 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'productospedidos'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return productos;
@@ -520,13 +518,12 @@ public class PedidoData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos alumnoABuscar y seteamos
+                //Instanciamos productoABuscar y seteamos
                 Producto productoABuscar = new Producto();
+                
                 productoABuscar.setIdProducto(rs.getInt("idProducto"));
-                System.out.println(rs.getInt("idProducto"));
-                ;
 
-                //Agregamos el alumno al arraylist
+                //Agregamos el producto al arraylist
                 productos.add(productoABuscar);
             }
 
@@ -535,7 +532,7 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'productospedidos'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return productos;

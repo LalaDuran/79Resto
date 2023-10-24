@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 public class ABMMeseros extends javax.swing.JInternalFrame {
 
     Color naranja = new Color(255, 84, 25);
+
     public ABMMeseros() {
         initComponents();
 
@@ -15,6 +16,7 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
         btnSalir.setBackground(Color.WHITE);
         panelTitle.setBackground(naranja);
         jTitle.setForeground(Color.WHITE);
+
         //Inhabilita los botones 'Nuevo' y 'Eliminar'
         jbLimpiar.setEnabled(false);
         jbEliminar.setEnabled(false);
@@ -355,7 +357,6 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
         }
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
-            //    int idMeseroAGuardar = Integer.parseInt(jtfIDMesero.getText());
             String apellidoAGuardar = jtfApellido.getText();
             String nombreAGuardar = jtfNombre.getText();
             int dniAGuardar = Integer.parseInt(jtfDNI.getText());
@@ -435,18 +436,20 @@ public class ABMMeseros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
         btnSalir.setBackground(Color.red);
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jLabel1MouseEntered
 
     private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
         btnSalir.setBackground(Color.WHITE);
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jLabel1MouseExited
 
 

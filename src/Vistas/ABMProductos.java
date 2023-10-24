@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
 import AccesoADatos.*;
@@ -10,23 +6,19 @@ import Entidades.*;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author morena
- */
+
 public class ABMProductos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ABMProductos
-     */
+
     Color naranja = new Color(255, 84, 25);
+    
     public ABMProductos() {
         initComponents();
         
         jPanel1.setBackground(Color.WHITE);
         panelTitle.setBackground(naranja);
-        
         Title.setForeground(Color.WHITE);
+        
         //Inhabilita los botones 'Nuevo' y 'Eliminar'
         jbLimpiar.setEnabled(false);
         jbEliminar.setEnabled(false);
@@ -369,7 +361,6 @@ public class ABMProductos extends javax.swing.JInternalFrame {
             //Si existe el producto usa el método modificarProducto; si no, guardarProducto
             if (existeID == true) {
                 prodD.modificarProducto(p);
-                System.out.println("aca");
             } else {
                 prodD.guardarProducto(p);
             }
@@ -450,7 +441,6 @@ public class ABMProductos extends javax.swing.JInternalFrame {
                 //Eliminamos el producto llamando al método eliminarProducto de productoData
                 prodD.eliminarProducto(p.getIdProducto());
 
-                System.out.println(p.getIdProducto());
                 //Limpiamos los campos de la vista
                 jtfIDProducto.setText("");
                 jtfNombre.setText("");
@@ -466,8 +456,9 @@ public class ABMProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jLabel6MouseClicked
 
 

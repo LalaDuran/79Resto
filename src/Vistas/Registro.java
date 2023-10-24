@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
 
 import AccesoADatos.MeseroData;
@@ -10,19 +5,13 @@ import Entidades.Mesero;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-
-/**
- *
- * @author Faustino
- */
 public class Registro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Registro
-     */
     public Registro() {
         initComponents();
+
         jPanel1.setBackground(Color.WHITE);
+
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
@@ -237,7 +226,7 @@ public class Registro extends javax.swing.JFrame {
 
     private void nombretxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombretxtActionPerformed
 
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_nombretxtActionPerformed
 
     private void registrarbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrarbtnMouseClicked
@@ -246,45 +235,43 @@ public class Registro extends javax.swing.JFrame {
 
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
-            
 
             if (apellidotxt.getText().equals("Ingrese su apellido") || nombretxt.equals("Ingrese su nombre") || dnitxt.equals("Ingrese su dni")) {
                 JOptionPane.showMessageDialog(null, "Complete los campos");
             } else {
                 if (!validarString(apellidotxt.getText().trim()) || !validarString(nombretxt.getText().trim())) {
                     JOptionPane.showMessageDialog(null, "Los campos apellido y nombre solo aceptan letras.");
-                    
+
                 } else {
                     String apellidoAGuardar = apellidotxt.getText();
-                String nombreAGuardar = nombretxt.getText();
-                int dniAGuardar = Integer.parseInt(dnitxt.getText());
-                boolean activoAGuardar = true;
+                    String nombreAGuardar = nombretxt.getText();
+                    int dniAGuardar = Integer.parseInt(dnitxt.getText());
+                    boolean activoAGuardar = true;
 
-                
-                //Instanciamos un mesero con los parámetros anteriores
-                Mesero m = new Mesero(apellidoAGuardar, nombreAGuardar, dniAGuardar, activoAGuardar);
+                    //Instanciamos un mesero con los parámetros anteriores
+                    Mesero m = new Mesero(apellidoAGuardar, nombreAGuardar, dniAGuardar, activoAGuardar);
 
-                //declaramos una variable bandera por si ya existe el id tipeado en vista
-                boolean existeID = false;
+                    //declaramos una variable bandera por si ya existe el id tipeado en vista
+                    boolean existeID = false;
 
-                //Recorremos la lista de meseros existentes
-                for (Mesero existingMesero : meseroD.listarMesero()) {
+                    //Recorremos la lista de meseros existentes
+                    for (Mesero existingMesero : meseroD.listarMesero()) {
 
-                    if (existingMesero.getDni() == m.getDni()) {
-                        //Si existe el mesero, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
+                        if (existingMesero.getDni() == m.getDni()) {
+                            //Si existe el mesero, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
 
-                        existeID = true;
-                        break;
+                            existeID = true;
+                            break;
+                        }
+                    }
+                    //Si existe el mesero usa el método modificarMesero; si no, guardarMesero
+                    if (existeID == true) {
+                        JOptionPane.showMessageDialog(null, "El mesero ya esta registrado.");
+                    } else {
+                        meseroD.guardarMesero(m);
                     }
                 }
-                //Si existe el mesero usa el método modificarMesero; si no, guardarMesero
-                if (existeID == true) {
-                    JOptionPane.showMessageDialog(null, "El mesero ya esta registrado.");
-                } else {
-                    meseroD.guardarMesero(m);
-                }
-                }
-                
+
             }
 
             //Limpiamos los textField luego de registrar.    
@@ -305,7 +292,7 @@ public class Registro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El campo dni solo admite numeros");
         }
 
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_registrarbtnMouseClicked
 
     public static boolean validarString(String datos) {
@@ -313,10 +300,9 @@ public class Registro extends javax.swing.JFrame {
     }
 
     private void volverbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverbtnMouseClicked
-
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_volverbtnMouseClicked
 
     private void nombretxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombretxtMousePressed
@@ -336,7 +322,7 @@ public class Registro extends javax.swing.JFrame {
             dnitxt.setText("Ingrese su dni");
             dnitxt.setForeground(Color.gray);
         }
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nombretxtMousePressed
 
     private void apellidotxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apellidotxtMousePressed
@@ -356,7 +342,7 @@ public class Registro extends javax.swing.JFrame {
             dnitxt.setText("Ingrese su dni");
             dnitxt.setForeground(Color.gray);
         }
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_apellidotxtMousePressed
 
     private void dnitxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dnitxtMousePressed
@@ -376,31 +362,30 @@ public class Registro extends javax.swing.JFrame {
             apellidotxt.setText("Ingrese su apellido");
             apellidotxt.setForeground(Color.gray);
         }
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_dnitxtMousePressed
 
     private void volverbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverbtnMouseEntered
 
         panelVolver.setBackground(new Color(255, 127, 79));
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_volverbtnMouseEntered
 
     private void volverbtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverbtnMouseExited
-        panelVolver.setBackground(new Color(255, 84, 25));  
-        // TODO add your handling code here:
+        panelVolver.setBackground(new Color(255, 84, 25));
+        
     }//GEN-LAST:event_volverbtnMouseExited
 
     private void registrarbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrarbtnMouseEntered
-       panelRegistrar.setBackground(new Color(255, 127, 79));
-        // TODO add your handling code here:
+        panelRegistrar.setBackground(new Color(255, 127, 79));
+        
     }//GEN-LAST:event_registrarbtnMouseEntered
 
     private void registrarbtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrarbtnMouseExited
-        panelRegistrar.setBackground(new Color(255, 84, 25)); 
-        // TODO add your handling code here:
+        panelRegistrar.setBackground(new Color(255, 84, 25));
+        
     }//GEN-LAST:event_registrarbtnMouseExited
 
-    
     /**
      * @param args the command line arguments
      */

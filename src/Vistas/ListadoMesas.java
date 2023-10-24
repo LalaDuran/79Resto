@@ -8,25 +8,23 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author morena
- */
 public class ListadoMesas extends javax.swing.JInternalFrame {
 
     //Cargamos el modelo de tabla
     private final DefaultTableModel modelo = new DefaultTableModel() {
         //Hacemos la tabla no-editable en todas sus celdas
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
 
     Color naranja = new Color(255, 84, 25);
+
     public ListadoMesas() {
         initComponents();
+
         jPanel1.setBackground(Color.WHITE);
-        
         btnSalir.setBackground(naranja);
         panelTitle.setBackground(naranja);
         Title.setForeground(Color.WHITE);
@@ -245,21 +243,20 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
-        }  else if (opcion.equals("Desocupadas")) {
+        } else if (opcion.equals("Desocupadas")) {
             jcbCapacidad.setEnabled(true);
             for (Mesa aux : mesaData.listarMesa()) {
                 if (aux.getCapacidad() == capacidad && aux.isOcupada() == false) {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
-        }        
-
+        }
 
     }//GEN-LAST:event_jcbCapacidadActionPerformed
 
     private void jcbOpcionesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbOpcionesItemStateChanged
 
-         MesaData mesaData = new MesaData();
+        MesaData mesaData = new MesaData();
         Mesa m = new Mesa();
 
         //Creamos una variable y le asignamos la capacidad seleccionada en la vista
@@ -297,30 +294,31 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
-        }  else if (opcion.equals("Desocupadas")) {
+        } else if (opcion.equals("Desocupadas")) {
             jcbCapacidad.setEnabled(true);
             for (Mesa aux : mesaData.listarMesa()) {
                 if (aux.getCapacidad() == capacidad && aux.isOcupada() == false) {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
-        } 
-        // TODO add your handling code here:
+        }
+        
     }//GEN-LAST:event_jcbOpcionesItemStateChanged
 
     private void xMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseClicked
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_xMouseClicked
 
     private void xMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseEntered
         btnSalir.setBackground(Color.red);
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_xMouseEntered
 
     private void xMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseExited
         btnSalir.setBackground(naranja);
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_xMouseExited
 
 
@@ -344,7 +342,6 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         modelo.addColumn("Capacidad");
         modelo.addColumn("Número");
 
-        
         //Seteamos el modelo a la tabla
         jtTablaMesas.setModel(modelo);
 

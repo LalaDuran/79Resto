@@ -11,6 +11,7 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
 
     private final DefaultTableModel modelo = new DefaultTableModel() {
         //Hacemos la tabla no-editable en todas sus celdas
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
@@ -151,7 +152,9 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
 
     private void jtfNombreProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreProductoKeyReleased
         ProductoData prodD = new ProductoData();
+        
         if (jrbSoloStockCritico.isSelected()) {
+            
             borrarFilas();
             for (Producto prod : prodD.listarProducto()) {
                 if (prod.getNombre().toLowerCase().startsWith(jtfNombreProducto.getText().toLowerCase()) && prod.getCant_stock() < 10) {
@@ -171,7 +174,9 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
 
     private void jrbSoloStockCriticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbSoloStockCriticoActionPerformed
         ProductoData prodD = new ProductoData();
+        
         if (jrbSoloStockCritico.isSelected()) {
+            
             borrarFilas();
             for (Producto prod : prodD.listarProducto()) {
                 if (prod.getNombre().toLowerCase().startsWith(jtfNombreProducto.getText().toLowerCase()) && prod.getCant_stock() < 10) {

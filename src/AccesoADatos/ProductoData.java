@@ -1,6 +1,5 @@
 package AccesoADatos;
 
-
 import Entidades.Producto;
 import java.sql.*;
 import java.util.*;
@@ -67,7 +66,6 @@ public class ProductoData {
             //Ejecutamos el comando SQL que devuelve un entero; creamos variable
             int exito = ps.executeUpdate();
 
-            System.out.println(exito);
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Producto modificado");
             }
@@ -80,31 +78,6 @@ public class ProductoData {
         }
     }
 
-//    public void eliminarProducto(int id) {
-//        String sql = "DELETE FROM producto WHERE idProducto = ? ";
-//
-//        try {
-//            //Prepara el comando SQL
-//            PreparedStatement ps = con.prepareStatement(sql);
-//
-//            //Asignamos el valor al parámetro dinámico
-//            ps.setInt(1, id);
-//
-//            //Ejecutamos el comando SQL que devuelve un entero; creamos variable
-//            int exito = ps.executeUpdate();
-//
-//            if (exito == 1) {
-//                JOptionPane.showMessageDialog(null, "Producto eliminado");
-//            }
-//
-//            //Liberamos recursos
-//            ps.close();
-//
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'producto'");
-//        }
-//    }
-//    
     public void eliminarProducto(int id) {
         String sql = "UPDATE producto SET estado = 0, cant_stock = 0 WHERE idProducto = ? ";
 
@@ -130,9 +103,11 @@ public class ProductoData {
         }
     }
 
+    
     public Producto buscarProductoPorID(int id) {
         String sql = "SELECT nombre, cant_stock, precio, estado FROM producto WHERE idProducto = ?";
-        //Creamos un mesero en null para setearlo luego
+        
+        //Creamos un producto en null para setearlo luego
         Producto productoABuscar = null;
 
         try {
@@ -148,10 +123,11 @@ public class ProductoData {
             if (rs.next()) {
                 //Instanciamos productoABuscar y seteamos
                 productoABuscar = new Producto();
+                
                 productoABuscar.setIdProducto(id);
                 productoABuscar.setNombre(rs.getString("nombre"));
                 productoABuscar.setCant_stock(rs.getInt("cant_stock"));
-                productoABuscar.setPrecio(rs.getDouble("precio"));  
+                productoABuscar.setPrecio(rs.getDouble("precio"));
                 productoABuscar.setEstado(rs.getBoolean("estado"));
 
             } else {
@@ -166,8 +142,9 @@ public class ProductoData {
         }
         return productoABuscar;
     }
+
     
-     public List<Producto> listarProducto() {
+    public List<Producto> listarProducto() {
         //Sacamos 'estado' del WHERE igual que método anterior
         String sql = "SELECT idProducto, nombre, cant_stock, precio, estado FROM producto ";
 
@@ -182,15 +159,16 @@ public class ProductoData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos alumnoABuscar y seteamos
+                //Instanciamos productoABuscar y seteamos
                 Producto productoABuscar = new Producto();
+                
                 productoABuscar.setIdProducto(rs.getInt("idProducto"));
                 productoABuscar.setNombre(rs.getString("nombre"));
                 productoABuscar.setCant_stock(rs.getInt("cant_stock"));
                 productoABuscar.setPrecio(rs.getDouble("precio"));
                 productoABuscar.setEstado(rs.getBoolean("estado"));
 
-                //Agregamos el alumno al arraylist
+                //Agregamos el producto al arraylist
                 productos.add(productoABuscar);
             }
 
@@ -199,7 +177,7 @@ public class ProductoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'producto'");
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Por favor conectese a la base de datos");
         }
         return productos;

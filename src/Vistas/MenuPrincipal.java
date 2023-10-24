@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
 import java.awt.Color;
@@ -10,22 +6,19 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author morena
- */
+
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuPrincipal
-     */
+ 
     public MenuPrincipal() {
         initComponents();
+        
         //Abre la ventana del menú en el centro
         this.setLocationRelativeTo(null);
 
         escritorio = new EscritorioPersonalizado();
         this.setContentPane(escritorio);
+        
         //Impide que se modifique el tamaño de la ventana
         this.setResizable(false);
 

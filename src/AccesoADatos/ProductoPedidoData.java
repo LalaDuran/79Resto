@@ -1,24 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package AccesoADatos;
 
-import Entidades.Producto;
-import Entidades.productoPedido;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import Entidades.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Faustino
- */
 public class ProductoPedidoData {
 
     private Connection con = null;
@@ -35,9 +22,9 @@ public class ProductoPedidoData {
         try {
 
             PreparedStatement ps = con.prepareStatement(sql2);
+
             //Asignamos los valores a los parámetros dinámicos 
             ps.setInt(1, pp.getProducto().getIdProducto());
-
             ps.setInt(2, pp.getCantPedida());
             ps.setInt(3, pp.getPedido().getIdPedido());
             ps.setDouble(4, pp.getPrecio());
@@ -46,13 +33,13 @@ public class ProductoPedidoData {
             ps.executeUpdate();
 
             ps.close();
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'productospedidos'");
 
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             JOptionPane.showMessageDialog(null, "Error: lista vacía");
         }
-
     }
 
     public void modificarProdPed(productoPedido pp) {
@@ -68,6 +55,7 @@ public class ProductoPedidoData {
             ps.setInt(2, pp.getProducto().getIdProducto());
             ps.setInt(3, pp.getPedido().getIdPedido());
             ps.setDouble(4, pp.getPrecio());
+
             //Ejecutamos el comando SQL que devuelve un entero; creamos variable
             int exito = ps.executeUpdate();
 
@@ -117,25 +105,26 @@ public class ProductoPedidoData {
         ArrayList<productoPedido> productos = new ArrayList<>();
         ProductoData pd = new ProductoData();
         PedidoData pedD = new PedidoData();
+
         try {
             //Prepara el comando SQL
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setInt(1, id);
+
             //Ejecutamos el comando SQL que devuelve un ResulSet; creamos variable
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos alumnoABuscar y seteamos
+                //Instanciamos productoABuscar y seteamos
                 productoPedido productoABuscar = new productoPedido();
+
                 productoABuscar.setProducto(pd.buscarProductoPorID(rs.getInt("idProducto")));
                 productoABuscar.setPedido(pedD.buscarPedidoPorID(rs.getInt("idPedido")));
                 productoABuscar.setCantPedida(rs.getInt("cantidadPedida"));
                 productoABuscar.setPrecio(rs.getDouble("precio"));
-                //         System.out.println(rs.getInt("idProducto"));
-                ;
 
-                //Agregamos el alumno al arraylist
+                //Agregamos el producto al arraylist
                 productos.add(productoABuscar);
             }
 
@@ -150,18 +139,17 @@ public class ProductoPedidoData {
         return productos;
     }
 
-     
     public double calcularTotal(int id) {
-    double total = 0;
+        double total = 0;
 
-    // Supongamos que listarProductoPedidoPorIdDePedido(id) devuelve una lista de ProductoPedido
-    List<productoPedido> listaProductos = listarProductoPedidoPorIdDePedido(id);
+        // Supongamos que listarProductoPedidoPorIdDePedido(id) devuelve una lista de ProductoPedido
+        List<productoPedido> listaProductos = listarProductoPedidoPorIdDePedido(id);
 
-    for(productoPedido producto : listaProductos){
-        total += producto.getPrecio(); // Aquí deberías acceder al precio del producto
+        for (productoPedido producto : listaProductos) {
+            total += producto.getPrecio(); // Aquí deberías acceder al precio del producto
+        }
+
+        return total;
     }
-
-    return total;
-}
 
 }

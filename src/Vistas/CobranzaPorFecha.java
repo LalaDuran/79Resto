@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
 
-import AccesoADatos.PedidoData;
-import AccesoADatos.ProductoPedidoData;
+import AccesoADatos.*;
 import Entidades.Pedido;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -14,10 +8,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Faustino
- */
 public class CobranzaPorFecha extends javax.swing.JInternalFrame {
 
     private final DefaultTableModel modelo = new DefaultTableModel() {
@@ -27,11 +17,9 @@ public class CobranzaPorFecha extends javax.swing.JInternalFrame {
         }
     };
 
-    /**
-     * Creates new form CobranzaPorFecha
-     */
     public CobranzaPorFecha() {
         initComponents();
+
         armarTabla();
     }
 
@@ -142,33 +130,35 @@ public class CobranzaPorFecha extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarActionPerformed
-        try{
+        try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String dia1 = sdf.format(jFecha.getDate());
-        double total=0;
-        
-        PedidoData pd = new PedidoData();
-        ProductoPedidoData ppd = new ProductoPedidoData();
-        borrarFilas();
-        for (Pedido aux : pd.listarPedidos()) {
+            String dia1 = sdf.format(jFecha.getDate());
+            double total = 0;
 
-            String dia2 = sdf.format(aux.getFecha_hora());
-            double subtotal = ppd.calcularTotal(aux.getIdPedido());
-
+            PedidoData pd = new PedidoData();
+            ProductoPedidoData ppd = new ProductoPedidoData();
             
-            if (dia1.equals(dia2) && aux.isCobrado()) {
-                total = subtotal+total;
-                modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), subtotal});
+            borrarFilas();
+            
+            for (Pedido aux : pd.listarPedidos()) {
 
+                String dia2 = sdf.format(aux.getFecha_hora());
+                double subtotal = ppd.calcularTotal(aux.getIdPedido());
+
+                if (dia1.equals(dia2) && aux.isCobrado()) {
+                    total = subtotal + total;
+                    modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), subtotal});
+
+                }
             }
-        }
-        
-        jTotal.setText(String.valueOf(total));
-        } catch(NullPointerException ex){
+
+            jTotal.setText(String.valueOf(total));
+            
+        } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Seleccione una fecha");
         }
-        
-        // TODO add your handling code here:
+
+       
     }//GEN-LAST:event_jListarActionPerformed
 
 

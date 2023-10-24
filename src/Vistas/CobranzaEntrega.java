@@ -1,36 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
 import AccesoADatos.*;
 import Entidades.*;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Adriana
- */
+
 public class CobranzaEntrega extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form CobranzaEntrega
-     */
+ 
     public CobranzaEntrega() {
         initComponents();
+        
         cargarPedidos();
+        
         PedidoData ppd = new PedidoData();
         Pedido p = ppd.buscarPedidoPorID((Integer) jcbIDPedido.getSelectedItem());
+        
         if (p.isCobrado()) {
             jbCobrar.setEnabled(false);
-
         }
         if (p.isEntregado()) {
             jbEntregar.setEnabled(false);
         }
-
     }
 
     /**
@@ -161,12 +153,13 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
             jbEntregar.setEnabled(true);
         }
         jtfTotal.setText(String.valueOf(total));
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jcbIDPedidoItemStateChanged
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCobrarActionPerformed

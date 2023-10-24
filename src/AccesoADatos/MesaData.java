@@ -32,7 +32,7 @@ public class MesaData {
             //Ejecutamos el comando SQL
             ps.executeUpdate();
 
-            //Recuperamos el id_alumno generado autoincremental
+            //Recuperamos el id generado autoincremental
             ResultSet rs = ps.getGeneratedKeys();
 
             //Asignamos el id generado 
@@ -128,6 +128,7 @@ public class MesaData {
             if (rs.next()) {
                 //Instanciamos mesaABuscar y seteamos
                 mesaABuscar = new Mesa();
+                
                 mesaABuscar.setIdMesa(id);
                 mesaABuscar.setCapacidad(rs.getInt("capacidad"));
                 mesaABuscar.setEstado(rs.getBoolean("estado"));
@@ -166,6 +167,7 @@ public class MesaData {
             while (rs.next()) {
                 //Instanciamos mesaABuscar y seteamos
                 Mesa mesaABuscar = new Mesa();
+                
                 mesaABuscar.setIdMesa(rs.getInt("idMesa"));
                 mesaABuscar.setCapacidad(rs.getInt("capacidad"));
                 mesaABuscar.setEstado(rs.getBoolean("estado"));

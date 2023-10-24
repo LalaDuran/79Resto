@@ -1,9 +1,7 @@
 package Vistas;
 
-import AccesoADatos.MesaData;
-import AccesoADatos.PedidoData;
-import Entidades.Mesa;
-import Entidades.Pedido;
+import AccesoADatos.*;
+import Entidades.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -14,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListadoPedidoPorMesa extends javax.swing.JInternalFrame {
     
     private final DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
@@ -191,6 +190,7 @@ public class ListadoPedidoPorMesa extends javax.swing.JInternalFrame {
             for (Pedido aux : pedData.listarPedidosPorMesaYFecha(mesaABuscar, fechaInicial, fechaFinal)) {
                 modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado()});
             }
+            
         } catch (NullPointerException exx) {
             JOptionPane.showMessageDialog(null, "Complete todos los campos");
         }

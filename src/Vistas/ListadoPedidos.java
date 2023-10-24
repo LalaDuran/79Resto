@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import AccesoADatos.PedidoData;
@@ -7,22 +6,21 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ListadoPedidos extends javax.swing.JInternalFrame {
 
     private final DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
-    
-    
+
     public ListadoPedidos() {
         initComponents();
-        
+
         //Carga la estructura de la tabla
         armarTabla();
-        
+
     }
 
     /**
@@ -159,12 +157,12 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     private void jrbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTodosActionPerformed
         //Instanciamos pedidosData para usar luego
         PedidoData pedData = new PedidoData();
-                
+
         //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
         if (jrbTodos.isSelected()) {
             jrbPendientes.setSelected(false);
             jrbCobrados.setSelected(false);
-               
+
         }
 
         //Borramos las filas evitando repeticiones
@@ -172,20 +170,20 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         //Listamos los pedidos en la tabla
         for (Pedido aux : pedData.listarPedidos()) {
-            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+            modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
         }
 
     }//GEN-LAST:event_jrbTodosActionPerformed
 
     private void jrbCobradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCobradosActionPerformed
-       //Instanciamos pedidosData para usar luego
+        //Instanciamos pedidosData para usar luego
         PedidoData pedData = new PedidoData();
-                
+
         //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
         if (jrbCobrados.isSelected()) {
             jrbTodos.setSelected(false);
             jrbPendientes.setSelected(false);
-             
+
         }
 
         //Borramos las filas evitando repeticiones
@@ -193,7 +191,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         //Listamos los pedidos en la tabla
         for (Pedido aux : pedData.listarPedidosCobrados()) {
-            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+            modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
         }
 
     }//GEN-LAST:event_jrbCobradosActionPerformed
@@ -201,12 +199,12 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     private void jrbPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbPendientesActionPerformed
         //Instanciamos pedidosData para usar luego
         PedidoData pedData = new PedidoData();
-                
+
         //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
         if (jrbPendientes.isSelected()) {
             jrbTodos.setSelected(false);
             jrbCobrados.setSelected(false);
-                  
+
         }
 
         //Borramos las filas evitando repeticiones
@@ -214,7 +212,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         //Listamos los pedidos en la tabla
         for (Pedido aux : pedData.listarPedidosPendientesDeCobro()) {
-            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+            modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
         }
     }//GEN-LAST:event_jrbPendientesActionPerformed
 
@@ -231,7 +229,6 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrbTodos;
     private javax.swing.JTable jtTablaPedidos;
     // End of variables declaration//GEN-END:variables
-
 
     private void armarTabla() {
         //Agregamos las cabeceras a la tabla
@@ -256,7 +253,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
-        
+
         //para centrar los datos de la segunda columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(1).setCellRenderer(tcr0);
@@ -264,7 +261,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         //Para centrar los datos de la tercera columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(2).setCellRenderer(tcr0);
-        
+
         //para centrar los datos de la cuarta columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(3).setCellRenderer(tcr0);
@@ -273,7 +270,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(4).setCellRenderer(tcr0);
     }
-    
+
     private void borrarFilas() {
         //Evita la repetición de las filas en la tabla
         while (modelo.getRowCount() > 0) {

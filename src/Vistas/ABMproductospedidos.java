@@ -1,11 +1,7 @@
 package Vistas;
 
-import AccesoADatos.PedidoData;
-import AccesoADatos.ProductoData;
-import AccesoADatos.ProductoPedidoData;
-import Entidades.Pedido;
-import Entidades.Producto;
-import Entidades.productoPedido;
+import AccesoADatos.*;
+import Entidades.*;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -15,20 +11,22 @@ import javax.swing.table.DefaultTableModel;
 public class ABMproductospedidos extends javax.swing.JInternalFrame {
 
     Color naranja = new Color(255, 84, 25);
+    
     private final DefaultTableModel modelo = new DefaultTableModel() {
 
+        @Override
         public boolean isCellEditable(int f, int c) {
             if (c == 3) {
                 return true;
             } else {
                 return false;
             }
-
         }
     };
 
     public ABMproductospedidos() {
         initComponents();
+        
         armarTabla();
         cargarProductos();
         cargarPedidos();
@@ -42,58 +40,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
 
     }
 
-    private void armarTabla() {
-        //Agregamos las cabeceras a la tabla
-        modelo.addColumn("Pedido");
-        modelo.addColumn("Id Producto");
-        modelo.addColumn("Producto");
-        modelo.addColumn("cantidad");
-        modelo.addColumn("SubTotal");
 
-        //Seteamos el modelo a la tabla
-        jtProductosPedidos.setModel(modelo);
-
-        //Impedimos el reordenamiento de la cabecera
-        jtProductosPedidos.getTableHeader().setReorderingAllowed(false);
-
-        //para centrar las celdas del encabezado
-        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtProductosPedidos.getTableHeader().getDefaultRenderer();
-        header.setHorizontalAlignment(SwingConstants.CENTER);
-
-        //para centrar los datos de la primera columna
-        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
-        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
-        jtProductosPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
-
-    }
-
-    private void cargarProductos() {
-        //Cargamos los productos al jComboBox
-        ProductoData prodData = new ProductoData();
-
-        for (Producto aux : prodData.listarProducto()) {
-            jcbProductos.addItem(aux);
-        }
-    }
-
-    private void cargarPedidos() {
-        //Cargamos los productos al jComboBox
-        PedidoData pedData = new PedidoData();
-
-        for (Pedido aux : pedData.listarPedidos()) {
-            jcbPedidos.addItem(aux);
-        }
-    }
-
-//    private void cargarTablaProductos(int id) {
-//
-//        ProductoPedidoData prodD = new ProductoPedidoData();
-//
-//        //Listamos los productos en la tabla
-//        for (Producto aux : prodD.listarProductoPedidoPorIdDePedido(id)) {
-//            modelo.addRow(new Object[]{aux.getIdProducto(), aux.getNombre(), aux.getPrecio(), spinner.getValue()});
-//        }
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -324,31 +271,37 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         pp.setCantPedida(cantidad);
         pp.setProducto((Producto) jcbProductos.getSelectedItem());
         pp.setPrecio(pp.getProducto().getPrecio() * pp.getCantPedida());
+        
         ppd.agregarProductos(pp);
+        
         borrarFilas();
+        
         //Listamos los productos en la tabla
         for (productoPedido aux : ppd.listarProductoPedidoPorIdDePedido(p.getIdPedido())) {
             modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(), aux.getPrecio()});
         }
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
         ProductoPedidoData pd = new ProductoPedidoData();
         Pedido p = (Pedido) jcbPedidos.getSelectedItem();
+        
         if (jtProductosPedidos.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione un producto");
         } else {
             int filaSel = jtProductosPedidos.getSelectedRow();
-            System.out.println(filaSel);
             int prod = (int) jtProductosPedidos.getValueAt(filaSel, 1);
+            
             pd.eliminarProductoPedido(prod);
+            
             borrarFilas();
 
             //Listamos los productos en la tabla
@@ -368,17 +321,19 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un producto");
         } else {
             int filaSel = jtProductosPedidos.getSelectedRow();
-            System.out.println(filaSel);
+
             String valor = (String) jtProductosPedidos.getValueAt(filaSel, 3);
+            
             try {
                 //Pasamos valor de String a double
                 int cant = Integer.parseInt(valor);
 
-                //Llamamos al método que actualizará la nota
+                //Llamamos al método que actualizará 
                 pp.setPedido(p);
                 pp.setCantPedida(cant);
                 pp.setProducto((Producto) jcbProductos.getSelectedItem());
                 pd.modificarProdPed(pp);
+                
                 borrarFilas();
 
             } catch (NumberFormatException ex) {
@@ -390,7 +345,7 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
                 modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(),aux.getPrecio()});
             }
         }
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jcbPedidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbPedidosItemStateChanged
@@ -406,15 +361,8 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
             modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(), aux.getPrecio()});
         }
 
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jcbPedidosItemStateChanged
-
-    private void borrarFilas() {
-        //Evita la repetición de las filas en la tabla
-        while (modelo.getRowCount() > 0) {
-            modelo.removeRow(0);
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -431,4 +379,55 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtProductosPedidos;
     private javax.swing.JSpinner spinner;
     // End of variables declaration//GEN-END:variables
+
+   private void armarTabla() {
+        //Agregamos las cabeceras a la tabla
+        modelo.addColumn("Pedido");
+        modelo.addColumn("Id Producto");
+        modelo.addColumn("Producto");
+        modelo.addColumn("cantidad");
+        modelo.addColumn("SubTotal");
+
+        //Seteamos el modelo a la tabla
+        jtProductosPedidos.setModel(modelo);
+
+        //Impedimos el reordenamiento de la cabecera
+        jtProductosPedidos.getTableHeader().setReorderingAllowed(false);
+
+        //para centrar las celdas del encabezado
+        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtProductosPedidos.getTableHeader().getDefaultRenderer();
+        header.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //para centrar los datos de la primera columna
+        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
+        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
+        jtProductosPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
+
+    }
+
+    private void cargarProductos() {
+        //Cargamos los productos al jComboBox
+        ProductoData prodData = new ProductoData();
+
+        for (Producto aux : prodData.listarProducto()) {
+            jcbProductos.addItem(aux);
+        }
+    }
+
+    private void cargarPedidos() {
+        //Cargamos los productos al jComboBox
+        PedidoData pedData = new PedidoData();
+
+        for (Pedido aux : pedData.listarPedidos()) {
+            jcbPedidos.addItem(aux);
+        }
+    }
+
+   private void borrarFilas() {
+        //Evita la repetición de las filas en la tabla
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+   
 }

@@ -2,15 +2,9 @@ package Vistas;
 
 import AccesoADatos.*;
 import Entidades.*;
-
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.*;
-import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class ABMPedidos extends javax.swing.JInternalFrame {
@@ -23,7 +17,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
             } else {
                 return false;
             }
-
         }
     };
 
@@ -335,7 +328,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 //Buscamos el pedido con ese id y lo enviamos a los pedidos ya creado
                 p = pedidoD.buscarPedidoPorID(IDPedidoAEliminar);
 
-                //Eliminamos la mesa llamando al método eliminarMesa de mesaData
+                //Eliminamos el pedido llamando al método eliminarPedido de pedidoData
                 pedidoD.eliminarPedido(p.getIdPedido());
 
                 //Limpiamos los campos de la vista
@@ -348,7 +341,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Ingrese un ID Pedido");
             }
         }
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
@@ -359,8 +352,8 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
-            //     int idPedidoAGuardar = Integer.parseInt(jtfIDPedido.getText());
             Mesa mesaAGuardar = mesaD.buscarMesaPorID((Integer) jcbIDMesa.getSelectedItem());
+
             List<Producto> prods = null; //aún no ha sido definido
             Mesero meseroAGuardar = (Mesero) jcbMesero.getSelectedItem();
 
@@ -370,6 +363,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
             Date diaEnVista = jdcFechaYHora.getDate();
             // getting the object of the Timestamp class
             Timestamp diaAGuardar = new Timestamp(diaEnVista.getTime());
+
             //Instanciamos un pedido con los parámetros anteriores
             Pedido p = new Pedido(mesaAGuardar, prods, meseroAGuardar, entregadoAGuardar, cobradoAGuardar, diaAGuardar);
 
@@ -386,7 +380,6 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
                     break;
                 }
             }
-            //Si ya existe el pedido puede tener productos asociados, o no, y si no existe no tiene productos asociados. Para ambos casos usamos guardarPedido con productos asociados en null 
 
             JOptionPane.showConfirmDialog(null, "Pedido guardado");
             if (existeID == true) {
@@ -406,7 +399,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
             //Si no usa números enteros en todos los campos
             JOptionPane.showMessageDialog(null, "Use sólo números enteros");
 
-            // TODO add your handling code here:
+
     }//GEN-LAST:event_jbGuardarActionPerformed
     }
 
@@ -432,29 +425,7 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jtfIDPedido;
     // End of variables declaration//GEN-END:variables
 
-//    private void armarTabla() {
-//        //Agregamos las cabeceras a la tabla
-//        modelo.addColumn("id");
-//        modelo.addColumn("nombre");
-//        modelo.addColumn("precio");
-//        modelo.addColumn("cantidad");
-//
-//        Seteamos el modelo a la tabla
-//        jtTablaProductosPedidos.setModel(modelo);
-//
-//        //Impedimos el reordenamiento de la cabecera
-//        jtTablaProductosPedidos.getTableHeader().setReorderingAllowed(false);
-//
-//        //para centrar las celdas del encabezado
-//        DefaultTableCellRenderer header = (DefaultTableCellRenderer) jtTablaProductosPedidos.getTableHeader().getDefaultRenderer();
-//        header.setHorizontalAlignment(SwingConstants.CENTER);
-//
-//        //para centrar los datos de la primera columna
-//        DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
-//        tcr0.setHorizontalAlignment(SwingConstants.CENTER);
-//        jtTablaProductosPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
-//
-//    }
+
     private void borrarFilas() {
         //Evita la repetición de las filas en la tabla
         while (modelo.getRowCount() > 0) {
@@ -480,22 +451,5 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
 
         }
     }
+    
 }
-// private void cargarProductos() {
-//        //Cargamos los productos al jComboBox
-//        ProductoData prodData = new ProductoData();
-//
-//        for (Producto aux : prodData.listarProducto()) {
-//            cbProductos.addItem(aux);
-//        }
-//    }
-
-//     private void cargarTablaProductos(){
-//         
-//         ProductoData prodD = new ProductoData();
-//         
-//         //Listamos los productos en la tabla
-//        for (Producto aux : prodD.listarProducto()) {
-//            modelo.addRow(new Object[]{aux.getIdProducto(),aux.getNombre(), aux.getPrecio(), spinner.getValue()});
-//        }
-

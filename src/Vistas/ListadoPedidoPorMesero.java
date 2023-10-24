@@ -1,12 +1,7 @@
-
 package Vistas;
 
-import AccesoADatos.MesaData;
-import AccesoADatos.MeseroData;
-import AccesoADatos.PedidoData;
-import Entidades.Mesa;
-import Entidades.Mesero;
-import Entidades.Pedido;
+import AccesoADatos.*;
+import Entidades.*;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -14,18 +9,18 @@ import javax.swing.table.DefaultTableModel;
 public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
 
     private final DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
-    
-    
+
     public ListadoPedidoPorMesero() {
         initComponents();
-        
+
         //Carga los ID de las mesas al jComboBox
         cargarIDMeseros();
-        
+
         //Carga la estructura de la tabla
         armarTabla();
     }
@@ -133,12 +128,12 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-       //Invisibiliza, deselecciona y cierra la ventana
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jcbIDMeseroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbIDMeseroItemStateChanged
-         //Instanciamos pedidosData para usar luego
+        //Instanciamos *Data para usar luego
         PedidoData pedData = new PedidoData();
         MeseroData meseroData = new MeseroData();
 
@@ -150,7 +145,7 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
 
         //Listamos los pedidos en la tabla
         for (Pedido aux : pedData.listarPedidosPorMesero(meseroABuscar)) {
-            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.isEntregado(), aux.isCobrado()});
+            modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), aux.isEntregado(), aux.isCobrado()});
         }
     }//GEN-LAST:event_jcbIDMeseroItemStateChanged
 
@@ -165,7 +160,7 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtTablaPedidosXMesero;
     // End of variables declaration//GEN-END:variables
 
-private void cargarIDMeseros() {
+    private void cargarIDMeseros() {
         //Cargamos los IDMeseros al jComboBox
         MeseroData meseroD = new MeseroData();
 
@@ -173,7 +168,7 @@ private void cargarIDMeseros() {
             jcbIDMesero.addItem(aux.getIdMesero());
         }
     }
-    
+
     private void armarTabla() {
         //Agregamos las cabeceras a la tabla
         modelo.addColumn("ID Pedido");
@@ -195,7 +190,7 @@ private void cargarIDMeseros() {
         DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesero.getColumnModel().getColumn(0).setCellRenderer(tcr0);
-        
+
         //para centrar los datos de la segunda columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesero.getColumnModel().getColumn(1).setCellRenderer(tcr0);
@@ -203,12 +198,12 @@ private void cargarIDMeseros() {
         //Para centrar los datos de la tercera columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesero.getColumnModel().getColumn(2).setCellRenderer(tcr0);
-        
+
         //para centrar los datos de la cuarta columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesero.getColumnModel().getColumn(3).setCellRenderer(tcr0);
     }
-    
+
     private void borrarFilas() {
         //Evita la repetición de las filas en la tabla
         while (modelo.getRowCount() > 0) {
@@ -216,5 +211,4 @@ private void cargarIDMeseros() {
         }
     }
 
-    
 }

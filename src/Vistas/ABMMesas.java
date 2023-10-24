@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
 import AccesoADatos.*;
@@ -10,17 +6,12 @@ import Entidades.*;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author morena
- */
+
 public class ABMMesas extends javax.swing.JInternalFrame {
 
     Color naranja = new Color(255, 84, 25);
 
-    /**
-     * Creates new form Mesas
-     */
+    
     public ABMMesas() {
         initComponents();
         jPanel1.setBackground(Color.WHITE);
@@ -324,8 +315,6 @@ public class ABMMesas extends javax.swing.JInternalFrame {
 
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
-            //      int idMesaAGuardar = Integer.parseInt(jtfIDMesa.getText());
-
             int capacidadAGuardar = Integer.parseInt(jtfCapacidad.getText());
             int numeroAGuardar = Integer.parseInt(jtfNumero.getText());
             boolean habAGuardar = jrbHabilitada.isSelected();
@@ -337,7 +326,6 @@ public class ABMMesas extends javax.swing.JInternalFrame {
             //declaramos una variable bandera por si ya existe el id tipeado en vista
             boolean existeID = false;
 
-            System.out.println(m);
             //Recorremos la lista de mesas existentes
             for (Mesa existingMesa : mesaD.listarMesa()) {
 
@@ -345,11 +333,9 @@ public class ABMMesas extends javax.swing.JInternalFrame {
                     //Si existe la mesa, seteamos el id para poder acceder al método modificar; si no existe se activa la bandera más abajo 
                     m.setIdMesa(mesaD.buscarMesaPorID(Integer.parseInt(jtfIDMesa.getText())).getIdMesa());
                     existeID = true;
-                    System.out.println(existeID);
                     break;
                 }
             }
-            System.out.println(m);
             //Si existe la mesa usa el método modificarMesa; si no, guardarMesa
             if (existeID == true) {
                 mesaD.modificarMesa(m);
@@ -360,14 +346,14 @@ public class ABMMesas extends javax.swing.JInternalFrame {
             //Habilitamos los botones 'Eliminar' y 'Limpiar'
             jbEliminar.setEnabled(true);
             jbLimpiar.setEnabled(true);
-
+            
+            //Limpiamos los campos de la vista
             jtfIDMesa.setText("");
             jtfCapacidad.setText("");
             jtfNumero.setText("");
             jrbHabilitada.setSelected(false);
             jrbOcupada.setSelected(false);
-            jbLimpiar.setEnabled(false);
-            jbEliminar.setEnabled(false);
+
 
         } catch (NullPointerException ex) {
             //Si algún campo está vacío
@@ -412,7 +398,7 @@ public class ABMMesas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
-        //Cierra el menu mesas
+        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
 
     }//GEN-LAST:event_btnCerrarMouseClicked

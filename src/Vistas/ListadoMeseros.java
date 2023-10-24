@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import AccesoADatos.*;
@@ -9,17 +8,18 @@ import javax.swing.table.DefaultTableModel;
 
 public class ListadoMeseros extends javax.swing.JInternalFrame {
 
-       //Cargamos el modelo de tabla
+    //Cargamos el modelo de tabla
     private final DefaultTableModel modelo = new DefaultTableModel() {
         //Hacemos la tabla no-editable en todas sus celdas
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
-    
+
     public ListadoMeseros() {
         initComponents();
-        
+
         //Carga la estructura de la tabla
         armarTabla();
     }
@@ -85,11 +85,6 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
         });
 
         jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Activos", "No Activos" }));
-        jcbEstado.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jcbEstadoItemStateChanged(evt);
-            }
-        });
 
         jLabel4.setText("Estado:");
 
@@ -152,22 +147,22 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-         //Deselecciona, invisibiliza y cierra la ventana
+        //Deselecciona, invisibiliza y cierra la ventana
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jtfBusquedaApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBusquedaApellidoKeyReleased
         //Instanciamos meseroData para usar su método listarMesero
         MeseroData meseroD = new MeseroData();
-        
+
         //Instanciamos una variable que refleje lo seleccionado en el comboBox
         String estadoElegido = (String) jcbEstado.getSelectedItem();
-        
+
         if (estadoElegido.equals("Todos")) {
             borrarFilas();
             for (Mesero aux : meseroD.listarMesero()) {
                 if (aux.getApellido().toLowerCase().startsWith(jtfBusquedaApellido.getText().toLowerCase())) {
-                    modelo.addRow(new Object[]{aux.getIdMesero(),aux.getApellido(),aux.getNombre(),aux.getDni()});
+                    modelo.addRow(new Object[]{aux.getIdMesero(), aux.getApellido(), aux.getNombre(), aux.getDni()});
                 }
             }
         } else if (estadoElegido.equals("Activos")) {
@@ -177,7 +172,7 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
                     modelo.addRow(new Object[]{aux.getIdMesero(), aux.getApellido(), aux.getNombre(), aux.getDni()});
                 }
             }
-        } else if(estadoElegido.equals("No Activos")) {
+        } else if (estadoElegido.equals("No Activos")) {
             borrarFilas();
             for (Mesero aux : meseroD.listarMesero()) {
                 if (aux.getApellido().toLowerCase().startsWith(jtfBusquedaApellido.getText().toLowerCase()) && aux.isEstado() == false) {
@@ -190,15 +185,15 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
     private void jtfBusquedaDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBusquedaDNIKeyReleased
         //Instanciamos meseroData para usar su método listarMesero
         MeseroData meseroD = new MeseroData();
-        
+
         //Instanciamos una variable que refleje lo seleccionado en el comboBox
         String estadoElegido = (String) jcbEstado.getSelectedItem();
-        
+
         if (estadoElegido.equals("Todos")) {
             borrarFilas();
             for (Mesero aux : meseroD.listarMesero()) {
                 if (Integer.toString(aux.getDni()).startsWith(jtfBusquedaDNI.getText())) {
-                    modelo.addRow(new Object[]{aux.getIdMesero(),aux.getApellido(),aux.getNombre(),aux.getDni()});
+                    modelo.addRow(new Object[]{aux.getIdMesero(), aux.getApellido(), aux.getNombre(), aux.getDni()});
                 }
             }
         } else if (estadoElegido.equals("Activos")) {
@@ -218,11 +213,6 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtfBusquedaDNIKeyReleased
 
-    private void jcbEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbEstadoItemStateChanged
-        
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbEstadoItemStateChanged
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -236,7 +226,7 @@ public class ListadoMeseros extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfBusquedaApellido;
     private javax.swing.JTextField jtfBusquedaDNI;
     // End of variables declaration//GEN-END:variables
-    
+
     private void armarTabla() {
         //Agregamos las cabeceras a la tabla
         modelo.addColumn("Id Mesero");

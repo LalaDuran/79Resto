@@ -1,12 +1,7 @@
 package AccesoADatos;
 
-import Entidades.Mesa;
-import Entidades.Mesero;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import Entidades.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -37,7 +32,7 @@ public class MeseroData {
             //Ejecutamos el comando SQL
             ps.executeUpdate();
 
-            //Recuperamos el id_alumno generado autoincremental
+            //Recuperamos el id generado autoincremental
             ResultSet rs = ps.getGeneratedKeys();
 
             //Asignamos el id generado 
@@ -154,8 +149,9 @@ public class MeseroData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                //Instanciamos alumnoABuscar y seteamos
+                //Instanciamos meseroABuscar y seteamos
                 meseroABuscar = new Mesero();
+                
                 meseroABuscar.setIdMesero(id);
                 meseroABuscar.setApellido(rs.getString("apellido"));
                 meseroABuscar.setNombre(rs.getString("nombre"));
@@ -195,8 +191,9 @@ public class MeseroData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                //Instanciamos alumnoABuscar y seteamos
+                //Instanciamos meseroABuscar y seteamos
                 meseroABuscar = new Mesero();
+                
                 meseroABuscar.setIdMesero(rs.getInt("idMesero"));
                 //Tambien se puede poner alumnoABuscar.setDni(dni); porque lo tenemos por parametro.
                 meseroABuscar.setDni(rs.getInt("dni"));
@@ -234,15 +231,16 @@ public class MeseroData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                //Instanciamos alumnoABuscar y seteamos
+                //Instanciamos meseroABuscar y seteamos
                 Mesero meseroABuscar = new Mesero();
+                
                 meseroABuscar.setIdMesero(rs.getInt("idMesero"));
                 meseroABuscar.setDni(rs.getInt("dni"));
                 meseroABuscar.setApellido(rs.getString("apellido"));
                 meseroABuscar.setNombre(rs.getString("nombre"));
                 meseroABuscar.setEstado(rs.getBoolean("estado"));
 
-                //Agregamos el alumno al arraylist
+                //Agregamos el mesero al arraylist
                 meseros.add(meseroABuscar);
             }
 
