@@ -22,12 +22,12 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
         initComponents();
         cargarPedidos();
         PedidoData ppd = new PedidoData();
-        Pedido p = ppd.buscarPedidoPorID((Integer)jcbIDPedido.getSelectedItem());
-        if(p.isCobrado()){
+        Pedido p = ppd.buscarPedidoPorID((Integer) jcbIDPedido.getSelectedItem());
+        if (p.isCobrado()) {
             jbCobrar.setEnabled(false);
-                      
+
         }
-        if(p.isEntregado()){
+        if (p.isEntregado()) {
             jbEntregar.setEnabled(false);
         }
 
@@ -145,17 +145,17 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
         PedidoData pd = new PedidoData();
         ProductoPedidoData ppd = new ProductoPedidoData();
         Pedido p = pd.buscarPedidoPorID(id);
-        
+
         double total = 0;
 
         total = ppd.calcularTotal(id);
-        if(p.isCobrado()){
+        if (p.isCobrado()) {
             jbCobrar.setEnabled(false);
         } else {
             jbCobrar.setEnabled(true);
         }
-        
-        if(p.isEntregado()){
+
+        if (p.isEntregado()) {
             jbEntregar.setEnabled(false);
         } else {
             jbEntregar.setEnabled(true);
@@ -173,12 +173,14 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
 
         PedidoData pd = new PedidoData();
         pd.cobrar((int) jcbIDPedido.getSelectedItem());
+        
     }//GEN-LAST:event_jbCobrarActionPerformed
 
     private void jbEntregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEntregarActionPerformed
 
         PedidoData pd = new PedidoData();
         pd.entregar((int) jcbIDPedido.getSelectedItem());
+        
     }//GEN-LAST:event_jbEntregarActionPerformed
 
     public void cargarPedidos() {

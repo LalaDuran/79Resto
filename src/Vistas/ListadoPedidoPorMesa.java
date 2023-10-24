@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import AccesoADatos.MesaData;
@@ -7,26 +6,25 @@ import Entidades.Mesa;
 import Entidades.Pedido;
 import java.sql.Timestamp;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ListadoPedidoPorMesa extends javax.swing.JInternalFrame {
-
+    
     private final DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
     
-    
     public ListadoPedidoPorMesa() {
         initComponents();
-        
+
         //Carga los ID de las mesas al jComboBox
         cargarIDMesas();
-        
+
         //Carga la estructura de la tabla
         armarTabla();
     }
@@ -169,28 +167,35 @@ public class ListadoPedidoPorMesa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
-        //Instanciamos pedidosData para usar luego
-        PedidoData pedData = new PedidoData();
-        MesaData mesaData = new MesaData();
-
-        //Asignamos los valores a las variables para usar
-        Mesa mesaABuscar = mesaData.buscarMesaPorID((Integer) jcbIDMesa.getSelectedItem());
-
-        // getting the system date
-        Date diaEnVista1 = jdcFechaInicial.getDate();
-        Date diaEnVista2 = jdcFechaFinal.getDate();
         
-        // getting the object of the Timestamp class
-        Timestamp fechaInicial = new Timestamp(diaEnVista1.getTime());
-        Timestamp fechaFinal = new Timestamp(diaEnVista2.getTime());
+        try {
+            //Instanciamos pedidosData para usar luego
+            PedidoData pedData = new PedidoData();
+            MesaData mesaData = new MesaData();
 
-        //Borramos las filas evitando repeticiones
-        borrarFilas();
+            //Asignamos los valores a las variables para usar
+            Mesa mesaABuscar = mesaData.buscarMesaPorID((Integer) jcbIDMesa.getSelectedItem());
 
-        //Listamos los pedidos en la tabla
-        for (Pedido aux : pedData.listarPedidosPorMesaYFecha(mesaABuscar, fechaInicial, fechaFinal)) {
-            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado()});
+            // getting the system date
+            Date diaEnVista1 = jdcFechaInicial.getDate();
+            Date diaEnVista2 = jdcFechaFinal.getDate();
+
+            // getting the object of the Timestamp class
+            Timestamp fechaInicial = new Timestamp(diaEnVista1.getTime());
+            Timestamp fechaFinal = new Timestamp(diaEnVista2.getTime());
+
+            //Borramos las filas evitando repeticiones
+            borrarFilas();
+
+            //Listamos los pedidos en la tabla
+            for (Pedido aux : pedData.listarPedidosPorMesaYFecha(mesaABuscar, fechaInicial, fechaFinal)) {
+                modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado()});
+            }
+        } catch (NullPointerException exx) {
+            JOptionPane.showMessageDialog(null, "Complete todos los campos");
         }
+
+        
     }//GEN-LAST:event_jbListarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -217,7 +222,7 @@ public class ListadoPedidoPorMesa extends javax.swing.JInternalFrame {
     private void cargarIDMesas() {
         //Cargamos los IDMesas al jComboBox
         MesaData mesaD = new MesaData();
-
+        
         for (Mesa aux : mesaD.listarMesa()) {
             jcbIDMesa.addItem(aux.getIdMesa());
         }
@@ -244,7 +249,7 @@ public class ListadoPedidoPorMesa extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesa.getColumnModel().getColumn(0).setCellRenderer(tcr0);
-        
+
         //para centrar los datos de la segunda columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesa.getColumnModel().getColumn(1).setCellRenderer(tcr0);
@@ -252,7 +257,7 @@ public class ListadoPedidoPorMesa extends javax.swing.JInternalFrame {
         //Para centrar los datos de la tercera columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesa.getColumnModel().getColumn(2).setCellRenderer(tcr0);
-        
+
         //para centrar los datos de la cuarta columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesa.getColumnModel().getColumn(3).setCellRenderer(tcr0);
@@ -264,5 +269,5 @@ public class ListadoPedidoPorMesa extends javax.swing.JInternalFrame {
             modelo.removeRow(0);
         }
     }
-
+    
 }

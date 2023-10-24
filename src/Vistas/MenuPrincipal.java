@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
-   
     /**
      * Creates new form MenuPrincipal
      */
@@ -29,9 +28,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setContentPane(escritorio);
         //Impide que se modifique el tamaño de la ventana
         this.setResizable(false);
-        
-        
-        
+
     }
 
     /**
@@ -65,8 +62,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         Cobranza = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        cobranzaPorMesero = new javax.swing.JMenuItem();
+        jCobradoPorFecha = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         ABMmeseros = new javax.swing.JMenuItem();
         listadoMeseros = new javax.swing.JMenuItem();
@@ -202,11 +199,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         Cobranza.add(jMenuItem2);
 
-        jMenuItem4.setText("Cobranza por mesero");
-        Cobranza.add(jMenuItem4);
+        cobranzaPorMesero.setText("Cobranza por mesero");
+        cobranzaPorMesero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cobranzaPorMeseroActionPerformed(evt);
+            }
+        });
+        Cobranza.add(cobranzaPorMesero);
 
-        jMenuItem6.setText("Cobranza por fecha");
-        Cobranza.add(jMenuItem6);
+        jCobradoPorFecha.setText("Cobranza por fecha");
+        jCobradoPorFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCobradoPorFechaActionPerformed(evt);
+            }
+        });
+        Cobranza.add(jCobradoPorFecha);
 
         jMenuBar1.add(Cobranza);
 
@@ -258,7 +265,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public JDesktopPane getDesktopPane(){
+    public JDesktopPane getDesktopPane() {
         return escritorio;
     }
     private void ABMmesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMmesasActionPerformed
@@ -366,13 +373,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.moveToFront(lppmesero); //la abre y trae adelante
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void cobranzaPorMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobranzaPorMeseroActionPerformed
+        escritorio.removeAll(); //para que cierre las ventanas que pudieran estar abiertas
+        escritorio.repaint(); //para que lo redibuje
+        CobranzaPorMesero cpm = new CobranzaPorMesero(); //instancia la ventana (aún invis.)
+        cpm.setVisible(true); //la hace visible
+        escritorio.add(cpm); //la agrega al escritorio
+        escritorio.moveToFront(cpm); //la abre y trae adelante
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cobranzaPorMeseroActionPerformed
+
+    private void jCobradoPorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCobradoPorFechaActionPerformed
+        escritorio.removeAll(); //para que cierre las ventanas que pudieran estar abiertas
+        escritorio.repaint(); //para que lo redibuje
+        CobranzaPorFecha cpf = new CobranzaPorFecha(); //instancia la ventana (aún invis.)
+        cpf.setVisible(true); //la hace visible
+        escritorio.add(cpf); //la agrega al escritorio
+        escritorio.moveToFront(cpf); //la abre y trae adelante
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCobradoPorFechaActionPerformed
+
     public void agregarVentana(JInternalFrame subVentana) {
-         escritorio.repaint();
-       escritorio.add(subVentana);
-     
+        escritorio.repaint();
+        escritorio.add(subVentana);
+
         subVentana.moveToFront();
         subVentana.setVisible(true);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -406,9 +434,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 new MenuPrincipal().setVisible(true);
             }
         });
-        
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -417,7 +443,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ABMmeseros;
     private javax.swing.JMenuItem ABMproductos;
     private javax.swing.JMenu Cobranza;
+    private javax.swing.JMenuItem cobranzaPorMesero;
     public static javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuItem jCobradoPorFecha;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -428,9 +456,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
