@@ -27,7 +27,7 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         jPanel1.setBackground(Color.WHITE);
         btnSalir.setBackground(naranja);
         panelTitle.setBackground(naranja);
-        Title.setForeground(Color.WHITE);
+        
 
         //Carga la capacidad de las mesas al jComboBox
         cargarCapacidad();
@@ -100,7 +100,7 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
             }
         });
 
-        Title.setFont(new java.awt.Font("Yu Gothic Medium", 1, 36)); // NOI18N
+        Title.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
         Title.setText("LISTADO DE MESAS");
 
         x.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
@@ -139,9 +139,9 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
             .addGroup(panelTitleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(54, 54, 54))
         );
         panelTitleLayout.setVerticalGroup(
             panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

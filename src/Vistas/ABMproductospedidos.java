@@ -349,7 +349,9 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jcbPedidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbPedidosItemStateChanged
-        ProductoPedidoData ppd = new ProductoPedidoData();
+       
+        try{
+            ProductoPedidoData ppd = new ProductoPedidoData();
         productoPedido pp = new productoPedido();
         Pedido p = (Pedido) jcbPedidos.getSelectedItem();
 
@@ -360,6 +362,10 @@ public class ABMproductospedidos extends javax.swing.JInternalFrame {
         for (productoPedido aux : ppd.listarProductoPedidoPorIdDePedido(p.getIdPedido())) {
             modelo.addRow(new Object[]{aux.getPedido().getIdPedido(), aux.getProducto().getIdProducto(), aux.getProducto().getNombre(), aux.getCantPedida(), aux.getPrecio()});
         }
+        } catch(NullPointerException ex){
+            
+        }
+        
 
         
     }//GEN-LAST:event_jcbPedidosItemStateChanged

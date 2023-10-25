@@ -1,28 +1,39 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Vistas;
 
 import AccesoADatos.*;
 import Entidades.*;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
-
+/**
+ *
+ * @author Adriana
+ */
 public class CobranzaEntrega extends javax.swing.JInternalFrame {
 
- 
+    /**
+     * Creates new form CobranzaEntrega
+     */
     public CobranzaEntrega() {
         initComponents();
-        
         cargarPedidos();
-        
+        jPanel1.setBackground(Color.WHITE);
+        jPanel2.setBackground(ABMPedidos.naranja);
         PedidoData ppd = new PedidoData();
         Pedido p = ppd.buscarPedidoPorID((Integer) jcbIDPedido.getSelectedItem());
-        
         if (p.isCobrado()) {
             jbCobrar.setEnabled(false);
+
         }
         if (p.isEntregado()) {
             jbEntregar.setEnabled(false);
         }
+
     }
 
     /**
@@ -34,98 +45,152 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jcbIDPedido = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jbEntregar = new javax.swing.JButton();
-        jbCobrar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jcbIDPedido = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jtfTotal = new javax.swing.JTextField();
+        jbCobrar = new javax.swing.JButton();
+        jbEntregar = new javax.swing.JButton();
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic Medium", 1, 14)); // NOI18N
         jLabel1.setText("COBRANZA Y ENTREGA DE PEDIDOS");
 
-        jcbIDPedido.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jcbIDPedidoItemStateChanged(evt);
-            }
-        });
-
-        jLabel2.setText("Buscar por Id Pedido");
-
-        jbEntregar.setText("ENTREGAR");
-        jbEntregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEntregarActionPerformed(evt);
-            }
-        });
-
-        jbCobrar.setText("COBRAR");
-        jbCobrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCobrarActionPerformed(evt);
-            }
-        });
-
-        jbSalir.setText("SALIR");
+        jbSalir.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jbSalir.setText("X");
+        jbSalir.setContentAreaFilled(false);
+        jbSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
             }
         });
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbSalir)
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbSalir)
+                    .addComponent(jLabel1))
+                .addGap(14, 14, 14))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jLabel2.setText("Buscar por Id Pedido");
+
+        jcbIDPedido.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jcbIDPedido.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbIDPedidoItemStateChanged(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jLabel3.setText("Total: ");
 
         jtfTotal.setEditable(false);
+        jtfTotal.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+
+        jbCobrar.setFont(new java.awt.Font("Yu Gothic Medium", 1, 10)); // NOI18N
+        jbCobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pagar.png"))); // NOI18N
+        jbCobrar.setText("COBRAR");
+        jbCobrar.setContentAreaFilled(false);
+        jbCobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbCobrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbCobrar.setRolloverEnabled(true);
+        jbCobrar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pagarX48.png"))); // NOI18N
+        jbCobrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbCobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCobrarActionPerformed(evt);
+            }
+        });
+
+        jbEntregar.setFont(new java.awt.Font("Yu Gothic Medium", 1, 10)); // NOI18N
+        jbEntregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/elamigo.png"))); // NOI18N
+        jbEntregar.setText("ENTREGAR");
+        jbEntregar.setContentAreaFilled(false);
+        jbEntregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbEntregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbEntregar.setRolloverEnabled(true);
+        jbEntregar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/elamigoX48.png"))); // NOI18N
+        jbEntregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbEntregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEntregarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jtfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(286, 286, 286)
+                        .addComponent(jcbIDPedido, 0, 60, Short.MAX_VALUE)))
+                .addGap(78, 78, 78))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jbCobrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbEntregar)
+                .addGap(24, 24, 24))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jcbIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbCobrar)
+                    .addComponent(jbEntregar))
+                .addGap(25, 25, 25))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(130, 130, 130))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcbIDPedido, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jbCobrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jbEntregar)
-                .addGap(59, 59, 59)
-                .addComponent(jbSalir)
-                .addGap(62, 62, 62))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jcbIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jtfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbCobrar)
-                    .addComponent(jbEntregar)
-                    .addComponent(jbSalir))
-                .addContainerGap(65, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -153,27 +218,26 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
             jbEntregar.setEnabled(true);
         }
         jtfTotal.setText(String.valueOf(total));
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_jcbIDPedidoItemStateChanged
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
-       
+        // TODO add your handling code here:
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCobrarActionPerformed
 
         PedidoData pd = new PedidoData();
         pd.cobrar((int) jcbIDPedido.getSelectedItem());
-        
+
     }//GEN-LAST:event_jbCobrarActionPerformed
 
     private void jbEntregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEntregarActionPerformed
 
         PedidoData pd = new PedidoData();
         pd.entregar((int) jcbIDPedido.getSelectedItem());
-        
+
     }//GEN-LAST:event_jbEntregarActionPerformed
 
     public void cargarPedidos() {
@@ -189,6 +253,8 @@ public class CobranzaEntrega extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jbCobrar;
     private javax.swing.JButton jbEntregar;
     private javax.swing.JButton jbSalir;

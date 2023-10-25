@@ -1,7 +1,13 @@
+
 package Vistas;
 
-import AccesoADatos.*;
-import Entidades.*;
+import AccesoADatos.MesaData;
+import AccesoADatos.MeseroData;
+import AccesoADatos.PedidoData;
+import Entidades.Mesa;
+import Entidades.Mesero;
+import Entidades.Pedido;
+import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -9,20 +15,23 @@ import javax.swing.table.DefaultTableModel;
 public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
 
     private final DefaultTableModel modelo = new DefaultTableModel() {
-        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
-
+    
+    
     public ListadoPedidoPorMesero() {
         initComponents();
-
+        
         //Carga los ID de las mesas al jComboBox
         cargarIDMeseros();
-
+        
         //Carga la estructura de la tabla
         armarTabla();
+        jPanel1.setBackground(Color.WHITE);
+        jPanel2.setBackground(ABMPedidos.naranja);
+        
     }
 
     /**
@@ -34,31 +43,76 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jbSalir = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jcbIDMesero = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTablaPedidosXMesero = new javax.swing.JTable();
-        jbSalir = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(600, 500));
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic Medium", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LISTADO DE PEDIDOS");
 
+        jLabel2.setFont(new java.awt.Font("Yu Gothic Medium", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("por mesero");
 
+        jbSalir.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jbSalir.setText("X");
+        jbSalir.setContentAreaFilled(false);
+        jbSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jbSalir)
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(15, 15, 15))
+        );
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jLabel3.setText("ID Mesero:");
 
         jcbIDMesero.setEditable(true);
+        jcbIDMesero.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jcbIDMesero.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbIDMeseroItemStateChanged(evt);
             }
         });
 
+        jtTablaPedidosXMesero.setFont(new java.awt.Font("Yu Gothic Medium", 0, 12)); // NOI18N
         jtTablaPedidosXMesero.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -72,68 +126,59 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtTablaPedidosXMesero);
 
-        jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jLabel3)
+                        .addGap(69, 69, 69)
+                        .addComponent(jcbIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jcbIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 48, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(jLabel3)
-                        .addGap(39, 39, 39)
-                        .addComponent(jcbIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(646, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jcbIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbSalir)
-                .addGap(40, 40, 40))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        //Invisibiliza, deselecciona y cierra la ventana
+       //Invisibiliza, deselecciona y cierra la ventana
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jcbIDMeseroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbIDMeseroItemStateChanged
-        //Instanciamos *Data para usar luego
+         //Instanciamos pedidosData para usar luego
         PedidoData pedData = new PedidoData();
         MeseroData meseroData = new MeseroData();
 
@@ -145,7 +190,7 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
 
         //Listamos los pedidos en la tabla
         for (Pedido aux : pedData.listarPedidosPorMesero(meseroABuscar)) {
-            modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), aux.isEntregado(), aux.isCobrado()});
+            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.isEntregado(), aux.isCobrado()});
         }
     }//GEN-LAST:event_jcbIDMeseroItemStateChanged
 
@@ -154,13 +199,15 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Integer> jcbIDMesero;
     private javax.swing.JTable jtTablaPedidosXMesero;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarIDMeseros() {
+private void cargarIDMeseros() {
         //Cargamos los IDMeseros al jComboBox
         MeseroData meseroD = new MeseroData();
 
@@ -168,7 +215,7 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
             jcbIDMesero.addItem(aux.getIdMesero());
         }
     }
-
+    
     private void armarTabla() {
         //Agregamos las cabeceras a la tabla
         modelo.addColumn("ID Pedido");
@@ -190,7 +237,7 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesero.getColumnModel().getColumn(0).setCellRenderer(tcr0);
-
+        
         //para centrar los datos de la segunda columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesero.getColumnModel().getColumn(1).setCellRenderer(tcr0);
@@ -198,12 +245,12 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
         //Para centrar los datos de la tercera columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesero.getColumnModel().getColumn(2).setCellRenderer(tcr0);
-
+        
         //para centrar los datos de la cuarta columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidosXMesero.getColumnModel().getColumn(3).setCellRenderer(tcr0);
     }
-
+    
     private void borrarFilas() {
         //Evita la repetición de las filas en la tabla
         while (modelo.getRowCount() > 0) {
@@ -211,4 +258,5 @@ public class ListadoPedidoPorMesero extends javax.swing.JInternalFrame {
         }
     }
 
+    
 }

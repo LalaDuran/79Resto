@@ -1,26 +1,33 @@
+
 package Vistas;
 
 import AccesoADatos.PedidoData;
 import Entidades.Pedido;
+import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+
 public class ListadoPedidos extends javax.swing.JInternalFrame {
 
     private final DefaultTableModel modelo = new DefaultTableModel() {
-        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
-
+    
+    
     public ListadoPedidos() {
         initComponents();
-
+        
         //Carga la estructura de la tabla
         armarTabla();
-
+        jPanel1.setBackground(Color.WHITE);
+        jPanel2.setBackground(ABMPedidos.naranja);
+       
+        
+        
     }
 
     /**
@@ -35,13 +42,15 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtTablaPedidos = new javax.swing.JTable();
+        jbSalir = new javax.swing.JButton();
         jrbTodos = new javax.swing.JRadioButton();
         jrbPendientes = new javax.swing.JRadioButton();
         jrbCobrados = new javax.swing.JRadioButton();
-        jbSalir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtTablaPedidos = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,8 +67,65 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         setPreferredSize(new java.awt.Dimension(600, 500));
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
         jLabel1.setText("LISTADO DE PEDIDOS");
 
+        jbSalir.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jbSalir.setText("X");
+        jbSalir.setContentAreaFilled(false);
+        jbSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jbSalir)
+                .addGap(155, 155, 155)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jbSalir)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jrbTodos.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jrbTodos.setText("Todos");
+        jrbTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbTodosActionPerformed(evt);
+            }
+        });
+
+        jrbPendientes.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jrbPendientes.setText("Pendientes de Cobro");
+        jrbPendientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbPendientesActionPerformed(evt);
+            }
+        });
+
+        jrbCobrados.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jrbCobrados.setText("Cobrados");
+        jrbCobrados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbCobradosActionPerformed(evt);
+            }
+        });
+
+        jtTablaPedidos.setFont(new java.awt.Font("Yu Gothic Medium", 0, 12)); // NOI18N
         jtTablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -73,77 +139,49 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(jtTablaPedidos);
 
-        jrbTodos.setText("Todos");
-        jrbTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbTodosActionPerformed(evt);
-            }
-        });
-
-        jrbPendientes.setText("Pendientes de Cobro");
-        jrbPendientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbPendientesActionPerformed(evt);
-            }
-        });
-
-        jrbCobrados.setText("Cobrados");
-        jrbCobrados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbCobradosActionPerformed(evt);
-            }
-        });
-
-        jbSalir.setText("SALIR");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jrbTodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jrbPendientes)
+                .addGap(92, 92, 92)
+                .addComponent(jrbCobrados)
+                .addGap(48, 48, 48))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jrbTodos)
+                    .addComponent(jrbPendientes)
+                    .addComponent(jrbCobrados))
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jrbTodos)
-                .addGap(72, 72, 72)
-                .addComponent(jrbPendientes)
-                .addGap(73, 73, 73)
-                .addComponent(jrbCobrados)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(238, 238, 238))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbSalir)
-                        .addGap(94, 94, 94))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(28, Short.MAX_VALUE))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbPendientes)
-                    .addComponent(jrbTodos)
-                    .addComponent(jrbCobrados))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84)
-                .addComponent(jbSalir)
-                .addGap(58, 58, 58))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -157,12 +195,12 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     private void jrbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTodosActionPerformed
         //Instanciamos pedidosData para usar luego
         PedidoData pedData = new PedidoData();
-
+                
         //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
         if (jrbTodos.isSelected()) {
             jrbPendientes.setSelected(false);
             jrbCobrados.setSelected(false);
-
+               
         }
 
         //Borramos las filas evitando repeticiones
@@ -170,20 +208,20 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         //Listamos los pedidos en la tabla
         for (Pedido aux : pedData.listarPedidos()) {
-            modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
         }
 
     }//GEN-LAST:event_jrbTodosActionPerformed
 
     private void jrbCobradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCobradosActionPerformed
-        //Instanciamos pedidosData para usar luego
+       //Instanciamos pedidosData para usar luego
         PedidoData pedData = new PedidoData();
-
+                
         //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
         if (jrbCobrados.isSelected()) {
             jrbTodos.setSelected(false);
             jrbPendientes.setSelected(false);
-
+             
         }
 
         //Borramos las filas evitando repeticiones
@@ -191,7 +229,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         //Listamos los pedidos en la tabla
         for (Pedido aux : pedData.listarPedidosCobrados()) {
-            modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
         }
 
     }//GEN-LAST:event_jrbCobradosActionPerformed
@@ -199,12 +237,12 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     private void jrbPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbPendientesActionPerformed
         //Instanciamos pedidosData para usar luego
         PedidoData pedData = new PedidoData();
-
+                
         //Si está seleccionado el botón, habilitamos e inhabilitamos los otros
         if (jrbPendientes.isSelected()) {
             jrbTodos.setSelected(false);
             jrbCobrados.setSelected(false);
-
+                  
         }
 
         //Borramos las filas evitando repeticiones
@@ -212,7 +250,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
 
         //Listamos los pedidos en la tabla
         for (Pedido aux : pedData.listarPedidosPendientesDeCobro()) {
-            modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
+            modelo.addRow(new Object[]{aux.getIdPedido(),aux.getMesa().getIdMesa(), aux.getMesero().getIdMesero(), aux.isEntregado(), aux.isCobrado(), aux.getFecha_hora()});
         }
     }//GEN-LAST:event_jrbPendientesActionPerformed
 
@@ -220,6 +258,8 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -229,6 +269,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrbTodos;
     private javax.swing.JTable jtTablaPedidos;
     // End of variables declaration//GEN-END:variables
+
 
     private void armarTabla() {
         //Agregamos las cabeceras a la tabla
@@ -253,7 +294,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer tcr0 = new DefaultTableCellRenderer();
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(0).setCellRenderer(tcr0);
-
+        
         //para centrar los datos de la segunda columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(1).setCellRenderer(tcr0);
@@ -261,7 +302,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         //Para centrar los datos de la tercera columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(2).setCellRenderer(tcr0);
-
+        
         //para centrar los datos de la cuarta columna
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(3).setCellRenderer(tcr0);
@@ -270,7 +311,7 @@ public class ListadoPedidos extends javax.swing.JInternalFrame {
         tcr0.setHorizontalAlignment(SwingConstants.CENTER);
         jtTablaPedidos.getColumnModel().getColumn(4).setCellRenderer(tcr0);
     }
-
+    
     private void borrarFilas() {
         //Evita la repetición de las filas en la tabla
         while (modelo.getRowCount() > 0) {

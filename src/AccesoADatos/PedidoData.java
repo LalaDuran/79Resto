@@ -463,6 +463,8 @@ public class PedidoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla 'pedido'");
+        } catch (NullPointerException ex){
+            
         }
         return pedidoABuscar;
     }
