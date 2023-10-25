@@ -10,6 +10,7 @@ import AccesoADatos.PedidoData;
 import AccesoADatos.ProductoPedidoData;
 import Entidades.Mesero;
 import Entidades.Pedido;
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -33,6 +34,9 @@ public class CobranzaPorMesero extends javax.swing.JInternalFrame {
         initComponents();
         cargarMeseros();
         armarTabla();
+        jPanel1.setBackground(Color.WHITE);
+        jPanel2.setBackground(ABMPedidos.naranja);
+        jBuscar.setBackground(ABMPedidos.naranja);
 
     }
 
@@ -46,7 +50,6 @@ public class CobranzaPorMesero extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTitle = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jFecha = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
@@ -54,15 +57,22 @@ public class CobranzaPorMesero extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTablaPedidos = new javax.swing.JTable();
         jBuscar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jTitle = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
-        jTitle.setText("Cobranza por mesero");
-
+        jLabel1.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jLabel1.setText("ID Mesero");
 
+        jFecha.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jLabel2.setText("Fecha");
 
+        jcbIDMesero.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jcbIDMesero.setToolTipText("");
 
+        jtTablaPedidos.setFont(new java.awt.Font("Yu Gothic Medium", 0, 12)); // NOI18N
         jtTablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -76,61 +86,94 @@ public class CobranzaPorMesero extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtTablaPedidos);
 
+        jBuscar.setFont(new java.awt.Font("Yu Gothic Medium", 1, 14)); // NOI18N
         jBuscar.setText("Listar");
+        jBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBuscarActionPerformed(evt);
             }
         });
 
+        jTitle.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
+        jTitle.setText("Cobranza por mesero");
+
+        jButton1.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
+        jButton1.setText("X");
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(124, 124, 124)
+                .addComponent(jTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jTitle)))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1)
-                .addGap(44, 44, 44)
-                .addComponent(jcbIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(34, 34, 34)
-                .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76))
+                .addGap(77, 77, 77))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(236, 236, 236)
-                        .addComponent(jTitle))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1)
+                        .addGap(50, 50, 50)
+                        .addComponent(jcbIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(265, 265, 265)
+                        .addGap(259, 259, 259)
                         .addComponent(jBuscar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jTitle)
-                        .addGap(98, 98, 98)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
                             .addComponent(jcbIDMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                            .addComponent(jLabel2)))
+                    .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jBuscar)
-                .addGap(107, 107, 107))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,39 +191,44 @@ public class CobranzaPorMesero extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
-       try{
-             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String dia1 = sdf.format(jFecha.getDate());
-        int id = (Integer) jcbIDMesero.getSelectedItem();
-        PedidoData pd = new PedidoData();
-        ProductoPedidoData ppd = new ProductoPedidoData();
-        borrarFilas();
-        for (Pedido aux : pd.listarPedidos()) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String dia1 = sdf.format(jFecha.getDate());
+            int id = (Integer) jcbIDMesero.getSelectedItem();
+            PedidoData pd = new PedidoData();
+            ProductoPedidoData ppd = new ProductoPedidoData();
+            borrarFilas();
+            for (Pedido aux : pd.listarPedidos()) {
 
-            String dia2 = sdf.format(aux.getFecha_hora());
-            double total = ppd.calcularTotal(aux.getIdPedido());
+                String dia2 = sdf.format(aux.getFecha_hora());
+                double total = ppd.calcularTotal(aux.getIdPedido());
 
-            if (aux.getMesero().getIdMesero() == id && dia1.equals(dia2) && aux.isCobrado()) {
-                modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), total});
+                if (aux.getMesero().getIdMesero() == id && dia1.equals(dia2) && aux.isCobrado()) {
+                    modelo.addRow(new Object[]{aux.getIdPedido(), aux.getMesa().getIdMesa(), total});
 
+                }
             }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fecha");
         }
-       } catch(NullPointerException ex){
-           JOptionPane.showMessageDialog(null, "Seleccione una fecha");
-       }
-        
-      
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jBuscarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBuscar;
+    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jTitle;
     private javax.swing.JComboBox<Integer> jcbIDMesero;
