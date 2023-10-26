@@ -8,24 +8,26 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ *
+ * @author morena
+ */
 public class ListadoMesas extends javax.swing.JInternalFrame {
 
     //Cargamos el modelo de tabla
     private final DefaultTableModel modelo = new DefaultTableModel() {
         //Hacemos la tabla no-editable en todas sus celdas
-        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
 
     Color naranja = new Color(255, 84, 25);
-
     public ListadoMesas() {
         initComponents();
-
         jPanel1.setBackground(Color.WHITE);
-        btnSalir.setBackground(naranja);
+        
+        
         panelTitle.setBackground(naranja);
         
 
@@ -54,8 +56,7 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         jcbOpciones = new javax.swing.JComboBox<>();
         panelTitle = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
-        btnSalir = new javax.swing.JPanel();
-        x = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(600, 500));
 
@@ -100,65 +101,46 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
             }
         });
 
+        panelTitle.setPreferredSize(new java.awt.Dimension(469, 92));
+
         Title.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
         Title.setText("LISTADO DE MESAS");
 
-        x.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
-        x.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        x.setText("X");
-        x.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                xMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                xMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                xMouseExited(evt);
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/closebtn.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout btnSalirLayout = new javax.swing.GroupLayout(btnSalir);
-        btnSalir.setLayout(btnSalirLayout);
-        btnSalirLayout.setHorizontalGroup(
-            btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSalirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(x)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btnSalirLayout.setVerticalGroup(
-            btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x, javax.swing.GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout panelTitleLayout = new javax.swing.GroupLayout(panelTitle);
         panelTitle.setLayout(panelTitleLayout);
         panelTitleLayout.setHorizontalGroup(
             panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTitleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addGap(56, 56, 56))
         );
         panelTitleLayout.setVerticalGroup(
             panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTitleLayout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(panelTitleLayout.createSequentialGroup()
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panelTitleLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jcbOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,7 +160,7 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
@@ -186,7 +168,7 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,20 +225,21 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
-        } else if (opcion.equals("Desocupadas")) {
+        }  else if (opcion.equals("Desocupadas")) {
             jcbCapacidad.setEnabled(true);
             for (Mesa aux : mesaData.listarMesa()) {
                 if (aux.getCapacidad() == capacidad && aux.isOcupada() == false) {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
-        }
+        }        
+
 
     }//GEN-LAST:event_jcbCapacidadActionPerformed
 
     private void jcbOpcionesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbOpcionesItemStateChanged
 
-        MesaData mesaData = new MesaData();
+         MesaData mesaData = new MesaData();
         Mesa m = new Mesa();
 
         //Creamos una variable y le asignamos la capacidad seleccionada en la vista
@@ -294,37 +277,27 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
-        } else if (opcion.equals("Desocupadas")) {
+        }  else if (opcion.equals("Desocupadas")) {
             jcbCapacidad.setEnabled(true);
             for (Mesa aux : mesaData.listarMesa()) {
                 if (aux.getCapacidad() == capacidad && aux.isOcupada() == false) {
                     modelo.addRow(new Object[]{aux.getIdMesa(), aux.getCapacidad(), aux.getNumero()});
                 }
             }
-        }
-        
+        } 
+        // TODO add your handling code here:
     }//GEN-LAST:event_jcbOpcionesItemStateChanged
 
-    private void xMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseClicked
-        //Invisibiliza, deselecciona y cierra la ventana
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         this.dispose();
-        
-    }//GEN-LAST:event_xMouseClicked
-
-    private void xMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseEntered
-        btnSalir.setBackground(Color.red);
-        
-    }//GEN-LAST:event_xMouseEntered
-
-    private void xMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseExited
-        btnSalir.setBackground(naranja);
-        
-    }//GEN-LAST:event_xMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
-    private javax.swing.JPanel btnSalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -333,7 +306,6 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jcbOpciones;
     private javax.swing.JTable jtTablaMesas;
     private javax.swing.JPanel panelTitle;
-    private javax.swing.JLabel x;
     // End of variables declaration//GEN-END:variables
 
     private void armarTabla() {
@@ -342,6 +314,7 @@ public class ListadoMesas extends javax.swing.JInternalFrame {
         modelo.addColumn("Capacidad");
         modelo.addColumn("Número");
 
+        
         //Seteamos el modelo a la tabla
         jtTablaMesas.setModel(modelo);
 
