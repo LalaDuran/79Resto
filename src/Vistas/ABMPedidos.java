@@ -476,6 +476,9 @@ public class ABMPedidos extends javax.swing.JInternalFrame {
         MesaData mesaD = new MesaData();
         MeseroData meseroD = new MeseroData();
 
+        if (jtfIDPedido.getText().isEmpty()) {
+            jtfIDPedido.setText("-1");
+        }
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
             //     int idPedidoAGuardar = Integer.parseInt(jtfIDPedido.getText());

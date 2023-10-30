@@ -340,6 +340,9 @@ public class ABMProductos extends javax.swing.JInternalFrame {
          //Instanciamos productoData para usar luego
         ProductoData prodD = new ProductoData();
 
+        if (jtfIDProducto.getText().isEmpty()) {
+            jtfIDProducto.setText("-1");
+        }
         try {
             //creamos las variables y asignamos los valores tipeados en la vista
       //      int idProdAGuardar = Integer.parseInt(jtfIDProducto.getText());
